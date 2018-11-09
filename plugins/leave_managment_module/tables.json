@@ -1,0 +1,12 @@
+[
+    "holidays",
+    "holiday_details",
+    "user_leaves",
+    "leave_applications",
+    "leave_application_details",
+    "leave_reasons",
+    "leave_reason_details",
+    "leave_types",
+    "leave_type_details",
+    "user_leave_authorities"
+]

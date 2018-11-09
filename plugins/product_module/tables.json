@@ -1,0 +1,18 @@
+[
+    "attributes",
+    "attribute_details",
+    "attribute_groups",
+    "attribute_group_details",    
+    "categories",
+    "category_details",
+    "products",
+    "product_attributes",
+    "product_carts",
+    "product_details",
+    "product_images",
+    "product_ratings",
+    "product_rating_details",
+    "product_reviews",
+    "product_to_categories",
+    "product_wishlists"
+]

@@ -1,0 +1,16 @@
+[
+    "cricket_battings",   
+    "cricket_bowllings",   
+    "cricket_batting_types",   
+    "cricket_bowlling_types",   
+    "cricket_matches",   
+    "cricket_players",       
+    "cricket_player_levels",           
+    "cricket_player_roles",       
+    "cricket_roles",   
+    "cricket_teams",   
+    "cricket_team_matches",
+    "cricket_team_points",
+    "cricket_tournament_levels",
+    "cricket_tournament_types"
+]

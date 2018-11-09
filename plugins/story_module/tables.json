@@ -1,0 +1,14 @@
+[
+    "stories",
+    "story_comments",
+    "story_complains",
+    "story_details",    
+    "story_images",
+    "story_image_details",
+    "story_rankings",
+    "story_tags",
+    "story_to_types",
+    "story_types",
+    "story_type_details",
+    "save_stories"
+]

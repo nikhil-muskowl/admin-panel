@@ -1,0 +1,11 @@
+npm i bootstrap
+npm i bootstrap-notify
+npm i bootstrap-toggle
+npm i font-awesome
+npm i gijgo
+npm i jquery
+npm i popper.js
+npm i select2
+npm i tinymce
+npm i datatables.net-bs4
+

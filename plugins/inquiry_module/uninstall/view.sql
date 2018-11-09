@@ -1,0 +1,1 @@
+DROP VIEW IF EXISTS `inquiry_types_view`;
