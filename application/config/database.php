@@ -77,7 +77,6 @@ $query_builder = TRUE;
 $db['default'] = array(
     'dsn' => '',
     'hostname' => '148.66.155.180',
-//    'hostname' => 'localhost',
     'username' => 'root_sonic',
     'password' => '{fERhxY[5qu;',
     'database' => 'social_app_database',

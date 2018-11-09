@@ -18,4 +18,16 @@ class Google extends CI_Controller {
         echo $this->google_lib->countryNameByPosition($deal_lat, $deal_long);
     }
 
+    public function date() {
+        date_default_timezone_set('UTC');
+
+        if (date_default_timezone_get()) {
+            echo 'date_default_timezone_set: ' . date_default_timezone_get() . '<br />';
+        }
+
+        if (ini_get('date.timezone')) {
+            echo 'date.timezone: ' . ini_get('date.timezone');
+        }
+    }
+
 }

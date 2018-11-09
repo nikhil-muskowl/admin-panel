@@ -10,6 +10,7 @@ class Advertisements_api extends Restserver\Libraries\REST_Controller {
     private $imageHeight;
     private $bannerWidth;
     private $bannerHeight;
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
@@ -21,6 +22,7 @@ class Advertisements_api extends Restserver\Libraries\REST_Controller {
         $this->imageHeight = $this->settings_lib->config('config', 'list_image_height');
         $this->bannerWidth = $this->settings_lib->config('config', 'list_banner_width');
         $this->bannerHeight = $this->settings_lib->config('config', 'list_banner_height');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -76,8 +78,8 @@ class Advertisements_api extends Restserver\Libraries\REST_Controller {
                 'tags' => $tags,
                 'categories' => $categories,
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
         endforeach;
 
@@ -111,7 +113,7 @@ class Advertisements_api extends Restserver\Libraries\REST_Controller {
                 $checkbox,
                 $object['title'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
             );
         endforeach;
@@ -152,8 +154,8 @@ class Advertisements_api extends Restserver\Libraries\REST_Controller {
             $this->custom_image->width = $this->bannerWidth;
             $this->custom_image->height = $this->bannerHeight;
             $banner_thumb = $this->custom_image->image_resize($banner);
-            
-             if (isset($object['user_image']) && $object['user_image']) {
+
+            if (isset($object['user_image']) && $object['user_image']) {
                 $user_image = $object['user_image'];
             } else {
                 $user_image = '';
@@ -163,8 +165,8 @@ class Advertisements_api extends Restserver\Libraries\REST_Controller {
             $user_image_thumb = $this->custom_image->image_resize($user_image);
 
             $images = $this->advertisements_model->images($object['id']);
-            
-             $tags = $this->advertisements_model->getTags($object['id']);
+
+            $tags = $this->advertisements_model->getTags($object['id']);
             $categories = $this->advertisements_model->getTypesNames($object['id']);
             $result[] = array(
                 'id' => $object['id'],
@@ -186,8 +188,8 @@ class Advertisements_api extends Restserver\Libraries\REST_Controller {
                 'tags' => $tags,
                 'categories' => $categories,
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
 
             $this->data['status'] = TRUE;

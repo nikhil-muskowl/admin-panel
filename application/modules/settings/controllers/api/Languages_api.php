@@ -6,12 +6,14 @@ class Languages_api extends Restserver\Libraries\REST_Controller {
 
     private $data = array();
     private $error = array();
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
         $this->load->model('settings/languages_model');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -27,8 +29,8 @@ class Languages_api extends Restserver\Libraries\REST_Controller {
                 'name' => $object['name'],
                 'sort_order' => $object['sort_order'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
         endforeach;
 
@@ -68,7 +70,7 @@ class Languages_api extends Restserver\Libraries\REST_Controller {
                 $object['name'],
                 $object['sort_order'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
             );
         endforeach;

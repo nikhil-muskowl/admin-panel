@@ -11,12 +11,14 @@ class Followers_api extends Restserver\Libraries\REST_Controller {
     private $imageHeight;
     private $bannerWidth;
     private $bannerHeight;
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
         $this->load->model('user_module/followers_model');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -25,7 +27,7 @@ class Followers_api extends Restserver\Libraries\REST_Controller {
 
         $result = array();
         foreach ($list as $object) :
-            
+
             if (isset($object['current_user_image']) && $object['current_user_image']) {
                 $current_user_image = $object['current_user_image'];
             } else {
@@ -37,13 +39,13 @@ class Followers_api extends Restserver\Libraries\REST_Controller {
 
 
             $result[] = array(
-                'id' => $object['id'],                
+                'id' => $object['id'],
                 'name' => $object['current_user_name'],
                 'user_id' => $object['current_user_id'],
                 'image' => $current_user_image_thumb,
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
         endforeach;
 
@@ -82,7 +84,7 @@ class Followers_api extends Restserver\Libraries\REST_Controller {
                 $object['user_name'],
                 $object['current_user_name'],
                 $status,
-                date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
             );
         endforeach;
@@ -94,7 +96,7 @@ class Followers_api extends Restserver\Libraries\REST_Controller {
 
         $this->response($this->data);
     }
-    
+
     public function follow_post() {
         $this->data = array();
         $this->followValidation();
@@ -137,7 +139,7 @@ class Followers_api extends Restserver\Libraries\REST_Controller {
             exit;
         endif;
     }
-    
+
     public function validate_request() {
         if ($this->followers_model->checkRequest()) {
             $this->form_validation->set_message('validate_request', 'already followed!');
@@ -149,7 +151,7 @@ class Followers_api extends Restserver\Libraries\REST_Controller {
             return TRUE;
         }
     }
-    
+
     public function unfollow_post() {
         $this->data = array();
         $this->unfollowValidation();
@@ -192,4 +194,5 @@ class Followers_api extends Restserver\Libraries\REST_Controller {
             exit;
         endif;
     }
+
 }

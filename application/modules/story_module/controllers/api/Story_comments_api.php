@@ -10,6 +10,7 @@ class Story_comments_api extends Restserver\Libraries\REST_Controller {
     private $imageHeight;
     private $bannerWidth;
     private $bannerHeight;
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
@@ -21,6 +22,7 @@ class Story_comments_api extends Restserver\Libraries\REST_Controller {
         $this->imageHeight = $this->settings_lib->config('config', 'list_image_height');
         $this->bannerWidth = $this->settings_lib->config('config', 'list_banner_width');
         $this->bannerHeight = $this->settings_lib->config('config', 'list_banner_height');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -82,7 +84,7 @@ class Story_comments_api extends Restserver\Libraries\REST_Controller {
                 $object['user_name'],
                 $object['comment'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date('Y-m-d s:i A', strtotime($object['date'])),
+                date($this->datetime_format, strtotime($object['date'])),
                 $action
             );
         endforeach;
@@ -99,7 +101,7 @@ class Story_comments_api extends Restserver\Libraries\REST_Controller {
         $this->data = array();
         $object = $this->story_comments_model->getById($id);
         if ($object):
-            
+
             if (isset($object['user_image']) && $object['user_image']) {
                 $user_image = $object['user_image'];
             } else {
@@ -108,7 +110,7 @@ class Story_comments_api extends Restserver\Libraries\REST_Controller {
             $this->custom_image->width = $this->imageWidth;
             $this->custom_image->height = $this->imageHeight;
             $user_image_thumb = $this->custom_image->image_resize($user_image);
-            
+
             $result[] = array(
                 'id' => $object['id'],
                 'user_name' => $object['user_name'],
