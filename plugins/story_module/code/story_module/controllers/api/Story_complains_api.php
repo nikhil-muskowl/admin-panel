@@ -6,12 +6,14 @@ class Story_complains_api extends Restserver\Libraries\REST_Controller {
 
     private $data = array();
     private $error = array();
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
         $this->load->model('story_module/story_complains_model');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -28,8 +30,8 @@ class Story_complains_api extends Restserver\Libraries\REST_Controller {
                 'story_title' => $object['story_title'],
                 'comment' => $object['comment'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
         endforeach;
 
@@ -65,7 +67,7 @@ class Story_complains_api extends Restserver\Libraries\REST_Controller {
                 $object['story_title'],
                 $object['comment'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
             );
         endforeach;
@@ -89,8 +91,8 @@ class Story_complains_api extends Restserver\Libraries\REST_Controller {
                 'story_title' => $object['story_title'],
                 'comment' => $object['comment'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
             $this->data['status'] = TRUE;
             $this->data['message'] = 'loading..';
@@ -122,14 +124,14 @@ class Story_complains_api extends Restserver\Libraries\REST_Controller {
 
     public function _validation() {
         $this->data = array();
-        
+
         $this->form_validation->set_rules('user_id', 'user', 'required');
         $this->form_validation->set_rules('story_id', 'story', 'required');
         $this->form_validation->set_rules('language_id', 'language', 'required');
         $this->form_validation->set_rules('title', 'title', 'required');
-        $this->form_validation->set_rules('description', 'description', 'required');     
+        $this->form_validation->set_rules('description', 'description', 'required');
 
-        if ($this->form_validation->run() == FALSE):            
+        if ($this->form_validation->run() == FALSE):
             if (form_error('user_id', '', '')):
                 $this->error[] = array(
                     'id' => 'user_id',
@@ -159,7 +161,7 @@ class Story_complains_api extends Restserver\Libraries\REST_Controller {
                     'id' => 'description',
                     'text' => form_error('description', '', '')
                 );
-            endif;            
+            endif;
 
 
             $this->data['status'] = FALSE;

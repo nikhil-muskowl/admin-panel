@@ -19,19 +19,21 @@ class Google_lib {
         $this->longitude = $longitude;
         $country = '';
 
-        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $this->latitude . ',' . $this->longitude . '&sensor=false&key=' . $this->key);
-
-        if ($geocode):
-            $output = json_decode($geocode);
-            if ($output):
-                for ($j = 0; $j < count($output->results[0]->address_components); $j++) :
-                    $cn = array($output->results[0]->address_components[$j]->types[0]);
-                    if (in_array("country", $cn)) :
-                        $country = $output->results[0]->address_components[$j]->long_name;
-                    endif;
-                endfor;
+        if ($this->latitude && $this->longitude):
+            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $this->latitude . ',' . $this->longitude . '&sensor=false&key=' . $this->key);
+            if ($geocode):
+                $output = json_decode($geocode);
+                if ($output):
+                    for ($j = 0; $j < count($output->results[0]->address_components); $j++) :
+                        $cn = array($output->results[0]->address_components[$j]->types[0]);
+                        if (in_array("country", $cn)) :
+                            $country = $output->results[0]->address_components[$j]->long_name;
+                        endif;
+                    endfor;
+                endif;
             endif;
         endif;
+
 
         return $country;
     }

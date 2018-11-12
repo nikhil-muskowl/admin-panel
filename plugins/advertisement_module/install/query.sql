@@ -20,7 +20,7 @@ CREATE TABLE `advertisements` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO `advertisements` (`id`, `user_id`, `image`, `banner`, `status`, `latitude`, `longitude`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 0, 'upload/images/adv2.png', 'upload/images/adv2.png', 1, '0.000000', '0.000000', 0, 0, '2018-10-24 13:04:08', '2018-11-06 00:28:16');
+INSERT INTO `advertisements` (`id`, `user_id`, `image`, `banner`, `status`, `latitude`, `longitude`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 0, '', '', 1, '0.000000', '0.000000', 0, 0, '2018-10-24 13:04:08', '2018-10-24 13:04:08');
 
 
 #
@@ -41,8 +41,8 @@ CREATE TABLE `advertisement_details` (
   CONSTRAINT `advertisement_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `advertisement_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, 'Advertisement', 'Advertisement', '');
-INSERT INTO `advertisement_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'Advertisement', 'Advertisement', '');
+INSERT INTO `advertisement_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, 'a', '', '');
+INSERT INTO `advertisement_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'a', '', '');
 
 
 #

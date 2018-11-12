@@ -76,10 +76,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
     'dsn' => '',
-    'hostname' => '148.66.155.180',
-    'username' => 'root_sonic',
-    'password' => '{fERhxY[5qu;',
-    'database' => 'social_app_database',
+    'hostname' => 'localhost',
+    'username' => 'root',
+    'password' => '',
+    'database' => 'social_app',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,

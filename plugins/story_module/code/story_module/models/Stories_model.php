@@ -21,6 +21,12 @@ class Stories_model extends CI_Model {
         $this->db->select('s.*');
         $this->db->select('(SELECT SUM(up.level) FROM user_pets up WHERE up.user_id=s.user_id) AS user_level');
 
+        if ($this->input->post('story_type_id')):
+            $this->db->select('(SELECT rank FROM story_to_types WHERE story_type_id=' . $this->input->post('story_type_id') . ' AND story_id=s.id LIMIT 1) AS rank');
+        else:
+            $this->db->select('(@acount:=@acount+1) AS rank');
+        endif;
+
         if ($this->input->post('latitude') && !empty($this->input->post('latitude')) && $this->input->post('longitude') && !empty($this->input->post('longitude'))):
 
             $latitude = number_format((float) $this->input->post('latitude'), 6);
@@ -31,7 +37,7 @@ class Stories_model extends CI_Model {
             $this->db->select('0 AS distance');
         endif;
 
-        $this->db->from('stories_view s');
+        $this->db->from('(SELECT @acount:= 0) AS acount,stories_view s');
 
         if ($this->input->post('status') && $this->input->post('status') == 'false'):
             $this->status = 0;
@@ -65,8 +71,6 @@ class Stories_model extends CI_Model {
         if ($this->input->post('save_story_id')):
             $this->db->where('id IN(SELECT story_id FROM save_stories WHERE user_id=' . $this->input->post('save_story_id') . ')', NULL);
         endif;
-
-
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -549,6 +553,8 @@ class Stories_model extends CI_Model {
             endif;
         endif;
 
+        $this->StoryRanked();
+
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -666,7 +672,13 @@ class Stories_model extends CI_Model {
         $result = array();
         $this->db->select('s.*');
         $this->db->select('(SELECT SUM(up.level) FROM user_pets up WHERE up.user_id=s.user_id) AS user_level');
-        $this->db->from('stories_view s');
+
+       if ($this->input->post('story_type_id')):
+            $this->db->select('(SELECT rank FROM story_to_types WHERE story_type_id=' . $this->input->post('story_type_id') . ' AND story_id=s.id LIMIT 1) AS rank');
+        else:
+            $this->db->select('(@acount:=@acount+1) AS rank');
+        endif;
+        $this->db->from('(SELECT @acount:= 0) AS acount,stories_view s');
 
 //        if (isset($data['user_id']) && $data['user_id'] != 0):
 //            $this->db->where('s.user_id IN(SELECT f.current_user_id FROM followers f WHERE f.user_id=' . $data['user_id'] . ')', NULL);
@@ -845,6 +857,40 @@ class Stories_model extends CI_Model {
         $this->db->set('text', $text);
 
         $this->db->insert('user_activities');
+
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
+    }
+
+    public function StoryRanked() {
+        $this->db->trans_start();
+
+        $story_types = $this->db->get('story_types')->result_array();
+
+        if ($story_types):
+            foreach ($story_types as $story_type) :
+                $this->db->from('stories_view');
+                $this->db->where('id IN(SELECT story_id FROM story_to_types WHERE story_type_id=' . $story_type['id'] . ')', NULL);
+                $this->db->order_by('totalLikes', 'DESC');
+                $stories = $this->db->get()->result_array();
+
+                if ($stories):
+                    foreach ($stories as $key => $story) :
+                        $rank = $key + 1;
+                        $this->db->set('rank', $rank);
+                        $this->db->where('story_type_id', $story_type['id']);
+                        $this->db->where('story_id', $story['id']);
+                        $this->db->update('story_to_types');
+                    endforeach;
+                endif;
+            endforeach;
+        endif;
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {

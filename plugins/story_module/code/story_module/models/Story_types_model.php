@@ -190,6 +190,7 @@ class Story_types_model extends CI_Model {
     }
 
     public function getTopUsers($id) {
+        $this->db->select('s.user_id');
         $this->db->select('u.name AS user_name');
         $this->db->select('u.image AS user_image');
         $this->db->select('(SELECT SUM(level) AS level FROM user_pets up WHERE up.user_id=s.user_id) AS level');

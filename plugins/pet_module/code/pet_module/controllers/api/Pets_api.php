@@ -10,6 +10,7 @@ class Pets_api extends Restserver\Libraries\REST_Controller {
     private $imageHeight;
     private $bannerWidth;
     private $bannerHeight;
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
@@ -21,6 +22,7 @@ class Pets_api extends Restserver\Libraries\REST_Controller {
         $this->imageHeight = $this->settings_lib->config('config', 'list_image_height');
         $this->bannerWidth = $this->settings_lib->config('config', 'list_banner_width');
         $this->bannerHeight = $this->settings_lib->config('config', 'list_banner_height');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -45,8 +47,8 @@ class Pets_api extends Restserver\Libraries\REST_Controller {
                 'image' => base_url($image),
                 'image_thumb' => $image_thumb,
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
         endforeach;
 
@@ -80,7 +82,7 @@ class Pets_api extends Restserver\Libraries\REST_Controller {
                 $checkbox,
                 $object['title'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
             );
         endforeach;
@@ -137,8 +139,8 @@ class Pets_api extends Restserver\Libraries\REST_Controller {
                 'image_thumb' => $image_thumb,
                 'levels' => $levelData,
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
             $this->data['status'] = TRUE;
             $this->data['message'] = 'loading..';

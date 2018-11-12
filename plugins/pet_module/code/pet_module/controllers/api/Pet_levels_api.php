@@ -10,6 +10,7 @@ class Pet_levels_api extends Restserver\Libraries\REST_Controller {
     private $imageHeight;
     private $bannerWidth;
     private $bannerHeight;
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
@@ -21,6 +22,7 @@ class Pet_levels_api extends Restserver\Libraries\REST_Controller {
         $this->imageHeight = $this->settings_lib->config('config', 'list_image_height');
         $this->bannerWidth = $this->settings_lib->config('config', 'list_banner_width');
         $this->bannerHeight = $this->settings_lib->config('config', 'list_banner_height');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -47,8 +49,8 @@ class Pet_levels_api extends Restserver\Libraries\REST_Controller {
                 'image' => base_url($image),
                 'image_thumb' => $image_thumb,
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
         endforeach;
 
@@ -86,9 +88,9 @@ class Pet_levels_api extends Restserver\Libraries\REST_Controller {
             $this->custom_image->width = $this->imageWidth;
             $this->custom_image->height = $this->imageHeight;
             $image_thumb = $this->custom_image->image_resize($image);
-            
-            $image='<img alt="" name="" src="'.$image_thumb.'" class="img-fluid""/>';
-            
+
+            $image = '<img alt="" name="" src="' . $image_thumb . '" class="img-fluid""/>';
+
             $result[] = array(
                 $checkbox,
                 $image,
@@ -96,7 +98,7 @@ class Pet_levels_api extends Restserver\Libraries\REST_Controller {
                 $object['level'],
                 $object['points'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
             );
         endforeach;
@@ -130,8 +132,8 @@ class Pet_levels_api extends Restserver\Libraries\REST_Controller {
                 'image' => base_url($image),
                 'image_thumb' => $image_thumb,
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
             $this->data['status'] = TRUE;
             $this->data['message'] = 'loading..';
@@ -163,20 +165,20 @@ class Pet_levels_api extends Restserver\Libraries\REST_Controller {
 
     public function _validation() {
         $this->data = array();
-        
-        $this->form_validation->set_rules('pet_id', 'pet_id', 'required');
-        $this->form_validation->set_rules('level', 'level', 'required');        
-        $this->form_validation->set_rules('points', 'points', 'required');        
 
-        if ($this->form_validation->run() == FALSE):                     
-            
+        $this->form_validation->set_rules('pet_id', 'pet_id', 'required');
+        $this->form_validation->set_rules('level', 'level', 'required');
+        $this->form_validation->set_rules('points', 'points', 'required');
+
+        if ($this->form_validation->run() == FALSE):
+
             if (form_error('pet_id', '', '')):
                 $this->error[] = array(
                     'id' => 'pet_id',
                     'text' => form_error('pet_id', '', '')
                 );
             endif;
-            
+
             if (form_error('level', '', '')):
                 $this->error[] = array(
                     'id' => 'level',

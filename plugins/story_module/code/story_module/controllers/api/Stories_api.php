@@ -10,6 +10,7 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
     private $imageHeight;
     private $bannerWidth;
     private $bannerHeight;
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
@@ -21,6 +22,7 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
         $this->imageHeight = $this->settings_lib->config('config', 'list_image_height');
         $this->bannerWidth = $this->settings_lib->config('config', 'list_banner_width');
         $this->bannerHeight = $this->settings_lib->config('config', 'list_banner_height');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -61,7 +63,7 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
             $tags = $this->stories_model->getTags($object['id']);
             $categories = $this->stories_model->getTypesNames($object['id']);
 
-            $rank = $key + 1;
+            $rank = $object['rank'];
 
             if ($rank <= 5) :
                 $rankImage = base_url('assets/images/ranking-star/' . $rank . '.png');
@@ -94,8 +96,8 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
                 'totalDislikes' => $this->settings_lib->nice_number($object['dislikes']),
                 'totalFlames' => $this->settings_lib->nice_number($object['totalLikes']),
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
                 'date' => $this->settings_lib->time_elapsed_string($object['modified_date']),
             );
         endforeach;
@@ -131,7 +133,7 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
                 $object['title'],
                 $object['totalLikes'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
             );
         endforeach;
@@ -248,8 +250,8 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
                 'totalFlames' => $this->settings_lib->nice_number($object['totalLikes']),
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'date' => $this->settings_lib->time_elapsed_string($object['modified_date']),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
 
             $this->data['status'] = TRUE;
@@ -514,7 +516,7 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
                 $user_image = 'upload/images/placeholder.png';
             endif;
 
-            
+
             $user_image_thumb = $this->custom_image->circle($user_image);
 
             $result[] = array(
@@ -613,7 +615,7 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
             $tags = $this->stories_model->getTags($object['id']);
             $categories = $this->stories_model->getTypesNames($object['id']);
 
-            $rank = $key + 1;
+            $rank = $object['rank'];
 
             if ($rank <= 5) :
                 $rankImage = base_url('assets/images/ranking-star/' . $rank . '.png');
@@ -622,7 +624,7 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
             endif;
 
             $result[] = array(
-                'id' => $object['id'],                
+                'id' => $object['id'],
                 'title' => $object['title'],
                 'description' => $object['description'],
                 'rank' => $rank,
@@ -643,8 +645,8 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
                 'totalDislikes' => $this->settings_lib->nice_number($object['dislikes']),
                 'totalFlames' => $this->settings_lib->nice_number($object['totalLikes']),
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
         endforeach;
 
