@@ -20,6 +20,7 @@
                                 <th><?= $this->lang->line('text_title') ?></th>                                
                                 <th><?= $this->lang->line('text_type') ?></th>                                
                                 <th><?= $this->lang->line('text_value') ?></th>                                
+                                <th><?= $this->lang->line('text_file') ?></th>                                
                                 <th><?= $this->lang->line('text_status') ?></th>
                                 <th><?= $this->lang->line('text_modified_date') ?></th>                            
                                 <th style="width:80px;"><?= $this->lang->line('text_action') ?></th>

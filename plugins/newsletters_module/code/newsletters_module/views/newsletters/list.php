@@ -3,9 +3,9 @@
         <div class="card">
             <div class="card-header">    
                 <div class="button-group float-right">
-                    <a href="<?= $ajax_form ?>" class="btn btn-success" data-toggle="tooltip" title="<?= $this->lang->line('text_add') ?>"><i class="fa fa-plus"></i></a>
-                    <button class="btn btn-default" data-toggle="tooltip" title="<?= $this->lang->line('text_refresh') ?>" onclick="reload_table()"><i class="fa fa-refresh"></i></button>
-                    <button class="btn btn-danger" data-toggle="tooltip" title="<?= $this->lang->line('text_bulk_delete') ?>" onclick="bulk_delete()"><i class="fa fa-trash"></i></button>
+                    <a href="<?= $ajax_form ?>" class="btn btn-success" data-toggle="tooltip" title="Add"><i class="fa fa-plus"></i></a>                        
+                    <button class="btn btn-default" data-toggle="tooltip" title="Reload" onclick="reload_table()"><i class="fa fa-refresh"></i></button>
+                    <button class="btn btn-danger" data-toggle="tooltip" title="Bulk Delete" onclick="bulk_delete()"><i class="fa fa-trash"></i></button>
                 </div>
                 <div class="card-title">
                     <h2><?= $meta_title ?></h2>
@@ -17,9 +17,10 @@
                         <thead>
                             <tr>
                                 <th><input type="checkbox" id="check-all"></th>
-                                <th><?= $this->lang->line('text_user') ?></th>
-                                <th><?= $this->lang->line('text_author') ?></th>
-                                <th><?= $this->lang->line('text_priority') ?></th>
+                                <th><?= $this->lang->line('text_name') ?></th>
+                                <th><?= $this->lang->line('text_email') ?></th>
+                                <th><?= $this->lang->line('text_contact') ?></th>
+                                <th><?= $this->lang->line('text_subscribe') ?></th>
                                 <th><?= $this->lang->line('text_status') ?></th>
                                 <th><?= $this->lang->line('text_modified_date') ?></th>                            
                                 <th style="width:80px;"><?= $this->lang->line('text_action') ?></th>
@@ -33,6 +34,7 @@
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript">
     var save_method;

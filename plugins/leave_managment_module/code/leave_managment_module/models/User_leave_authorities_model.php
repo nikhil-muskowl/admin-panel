@@ -4,8 +4,8 @@ class User_leave_authorities_model extends CI_Model {
 
     private $table = 'user_leave_authorities';
     private $table_view = 'user_leave_authorities_view';
-    private $column_order = array(null, 'user_name', 'author_name', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('user_name', 'author_name', 'status', 'created_date', 'modified_date');
+    private $column_order = array(null, 'user_name', 'author_name' . 'priority', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('user_name', 'author_name', 'priority', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
 
@@ -103,6 +103,7 @@ class User_leave_authorities_model extends CI_Model {
 
         $this->db->set('user_id', $this->input->post('user_id'));
         $this->db->set('author_id', $this->input->post('author_id'));
+        $this->db->set('priority', $this->input->post('priority'));
 
         $this->db->set('status', 1);
         if ($this->input->post('id')):

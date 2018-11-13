@@ -43,6 +43,24 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('file') ?></label>
+                        <div class="col-md-10">
+                            <select name="file" class="form-control">
+                                <?php if ($statuses): ?> 
+                                    <?php foreach ($statuses as $key => $statusvalue) : ?>
+                                        <?php if ($key == $file): ?>
+                                            <option value="<?= $key ?>" selected><?= $statusvalue ?></option>
+                                        <?php else: ?>
+                                            <option value="<?= $key ?>"><?= $statusvalue ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>                                
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+
                     <ul class="nav nav-tabs">
                         <?php foreach ($details as $key => $value) : ?>
                             <li class="nav-item">

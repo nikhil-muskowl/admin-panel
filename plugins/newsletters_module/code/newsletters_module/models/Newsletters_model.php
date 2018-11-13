@@ -1,19 +1,17 @@
 <?php
 
-class Leave_types_model extends CI_Model {
+class Newsletters_model extends CI_Model {
 
-    private $table = 'leave_types';
-    private $table_view = 'leave_types_view';
-    private $column_order = array(null, 'title', 'type', 'value', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('title', 'type', 'value', 'status', 'created_date', 'modified_date');
-    private $order = array('title' => 'asc');
+    private $table = 'newsletters';
+    private $table_view = 'newsletters';
+    private $column_order = array(null, 'name', 'email', 'contact', 'subscribe', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('name', 'email', 'contact', 'subscribe', 'status', 'created_date', 'modified_date');
+    private $order = array('modified_date' => 'desc');
     private $status;
-    private $language_id;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
-        $this->language_id = 1;
     }
 
     private function _getTablesQuery($array = array()) {
@@ -24,13 +22,6 @@ class Leave_types_model extends CI_Model {
         endif;
         $this->db->where('status', $this->status);
 
-
-        if ($this->input->post('language_id')):
-            $this->language_id = $this->input->post('language_id');
-        elseif ($this->languages_lib->getLanguageId()):
-            $this->language_id = $this->languages_lib->getLanguageId();
-        endif;
-        $this->db->where('language_id', $this->language_id);
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -84,18 +75,13 @@ class Leave_types_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-
-
-        if ($this->input->post('language_id')):
-            $this->language_id = $this->input->post('language_id');
-        endif;
-        $this->db->where('language_id', $this->language_id);
+        
         return $this->db->count_all_results();
     }
 
     public function getById($id) {
         $this->db->from($this->table_view);
-        $this->db->where('id', $id);
+        $this->db->where('id', $id);        
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -117,10 +103,11 @@ class Leave_types_model extends CI_Model {
     public function postData() {
         $this->db->trans_start();
 
-        $this->db->set('type', $this->input->post('type'));
-        $this->db->set('value', $this->input->post('value'));
-        $this->db->set('file', $this->input->post('file'));
-        $this->db->set('status', 1);
+        $this->db->set('name', $this->input->post('name'));
+        $this->db->set('email', $this->input->post('email'));
+        $this->db->set('contact', $this->input->post('contact'));
+        $this->db->set('subscribe', $this->input->post('subscribe'));
+
         if ($this->input->post('id')):
             $id = $this->input->post('id');
             $this->db->where('id', $id);
@@ -128,10 +115,7 @@ class Leave_types_model extends CI_Model {
         else:
             $this->db->insert($this->table);
             $id = $this->db->insert_id();
-        endif;
-
-
-        $this->postDetails($id);
+        endif;        
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -141,40 +125,6 @@ class Leave_types_model extends CI_Model {
             $this->db->trans_commit();
             return $this->getById($id);
         }
-    }
-
-    public function postDetails($id) {
-        $this->db->where('id', $id);
-        $this->db->delete('leave_type_details');
-
-        if ($this->input->post('details')):
-            foreach ($this->input->post('details') as $key => $value) :
-                $this->db->set('id', $id);
-                $this->db->set('language_id', $key);
-                $this->db->set('title', $value['title']);
-                $this->db->insert('leave_type_details');
-            endforeach;
-        endif;
-    }
-
-    public function details($id) {
-        $result = array();
-        $this->db->from('leave_type_details');
-        $this->db->where('id', $id);
-        $query = $this->db->get();
-        $description = $query->result_array();
-
-        if ($description):
-            foreach ($description as $value) :
-                $result[$value['language_id']] = array(
-                    'id' => $value['id'],
-                    'language_id' => $value['language_id'],
-                    'title' => $value['title']
-                );
-            endforeach;
-        endif;
-
-        return $result;
     }
 
 }

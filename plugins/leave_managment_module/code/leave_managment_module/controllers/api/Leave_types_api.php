@@ -26,6 +26,7 @@ class Leave_types_api extends Restserver\Libraries\REST_Controller {
                 'title' => $object['title'],                
                 'type' => $object['type'],                
                 'value' => $object['value'],                
+                'file' => $object['file'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
                 'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
@@ -63,6 +64,7 @@ class Leave_types_api extends Restserver\Libraries\REST_Controller {
                 $object['title'],               
                 $object['type'],               
                 $object['value'],               
+                $object['file'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 date('Y-m-d s:i A', strtotime($object['modified_date'])),
                 $action
@@ -86,6 +88,7 @@ class Leave_types_api extends Restserver\Libraries\REST_Controller {
                 'title' => $object['title'],                
                 'type' => $object['type'],                
                 'value' => $object['value'],                
+                'file' => $object['file'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
                 'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
