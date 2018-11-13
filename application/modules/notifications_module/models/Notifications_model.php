@@ -1,12 +1,13 @@
 <?php
 
-class Leave_types_model extends CI_Model {
+class Notifications_model extends CI_Model {
 
-    private $table = 'leave_types';
-    private $table_view = 'leave_types_view';
-    private $column_order = array(null, 'title', 'type', 'value', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('title', 'type', 'value', 'status', 'created_date', 'modified_date');
-    private $order = array('title' => 'asc');
+    private $table = 'notifications';
+    private $detailTable = 'notification_details';
+    private $table_view = 'notifications_view';
+    private $column_order = array(null, 'title', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('title', 'status', 'created_date', 'modified_date');
+    private $order = array('modified_date' => 'desc');
     private $status;
     private $language_id;
 
@@ -31,6 +32,8 @@ class Leave_types_model extends CI_Model {
             $this->language_id = $this->languages_lib->getLanguageId();
         endif;
         $this->db->where('language_id', $this->language_id);
+
+
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -96,6 +99,10 @@ class Leave_types_model extends CI_Model {
     public function getById($id) {
         $this->db->from($this->table_view);
         $this->db->where('id', $id);
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        endif;
+        $this->db->where('language_id', $this->language_id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -117,10 +124,8 @@ class Leave_types_model extends CI_Model {
     public function postData() {
         $this->db->trans_start();
 
-        $this->db->set('type', $this->input->post('type'));
-        $this->db->set('value', $this->input->post('value'));
-        $this->db->set('file', $this->input->post('file'));
-        $this->db->set('status', 1);
+        $this->db->set('image', $this->custom_image->get_path($this->input->post('image')));
+
         if ($this->input->post('id')):
             $id = $this->input->post('id');
             $this->db->where('id', $id);
@@ -129,9 +134,8 @@ class Leave_types_model extends CI_Model {
             $this->db->insert($this->table);
             $id = $this->db->insert_id();
         endif;
-
-
         $this->postDetails($id);
+        $this->setUsers($id);
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -145,21 +149,22 @@ class Leave_types_model extends CI_Model {
 
     public function postDetails($id) {
         $this->db->where('id', $id);
-        $this->db->delete('leave_type_details');
+        $this->db->delete($this->detailTable);
 
         if ($this->input->post('details')):
             foreach ($this->input->post('details') as $key => $value) :
                 $this->db->set('id', $id);
                 $this->db->set('language_id', $key);
                 $this->db->set('title', $value['title']);
-                $this->db->insert('leave_type_details');
+                $this->db->set('description', $value['description']);
+                $this->db->insert($this->detailTable);
             endforeach;
         endif;
     }
 
     public function details($id) {
         $result = array();
-        $this->db->from('leave_type_details');
+        $this->db->from($this->detailTable);
         $this->db->where('id', $id);
         $query = $this->db->get();
         $description = $query->result_array();
@@ -169,8 +174,38 @@ class Leave_types_model extends CI_Model {
                 $result[$value['language_id']] = array(
                     'id' => $value['id'],
                     'language_id' => $value['language_id'],
-                    'title' => $value['title']
+                    'title' => $value['title'],
+                    'description' => $value['description'],
                 );
+            endforeach;
+        endif;
+
+        return $result;
+    }
+
+    public function setUsers($id) {
+        $this->db->where('notification_id', $id);
+        $this->db->delete('notification_to_users');
+
+        if ($this->input->post('users')):
+            foreach ($this->input->post('users') as $value) :
+                $this->db->set('notification_id', $id);
+                $this->db->set('user_id', $value);
+                $this->db->insert('notification_to_users');
+            endforeach;
+        endif;
+    }
+
+    public function getUsers($id) {
+        $result = array();
+        $this->db->from('notification_to_users');
+        $this->db->where('notification_id', $id);
+        $query = $this->db->get();
+        $description = $query->result_array();
+
+        if ($description):
+            foreach ($description as $value) :
+                $result[] = $value['user_id'];
             endforeach;
         endif;
 

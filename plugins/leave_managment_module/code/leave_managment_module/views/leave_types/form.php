@@ -15,6 +15,34 @@
                 <form action="#" id="form" class="form-horizontal">
                     <input type="hidden" value="<?= $id ?>" name="id"/>                      
 
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('type') ?></label>
+                        <div class="col-md-10">
+                            <select name="type" class="form-control">
+                                <?php if ($types): ?> 
+                                    <?php foreach ($types as $typevalue) : ?>
+                                        <?php if ($typevalue == $type): ?>
+                                            <option value="<?= $typevalue ?>" selected><?= $typevalue ?></option>
+                                        <?php else: ?>
+                                            <option value="<?= $typevalue ?>"><?= $typevalue ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="0">No result</option>
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('value') ?></label>
+                        <div class="col-md-10">
+                            <input type="text" value="<?= $value ?>" name="value" class="form-control"/>   
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+
                     <ul class="nav nav-tabs">
                         <?php foreach ($details as $key => $value) : ?>
                             <li class="nav-item">

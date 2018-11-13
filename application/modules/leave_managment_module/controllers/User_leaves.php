@@ -50,6 +50,11 @@ class User_leaves extends MX_Controller {
         else:
             $this->data['user_id'] = 0;
         endif;
+        if (isset($result['leave_type_id']) && $result['leave_type_id']) :
+            $this->data['leave_type_id'] = $result['leave_type_id'];
+        else:
+            $this->data['leave_type_id'] = 0;
+        endif;
 
         if (isset($result['total']) && $result['total']) :
             $this->data['total'] = $result['total'];

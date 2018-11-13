@@ -17,8 +17,9 @@ LEFT JOIN holiday_details td ON td.id=t.id;
 CREATE OR REPLACE ALGORITHM = UNDEFINED
 VIEW `user_leaves_view`
 AS
-SELECT ul.*,u.name,u.email,u.contact,u.dob FROM user_leaves ul
-LEFT JOIN users u ON u.id=ul.user_id;
+SELECT ul.*,u.name,u.email,u.contact,u.dob,ltd.language_id,ltd.title AS leave_type FROM user_leaves ul
+LEFT JOIN users u ON u.id=ul.user_id
+LEFT JOIN leave_type_details ltd ON ltd.id=ul.leave_type_id;
 
 -- leave_applications_view
 CREATE OR REPLACE ALGORITHM = UNDEFINED

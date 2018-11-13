@@ -54,6 +54,14 @@
                             <span class="help-block"></span>
                         </div>
                     </div>
+                    
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('priority') ?></label>
+                        <div class="col-md-10">
+                            <input type="text" value="<?= $priority ?>" name="priority" class="form-control"/>   
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
 
                 </form>
             </div>    

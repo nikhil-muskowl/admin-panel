@@ -24,6 +24,7 @@ class User_leaves_api extends Restserver\Libraries\REST_Controller {
             $result[] = array(
                 'id' => $object['id'],
                 'name' => $object['name'],
+                'leave_type' => $object['leave_type'],
                 'total' => $object['total'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
@@ -60,6 +61,7 @@ class User_leaves_api extends Restserver\Libraries\REST_Controller {
             $result[] = array(
                 $checkbox,
                 $object['name'],
+                $object['leave_type'],
                 $object['total'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 date('Y-m-d s:i A', strtotime($object['modified_date'])),
@@ -82,6 +84,7 @@ class User_leaves_api extends Restserver\Libraries\REST_Controller {
             $result[] = array(
                 'id' => $object['id'],
                 'name' => $object['name'],
+                'leave_type' => $object['leave_type'],
                 'total' => $object['total'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),

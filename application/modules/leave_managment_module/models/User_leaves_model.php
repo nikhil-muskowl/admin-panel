@@ -4,14 +4,16 @@ class User_leaves_model extends CI_Model {
 
     private $table = 'user_leaves';
     private $table_view = 'user_leaves_view';
-    private $column_order = array(null, 'name', 'total', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('name', 'total', 'status', 'created_date', 'modified_date');
+    private $column_order = array(null, 'name', 'leave_type', 'total', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('name', 'leave_type', 'total', 'status', 'created_date', 'modified_date');
     private $order = array('name' => 'asc');
     private $status;
+    private $language_id;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
+        $this->language_id = 1;
     }
 
     private function _getTablesQuery($array = array()) {
@@ -21,7 +23,19 @@ class User_leaves_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-
+        
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
+        
+        
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
+        
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -75,6 +89,12 @@ class User_leaves_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+
+
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        endif;
+        $this->db->where('language_id', $this->language_id);
         return $this->db->count_all_results();
     }
 

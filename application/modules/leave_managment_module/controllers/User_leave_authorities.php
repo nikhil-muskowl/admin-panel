@@ -56,6 +56,12 @@ class User_leave_authorities extends MX_Controller {
         else:
             $this->data['author_id'] = 0;
         endif;
+        
+        if (isset($result['priority']) && $result['priority']) :
+            $this->data['priority'] = $result['priority'];
+        else:
+            $this->data['priority'] = 0;
+        endif;
 
 
         $this->data['ajax_list'] = base_url('leave_managment_module/user_leave_authorities');

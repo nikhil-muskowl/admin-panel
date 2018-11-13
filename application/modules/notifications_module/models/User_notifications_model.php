@@ -1,12 +1,12 @@
 <?php
 
-class Leave_types_model extends CI_Model {
+class User_notifications_model extends CI_Model {
 
-    private $table = 'leave_types';
-    private $table_view = 'leave_types_view';
-    private $column_order = array(null, 'title', 'type', 'value', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('title', 'type', 'value', 'status', 'created_date', 'modified_date');
-    private $order = array('title' => 'asc');
+    private $table = 'notification_to_users';
+    private $table_view = 'user_notifications_view';
+    private $column_order = array(null, 'title', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('title', 'status', 'created_date', 'modified_date');
+    private $order = array('modified_date' => 'desc');
     private $status;
     private $language_id;
 
@@ -24,13 +24,22 @@ class Leave_types_model extends CI_Model {
         endif;
         $this->db->where('status', $this->status);
 
-
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
         elseif ($this->languages_lib->getLanguageId()):
             $this->language_id = $this->languages_lib->getLanguageId();
         endif;
         $this->db->where('language_id', $this->language_id);
+
+
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
+
+        if (!empty($this->input->post('is_view')) && $this->input->post('is_view')):
+            $this->db->where('is_view', $this->input->post('is_view'));
+        endif;
+
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -80,24 +89,62 @@ class Leave_types_model extends CI_Model {
 
     public function countAll() {
         $this->db->from($this->table_view);
+
         if ($this->input->post('status') && $this->input->post('status') == 'false'):
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
 
-
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
         endif;
         $this->db->where('language_id', $this->language_id);
+
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
+
+        if (!empty($this->input->post('is_view')) && $this->input->post('is_view')):
+            $this->db->where('is_view', $this->input->post('is_view'));
+        endif;
+
         return $this->db->count_all_results();
     }
 
     public function getById($id) {
         $this->db->from($this->table_view);
-        $this->db->where('id', $id);
+        $this->db->where('user_notification_id', $id);
+
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
+
         $query = $this->db->get();
         return $query->row_array();
+    }
+
+    public function postData() {
+        $this->db->trans_start();
+
+        $this->db->set('is_view', 1);
+
+        $id = $this->input->post('id');
+        $this->db->where('id', $id);
+        $this->db->update($this->table);
+
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
     }
 
     public function deleteById($id) {
@@ -112,69 +159,6 @@ class Leave_types_model extends CI_Model {
             $this->db->trans_commit();
             return TRUE;
         }
-    }
-
-    public function postData() {
-        $this->db->trans_start();
-
-        $this->db->set('type', $this->input->post('type'));
-        $this->db->set('value', $this->input->post('value'));
-        $this->db->set('file', $this->input->post('file'));
-        $this->db->set('status', 1);
-        if ($this->input->post('id')):
-            $id = $this->input->post('id');
-            $this->db->where('id', $id);
-            $this->db->update($this->table);
-        else:
-            $this->db->insert($this->table);
-            $id = $this->db->insert_id();
-        endif;
-
-
-        $this->postDetails($id);
-
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === FALSE) {
-            $this->db->trans_rollback();
-            return FALSE;
-        } else {
-            $this->db->trans_commit();
-            return $this->getById($id);
-        }
-    }
-
-    public function postDetails($id) {
-        $this->db->where('id', $id);
-        $this->db->delete('leave_type_details');
-
-        if ($this->input->post('details')):
-            foreach ($this->input->post('details') as $key => $value) :
-                $this->db->set('id', $id);
-                $this->db->set('language_id', $key);
-                $this->db->set('title', $value['title']);
-                $this->db->insert('leave_type_details');
-            endforeach;
-        endif;
-    }
-
-    public function details($id) {
-        $result = array();
-        $this->db->from('leave_type_details');
-        $this->db->where('id', $id);
-        $query = $this->db->get();
-        $description = $query->result_array();
-
-        if ($description):
-            foreach ($description as $value) :
-                $result[$value['language_id']] = array(
-                    'id' => $value['id'],
-                    'language_id' => $value['language_id'],
-                    'title' => $value['title']
-                );
-            endforeach;
-        endif;
-
-        return $result;
     }
 
 }

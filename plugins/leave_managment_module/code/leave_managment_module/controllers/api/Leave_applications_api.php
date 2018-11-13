@@ -128,9 +128,8 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
         $this->data = array();
 
         $this->form_validation->set_rules('user_id', 'user_id', 'required');
-        $this->form_validation->set_rules('from_date', 'from_date', 'required');
-        $this->form_validation->set_rules('to_date', 'to_date', 'required');
-        $this->form_validation->set_rules('total', 'total', 'required|callback_check_total_leave');
+        $this->form_validation->set_rules('from_date', 'from_date', 'required|callback_check_total_leave');
+        $this->form_validation->set_rules('to_date', 'to_date', 'required');        
 
         if ($this->form_validation->run() == FALSE):
             if (form_error('user_id', '', '')):
@@ -150,13 +149,7 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
                     'id' => 'to_date',
                     'text' => form_error('to_date', '', '')
                 );
-            endif;
-            if (form_error('total', '', '')):
-                $this->error[] = array(
-                    'id' => 'total',
-                    'text' => form_error('total', '', '')
-                );
-            endif;
+            endif;           
 
             $this->data['status'] = FALSE;
             $this->data['message'] = $this->lang->line('text_validation_error');
@@ -166,8 +159,12 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
         endif;
     }
 
-    public function check_total_leave($field_value) {
-        if ($field_value > 6) {
+    public function check_total_leave() {
+        $from_date = $this->input->post('from_date');
+        $to_date = $this->input->post('to_date');
+        $total = $this->settings_lib->dateToDay($from_date, $to_date);
+        
+        if ($total > 6) {
             $this->form_validation->set_message('check_total_leave', 'you can not take greater then 6 leaves!');
             return FALSE;
         } else {

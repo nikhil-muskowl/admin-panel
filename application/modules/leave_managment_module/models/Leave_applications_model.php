@@ -21,8 +21,7 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-
-
+        
 
 
         $i = 0;
@@ -105,6 +104,8 @@ class Leave_applications_model extends CI_Model {
         $this->db->trans_start();
 
         $this->db->set('user_id', $this->input->post('user_id'));
+        $this->db->set('leave_reason_id', $this->input->post('leave_reason_id'));
+        $this->db->set('leave_type_id', $this->input->post('leave_type_id'));
         $this->db->set('from_date', $this->input->post('from_date'));
         $this->db->set('to_date', $this->input->post('to_date'));
 

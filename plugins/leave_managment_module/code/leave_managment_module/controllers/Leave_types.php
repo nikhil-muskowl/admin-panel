@@ -44,6 +44,16 @@ class Leave_types extends MX_Controller {
         else:
             $this->data['id'] = 0;
         endif;
+        if (isset($result['type']) && $result['type']) :
+            $this->data['type'] = $result['type'];
+        else:
+            $this->data['type'] = '';
+        endif;
+        if (isset($result['value']) && $result['value']) :
+            $this->data['value'] = $result['value'];
+        else:
+            $this->data['value'] = '';
+        endif;
 
 
         $this->data['ajax_list'] = base_url('leave_managment_module/leave_types');
@@ -71,6 +81,11 @@ class Leave_types extends MX_Controller {
             endforeach;
         endif;
 
+        $this->data['types'] = array(
+            'full',
+            'half',
+            'hour',
+        );
 
         $this->data['sidebar'] = $this->sidebar->load();
         $this->data['meta_title'] = $this->lang->line('text_heading_form');

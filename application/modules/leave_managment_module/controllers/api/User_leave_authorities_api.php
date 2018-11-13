@@ -25,6 +25,7 @@ class User_leave_authorities_api extends Restserver\Libraries\REST_Controller {
                 'id' => $object['id'],
                 'user_name' => $object['user_name'],
                 'author_name' => $object['author_name'],
+                'priority' => $object['priority'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
                 'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
@@ -61,6 +62,7 @@ class User_leave_authorities_api extends Restserver\Libraries\REST_Controller {
                 $checkbox,
                 $object['user_name'],
                 $object['author_name'],
+                $object['priority'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 date('Y-m-d s:i A', strtotime($object['modified_date'])),
                 $action
@@ -83,6 +85,7 @@ class User_leave_authorities_api extends Restserver\Libraries\REST_Controller {
                 'id' => $object['id'],
                 'user_name' => $object['user_name'],
                 'author_name' => $object['author_name'],
+                'priority' => $object['priority'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
                 'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
@@ -120,6 +123,7 @@ class User_leave_authorities_api extends Restserver\Libraries\REST_Controller {
 
         $this->form_validation->set_rules('user_id', 'user', 'required');
         $this->form_validation->set_rules('author_id', 'author', 'required');
+        $this->form_validation->set_rules('priority', 'priority', 'required');
 
         if ($this->form_validation->run() == FALSE):
 
@@ -134,6 +138,12 @@ class User_leave_authorities_api extends Restserver\Libraries\REST_Controller {
                 $this->error[] = array(
                     'id' => 'author_id',
                     'text' => form_error('author_id', '', '')
+                );
+            endif;
+            if (form_error('priority', '', '')):
+                $this->error[] = array(
+                    'id' => 'priority',
+                    'text' => form_error('priority', '', '')
                 );
             endif;
 

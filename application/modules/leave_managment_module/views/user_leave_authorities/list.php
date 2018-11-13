@@ -19,6 +19,7 @@
                                 <th><input type="checkbox" id="check-all"></th>
                                 <th><?= $this->lang->line('text_user') ?></th>
                                 <th><?= $this->lang->line('text_author') ?></th>
+                                <th><?= $this->lang->line('text_priority') ?></th>
                                 <th><?= $this->lang->line('text_status') ?></th>
                                 <th><?= $this->lang->line('text_modified_date') ?></th>                            
                                 <th style="width:80px;"><?= $this->lang->line('text_action') ?></th>

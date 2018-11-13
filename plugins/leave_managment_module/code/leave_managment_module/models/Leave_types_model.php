@@ -4,8 +4,8 @@ class Leave_types_model extends CI_Model {
 
     private $table = 'leave_types';
     private $table_view = 'leave_types_view';
-    private $column_order = array(null, 'title', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('title', 'status', 'created_date', 'modified_date');
+    private $column_order = array(null, 'title', 'type', 'value', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('title', 'type', 'value', 'status', 'created_date', 'modified_date');
     private $order = array('title' => 'asc');
     private $status;
     private $language_id;
@@ -117,6 +117,8 @@ class Leave_types_model extends CI_Model {
     public function postData() {
         $this->db->trans_start();
 
+        $this->db->set('type', $this->input->post('type'));
+        $this->db->set('value', $this->input->post('value'));
         $this->db->set('status', 1);
         if ($this->input->post('id')):
             $id = $this->input->post('id');

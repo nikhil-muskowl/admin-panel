@@ -25,7 +25,8 @@ class Baidu extends CI_Controller {
             $location = '';
         endif;
 
-        $filename = 'http://api.map.baidu.com/place/v2/search?query=' . $query . '&location=' . $location . '&output=json&ak=' . $ak;
+//        $filename = 'http://api.map.baidu.com/place/v2/search?query=' . $query . '&location=' . $location . '&output=json&ak=' . $ak;
+        $filename = 'http://api.map.baidu.com/place/v2/suggestion?query=' . $query . '&region=' . $location . '&output=json&ak=' . $ak;
 //        print_r($filename);
 //        exit;
         $data = file_get_contents($filename);

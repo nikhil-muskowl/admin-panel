@@ -18,6 +18,7 @@
                             <tr>
                                 <th><input type="checkbox" id="check-all"></th>
                                 <th><?= $this->lang->line('text_user') ?></th>
+                                <th><?= $this->lang->line('text_leave_type') ?></th>
                                 <th><?= $this->lang->line('text_total') ?></th>
                                 <th><?= $this->lang->line('text_status') ?></th>
                                 <th><?= $this->lang->line('text_modified_date') ?></th>                            

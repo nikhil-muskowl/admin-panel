@@ -14,9 +14,10 @@ CREATE TABLE `holidays` (
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 INSERT INTO `holidays` (`id`, `status`, `date`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 1, '2018-10-02', 0, 0, '2018-10-12 14:27:04', '2018-10-22 14:43:54');
+INSERT INTO `holidays` (`id`, `status`, `date`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 1, '2018-12-31', 0, 0, '2018-11-12 15:06:48', '2018-11-12 15:06:48');
 
 
 #
@@ -39,6 +40,8 @@ CREATE TABLE `holiday_details` (
 
 INSERT INTO `holiday_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, '2 october', '', '');
 INSERT INTO `holiday_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, '2 october', '', '');
+INSERT INTO `holiday_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 1, 'New year leave', '', '');
+INSERT INTO `holiday_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 2, 'New year leave', '', '');
 
 
 #
@@ -62,12 +65,16 @@ CREATE TABLE `user_leaves` (
   KEY `leave_type_id` (`leave_type_id`),
   CONSTRAINT `user_leaves_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_leaves_ibfk_2` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
-INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 26, 4, '10.00', 1, 0, 0, '2018-10-12 14:45:53', '2018-10-22 17:11:03');
-INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 26, 4, '10.00', 1, 0, 0, '2018-10-22 17:09:50', '2018-10-22 17:11:08');
-INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 26, 3, '10.00', 1, 0, 0, '2018-10-22 17:10:57', '2018-10-22 17:10:57');
-INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (4, 26, 1, '10.00', 1, 0, 0, '2018-10-22 17:11:18', '2018-10-22 17:11:18');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (5, 1, 4, '2.00', 1, 0, 0, '2018-11-12 11:18:18', '2018-11-12 11:18:18');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (6, 1, 2, '2.00', 1, 0, 0, '2018-11-12 11:18:24', '2018-11-12 11:18:24');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (7, 1, 3, '2.00', 1, 0, 0, '2018-11-12 11:18:30', '2018-11-12 11:18:30');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (8, 1, 1, '2.00', 1, 0, 0, '2018-11-12 11:18:35', '2018-11-12 11:18:35');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (9, 2, 4, '12.00', 1, 0, 0, '2018-11-12 17:09:05', '2018-11-12 17:17:11');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (10, 2, 2, '12.00', 1, 0, 0, '2018-11-12 17:09:10', '2018-11-12 17:29:19');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (11, 2, 3, '1.00', 1, 0, 0, '2018-11-12 17:09:15', '2018-11-12 17:17:39');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (12, 2, 1, '2.00', 1, 0, 0, '2018-11-12 17:09:24', '2018-11-12 17:09:24');
 
 
 #
@@ -85,6 +92,7 @@ CREATE TABLE `leave_applications` (
   `to_date` datetime NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `leave_status` enum('P','A','C') NOT NULL,
+  `file` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int(11) NOT NULL,
   `modified_by` int(11) NOT NULL,
@@ -99,7 +107,7 @@ CREATE TABLE `leave_applications` (
   CONSTRAINT `leave_applications_ibfk_3` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `from_date`, `to_date`, `total`, `leave_status`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 26, 1, 1, '2018-11-05 10:00:00', '2018-11-12 04:00:00', '6.00', 'P', 1, 0, 0, '2018-10-13 10:27:26', '2018-10-22 11:24:54');
+INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `from_date`, `to_date`, `total`, `leave_status`, `file`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 2, 4, '2018-11-13 10:29:00', '2018-11-14 10:29:00', '1.00', 'P', '', 1, 0, 0, '2018-11-13 10:29:44', '2018-11-13 10:29:44');
 
 
 #
@@ -171,6 +179,8 @@ DROP TABLE IF EXISTS `leave_types`;
 
 CREATE TABLE `leave_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` enum('full','half','hour') NOT NULL,
+  `value` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int(11) NOT NULL,
   `modified_by` int(11) NOT NULL,
@@ -179,10 +189,10 @@ CREATE TABLE `leave_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
-INSERT INTO `leave_types` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 1, 0, 0, '2018-10-22 10:44:42', '2018-10-22 10:44:42');
-INSERT INTO `leave_types` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 1, 0, 0, '2018-10-22 10:45:56', '2018-10-22 10:45:56');
-INSERT INTO `leave_types` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 1, 0, 0, '2018-10-22 10:46:22', '2018-10-22 10:46:22');
-INSERT INTO `leave_types` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (4, 1, 0, 0, '2018-10-22 17:09:19', '2018-10-22 17:09:19');
+INSERT INTO `leave_types` (`id`, `type`, `value`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 'half', 1, 1, 0, 0, '2018-10-22 10:44:42', '2018-11-12 17:49:43');
+INSERT INTO `leave_types` (`id`, `type`, `value`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 'full', 1, 1, 0, 0, '2018-10-22 10:45:56', '2018-11-12 17:49:38');
+INSERT INTO `leave_types` (`id`, `type`, `value`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 'hour', 2, 1, 0, 0, '2018-10-22 10:46:22', '2018-11-12 17:50:16');
+INSERT INTO `leave_types` (`id`, `type`, `value`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (4, 'full', 1, 1, 0, 0, '2018-10-22 17:09:19', '2018-11-12 17:49:34');
 
 
 #
@@ -203,12 +213,12 @@ CREATE TABLE `leave_type_details` (
   CONSTRAINT `leave_type_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, 'partial', '', '');
-INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'आंशिक', '', '');
-INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 1, 'emergency', '', '');
-INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 2, 'आपातकालीन', '', '');
-INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (3, 1, 'medical', '', '');
-INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (3, 2, 'मेडिकल', '', '');
+INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, 'half day', '', '');
+INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'half day', '', '');
+INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 1, 'emergency & medical', '', '');
+INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 2, 'emergency & medical', '', '');
+INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (3, 1, 'gate pass', '', '');
+INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (3, 2, 'gate pass', '', '');
 INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (4, 1, 'casual', '', '');
 INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (4, 2, 'आकस्मिक', '', '');
 
@@ -223,6 +233,7 @@ CREATE TABLE `user_leave_authorities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
+  `priority` int(2) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -231,11 +242,9 @@ CREATE TABLE `user_leave_authorities` (
   KEY `author_id` (`author_id`),
   CONSTRAINT `user_leave_authorities_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_leave_authorities_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO `user_leave_authorities` (`id`, `user_id`, `author_id`, `status`, `created_date`, `modified_date`) VALUES (1, 25, 1, 1, '2018-10-22 14:42:29', '2018-10-22 14:42:29');
-INSERT INTO `user_leave_authorities` (`id`, `user_id`, `author_id`, `status`, `created_date`, `modified_date`) VALUES (2, 25, 26, 1, '2018-10-22 14:42:29', '2018-10-22 14:42:29');
-INSERT INTO `user_leave_authorities` (`id`, `user_id`, `author_id`, `status`, `created_date`, `modified_date`) VALUES (3, 26, 1, 1, '2018-10-22 14:42:29', '2018-10-22 14:42:29');
+INSERT INTO `user_leave_authorities` (`id`, `user_id`, `author_id`, `priority`, `status`, `created_date`, `modified_date`) VALUES (1, 2, 1, 1, 1, '2018-11-13 10:40:40', '2018-11-13 10:42:12');
 
 
 SET foreign_key_checks = 1;
