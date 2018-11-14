@@ -92,6 +92,21 @@
                             <span class="help-block"></span>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('subject') ?></label>
+                        <div class="col-md-10">
+                            <input name="subject" value="<?= $subject ?>" placeholder="<?= humanize('subject') ?>" class="form-control" type="text">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('text') ?></label>
+                        <div class="col-md-10">                    
+                            <textarea name="text" placeholder="<?= humanize('text') ?>" class="form-control"><?= $text ?></textarea>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>  
                 </form>
             </div>    
         </div>
@@ -106,13 +121,13 @@
         footer: true,
         modal: true,
         uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd HH:MM'
+        format: 'dd-mm-yyyy HH:MM'
     });
     $('#toDatePicker').datetimepicker({
         footer: true,
         modal: true,
         uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd HH:MM'
+        format: 'dd-mm-yyyy HH:MM'
     });
 
     $('input[name=from_date]').change(function () {

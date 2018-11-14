@@ -16,6 +16,13 @@
                     <input type="hidden" value="<?= $id ?>" name="id"/>  
 
                     <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('title') ?></label>
+                        <div class="col-md-10">
+                            <input name="title" value="<?= $title ?>" placeholder="<?= humanize('title') ?>" class="form-control" type="text">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="control-label col-md-2"><?= humanize('name') ?></label>
                         <div class="col-md-10">
                             <input name="name" value="<?= $name ?>" placeholder="<?= humanize('name') ?>" class="form-control" type="text">
@@ -36,27 +43,28 @@
                             <span class="help-block"></span>
                         </div>
                     </div>
-
                     <div class="form-group row">
-                        <label class="control-label col-md-2"><?= humanize('subscribe') ?></label>
+                        <label class="control-label col-md-2"><?= humanize('subject') ?></label>
                         <div class="col-md-10">
-                            <select name="subscribe" class="form-control">
-                                <?php if ($subscribes): ?> 
-                                    <?php foreach ($subscribes as $key => $value) : ?>
-                                        <?php if ($key == $subscribe): ?>
-                                            <option value="<?= $key ?>" selected><?= $value ?></option>
-                                        <?php else: ?>
-                                            <option value="<?= $key ?>"><?= $value ?></option>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <option value="0">No result</option>
-                                <?php endif; ?>
-                            </select>
+                            <input name="subject" value="<?= $subject ?>" placeholder="<?= humanize('subject') ?>" class="form-control" type="text">
                             <span class="help-block"></span>
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('text') ?></label>
+                        <div class="col-md-10">                    
+                            <textarea name="text" placeholder="<?= humanize('text') ?>" class="form-control"><?= $text ?></textarea>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>  
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('html') ?></label>
+                        <div class="col-md-10">                    
+                            <textarea name="html" data-toggle="tinymce"  placeholder="<?= humanize('html') ?>" class="form-control"><?= $html ?></textarea>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>  
                 </form>
             </div>    
         </div>

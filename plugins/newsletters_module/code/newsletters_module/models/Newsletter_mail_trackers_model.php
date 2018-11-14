@@ -1,11 +1,11 @@
 <?php
 
-class Newsletters_model extends CI_Model {
+class Newsletter_mail_trackers_model extends CI_Model {
 
-    private $table = 'newsletters';
-    private $table_view = 'newsletters';
-    private $column_order = array(null, 'name', 'email', 'contact', 'subscribe', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('name', 'email', 'contact', 'subscribe', 'status', 'created_date', 'modified_date');
+    private $table = 'newsletter_mail_trackers';
+    private $table_view = 'newsletter_mail_trackers';
+    private $column_order = array(null, 'title', 'name', 'email', 'contact', 'to_email', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('title', 'name', 'email', 'contact', 'to_email', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
 
@@ -75,13 +75,13 @@ class Newsletters_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-        
+
         return $this->db->count_all_results();
     }
 
     public function getById($id) {
         $this->db->from($this->table_view);
-        $this->db->where('id', $id);        
+        $this->db->where('id', $id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -103,10 +103,14 @@ class Newsletters_model extends CI_Model {
     public function postData() {
         $this->db->trans_start();
 
+        $this->db->set('title', $this->input->post('title'));
         $this->db->set('name', $this->input->post('name'));
         $this->db->set('email', $this->input->post('email'));
         $this->db->set('contact', $this->input->post('contact'));
-        $this->db->set('subscribe', $this->input->post('subscribe'));
+        $this->db->set('to_email', $this->input->post('to_email'));
+        $this->db->set('subject', $this->input->post('subject'));
+        $this->db->set('text', $this->input->post('text'));
+        $this->db->set('html', $this->input->post('html'));
 
         if ($this->input->post('id')):
             $id = $this->input->post('id');
@@ -115,7 +119,7 @@ class Newsletters_model extends CI_Model {
         else:
             $this->db->insert($this->table);
             $id = $this->db->insert_id();
-        endif;        
+        endif;
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {

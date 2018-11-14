@@ -96,6 +96,12 @@ class Holidays_model extends CI_Model {
     public function getById($id) {
         $this->db->from($this->table_view);
         $this->db->where('id', $id);
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -103,6 +109,7 @@ class Holidays_model extends CI_Model {
     public function deleteById($id) {
         $this->db->trans_start();
         $this->db->where('id', $id);
+        
         $this->db->delete($this->table);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {

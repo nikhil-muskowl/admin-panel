@@ -8,10 +8,12 @@ class Leave_applications_model extends CI_Model {
     private $column_search = array('user_name', 'from_date', 'to_date', 'total', 'leave_status', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
+    private $language_id;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
+        $this->language_id = 1;
     }
 
     private function _getTablesQuery($array = array()) {
@@ -21,8 +23,13 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-        
 
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -76,12 +83,24 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
         return $this->db->count_all_results();
     }
 
     public function getById($id) {
         $this->db->from($this->table_view);
         $this->db->where('id', $id);
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -106,14 +125,28 @@ class Leave_applications_model extends CI_Model {
         $this->db->set('user_id', $this->input->post('user_id'));
         $this->db->set('leave_reason_id', $this->input->post('leave_reason_id'));
         $this->db->set('leave_type_id', $this->input->post('leave_type_id'));
-        $this->db->set('from_date', $this->input->post('from_date'));
-        $this->db->set('to_date', $this->input->post('to_date'));
 
-        $from_date = $this->input->post('from_date');
-        $to_date = $this->input->post('to_date');
+
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->set('language_id', $this->language_id);
+
+
+
+        $from_date = date('Y-m-d H:i:s', strtotime($this->input->post('from_date')));
+        $to_date = date('Y-m-d H:i:s', strtotime($this->input->post('to_date')));
+
+        $this->db->set('from_date', $from_date);
+        $this->db->set('to_date', $to_date);
         $total = $this->settings_lib->dateToDay($from_date, $to_date);
 
         $this->db->set('total', $total);
+
+        $this->db->set('subject', $this->input->post('subject'));
+        $this->db->set('text', $this->input->post('text'));
 
         $this->db->set('status', 1);
         if ($this->input->post('id')):

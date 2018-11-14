@@ -1,19 +1,17 @@
 <?php
 
-class Holidays_model extends CI_Model {
+class Newsletter_mails_model extends CI_Model {
 
-    private $table = 'holidays';
-    private $table_view = 'holidays_view';
-    private $column_order = array(null, 'title', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('title', 'status', 'created_date', 'modified_date');
-    private $order = array('title' => 'asc');
+    private $table = 'newsletter_mails';
+    private $table_view = 'newsletter_mails';
+    private $column_order = array(null, 'title', 'name', 'email', 'contact', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('title', 'name', 'email', 'contact', 'status', 'created_date', 'modified_date');
+    private $order = array('modified_date' => 'desc');
     private $status;
-    private $language_id;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
-        $this->language_id = 1;
     }
 
     private function _getTablesQuery($array = array()) {
@@ -24,13 +22,6 @@ class Holidays_model extends CI_Model {
         endif;
         $this->db->where('status', $this->status);
 
-
-        if ($this->input->post('language_id')):
-            $this->language_id = $this->input->post('language_id');
-        elseif ($this->languages_lib->getLanguageId()):
-            $this->language_id = $this->languages_lib->getLanguageId();
-        endif;
-        $this->db->where('language_id', $this->language_id);
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -85,23 +76,12 @@ class Holidays_model extends CI_Model {
         endif;
         $this->db->where('status', $this->status);
 
-
-        if ($this->input->post('language_id')):
-            $this->language_id = $this->input->post('language_id');
-        endif;
-        $this->db->where('language_id', $this->language_id);
         return $this->db->count_all_results();
     }
 
     public function getById($id) {
         $this->db->from($this->table_view);
         $this->db->where('id', $id);
-        if ($this->input->post('language_id')):
-            $this->language_id = $this->input->post('language_id');
-        elseif ($this->languages_lib->getLanguageId()):
-            $this->language_id = $this->languages_lib->getLanguageId();
-        endif;
-        $this->db->where('language_id', $this->language_id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -109,7 +89,6 @@ class Holidays_model extends CI_Model {
     public function deleteById($id) {
         $this->db->trans_start();
         $this->db->where('id', $id);
-        
         $this->db->delete($this->table);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -124,8 +103,14 @@ class Holidays_model extends CI_Model {
     public function postData() {
         $this->db->trans_start();
 
-        $this->db->set('date', $this->input->post('date'));
-        $this->db->set('status', 1);
+        $this->db->set('title', $this->input->post('title'));
+        $this->db->set('name', $this->input->post('name'));
+        $this->db->set('email', $this->input->post('email'));
+        $this->db->set('contact', $this->input->post('contact'));
+        $this->db->set('subject', $this->input->post('subject'));
+        $this->db->set('text', $this->input->post('text'));
+        $this->db->set('html', $this->input->post('html'));
+
         if ($this->input->post('id')):
             $id = $this->input->post('id');
             $this->db->where('id', $id);
@@ -135,9 +120,6 @@ class Holidays_model extends CI_Model {
             $id = $this->db->insert_id();
         endif;
 
-
-        $this->postDetails($id);
-
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -146,40 +128,6 @@ class Holidays_model extends CI_Model {
             $this->db->trans_commit();
             return $this->getById($id);
         }
-    }
-
-    public function postDetails($id) {
-        $this->db->where('id', $id);
-        $this->db->delete('holiday_details');
-
-        if ($this->input->post('details')):
-            foreach ($this->input->post('details') as $key => $value) :
-                $this->db->set('id', $id);
-                $this->db->set('language_id', $key);
-                $this->db->set('title', $value['title']);
-                $this->db->insert('holiday_details');
-            endforeach;
-        endif;
-    }
-
-    public function details($id) {
-        $result = array();
-        $this->db->from('holiday_details');
-        $this->db->where('id', $id);
-        $query = $this->db->get();
-        $description = $query->result_array();
-
-        if ($description):
-            foreach ($description as $value) :
-                $result[$value['language_id']] = array(
-                    'id' => $value['id'],
-                    'language_id' => $value['language_id'],
-                    'title' => $value['title']
-                );
-            endforeach;
-        endif;
-
-        return $result;
     }
 
 }

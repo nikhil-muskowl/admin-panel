@@ -23,19 +23,19 @@ class User_leaves_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-        
+
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
         elseif ($this->languages_lib->getLanguageId()):
             $this->language_id = $this->languages_lib->getLanguageId();
         endif;
         $this->db->where('language_id', $this->language_id);
-        
-        
+
+
         if ($this->input->post('user_id')):
             $this->db->where('user_id', $this->input->post('user_id'));
         endif;
-        
+
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -143,6 +143,51 @@ class User_leaves_model extends CI_Model {
         } else {
             $this->db->trans_commit();
             return $this->getById($id);
+        }
+    }
+
+    public function assignLeaves() {
+        $this->db->trans_start();
+        $date = date('d');
+        if ($date == 1):
+            $users = $this->db->get_where('users', array('status' => 1))->result_array();
+            if ($users):
+                foreach ($users as $user) :
+
+                    $leave_types = $this->db->get_where('leave_types', array('status' => 1))->result_array();
+
+                    if ($leave_types):
+                        foreach ($leave_types as $leave_type) :
+                            $user_leave = $this->db->get_where($this->table, array('status' => 1, 'user_id' => $user['id'], 'leave_type_id' => $leave_type['id']))->row_array();
+
+                            if ($user_leave):
+                                if (date('Y-m-d', strtotime($user_leave['modified_date'])) != date('Y-m-d')):
+                                    $total = $user_leave['total'] + $leave_type['value'];
+
+                                    $this->db->set('total', $total);
+                                    $this->db->where('id', $user_leave['id']);
+                                    $this->db->update($this->table);
+                                endif;
+
+                            else:
+                                $this->db->set('user_id', $user['id']);
+                                $this->db->set('leave_type_id', $leave_type['id']);
+                                $this->db->set('total', $leave_type['value']);
+                                $this->db->insert($this->table);
+                            endif;
+
+                        endforeach;
+                    endif;
+                endforeach;
+            endif;
+        endif;
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
         }
     }
 

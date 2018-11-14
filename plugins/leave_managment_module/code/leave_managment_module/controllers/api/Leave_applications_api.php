@@ -6,12 +6,14 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
 
     private $data = array();
     private $error = array();
+    private $datetime_format;
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
         $this->load->model('leave_managment_module/leave_applications_model');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     public function index_post() {
@@ -24,13 +26,13 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
             $result[] = array(
                 'id' => $object['id'],
                 'user_name' => $object['user_name'],
-                'from_date' => $object['from_date'],
-                'to_date' => $object['to_date'],
+                'from_date' => date($this->datetime_format, strtotime($object['from_date'])),
+                'to_date' => date($this->datetime_format, strtotime($object['to_date'])),
                 'total' => $object['total'],
                 'leave_status' => $object['leave_status'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
         endforeach;
 
@@ -63,12 +65,12 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
             $result[] = array(
                 $checkbox,
                 $object['user_name'],
-                $object['from_date'],
-                $object['to_date'],
+                date($this->datetime_format, strtotime($object['from_date'])),
+                date($this->datetime_format, strtotime($object['to_date'])),
                 $object['total'],
                 $object['leave_status'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
             );
         endforeach;
@@ -93,8 +95,8 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
                 'total' => $object['total'],
                 'leave_status' => $object['leave_status'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
             );
             $this->data['status'] = TRUE;
             $this->data['message'] = $this->lang->line('text_loading');
@@ -129,7 +131,9 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
 
         $this->form_validation->set_rules('user_id', 'user_id', 'required');
         $this->form_validation->set_rules('from_date', 'from_date', 'required|callback_check_total_leave');
-        $this->form_validation->set_rules('to_date', 'to_date', 'required');        
+        $this->form_validation->set_rules('to_date', 'to_date', 'required');
+        $this->form_validation->set_rules('subject', 'subject', 'required');
+        $this->form_validation->set_rules('text', 'text', 'required');
 
         if ($this->form_validation->run() == FALSE):
             if (form_error('user_id', '', '')):
@@ -149,7 +153,19 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
                     'id' => 'to_date',
                     'text' => form_error('to_date', '', '')
                 );
-            endif;           
+            endif;
+            if (form_error('subject', '', '')):
+                $this->error[] = array(
+                    'id' => 'subject',
+                    'text' => form_error('subject', '', '')
+                );
+            endif;
+            if (form_error('text', '', '')):
+                $this->error[] = array(
+                    'id' => 'text',
+                    'text' => form_error('text', '', '')
+                );
+            endif;
 
             $this->data['status'] = FALSE;
             $this->data['message'] = $this->lang->line('text_validation_error');
@@ -163,7 +179,7 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
         $from_date = $this->input->post('from_date');
         $to_date = $this->input->post('to_date');
         $total = $this->settings_lib->dateToDay($from_date, $to_date);
-        
+
         if ($total > 6) {
             $this->form_validation->set_message('check_total_leave', 'you can not take greater then 6 leaves!');
             return FALSE;
