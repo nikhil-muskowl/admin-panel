@@ -20,6 +20,7 @@ class User_leaves extends MX_Controller {
     }
 
     public function index() {
+        $this->user_leaves_model->assignLeaves();
         $this->data = array();
         $this->data['ajax_list'] = base_url('leave_managment_module/api/user_leaves_api/list');
         $this->data['ajax_delete'] = base_url('leave_managment_module/api/user_leaves_api/delete');

@@ -66,13 +66,13 @@ class Leave_applications extends MX_Controller {
         if (isset($result['from_date']) && $result['from_date']) :
             $this->data['from_date'] = date('d-m-Y H:i', strtotime($result['from_date']));
         else:
-            $this->data['from_date'] = date('d-m-Y H:i');
+            $this->data['from_date'] = '';
         endif;
 
         if (isset($result['to_date']) && $result['to_date']) :
             $this->data['to_date'] = date('d-m-Y H:i', strtotime($result['to_date']));
         else:
-            $this->data['to_date'] = date('d-m-Y H:i');
+            $this->data['to_date'] = '';
         endif;
 
         if (isset($result['total']) && $result['total']) :

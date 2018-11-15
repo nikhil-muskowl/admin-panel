@@ -28,9 +28,15 @@ class Settings_lib {
         $start = strtotime($from);
         $end = strtotime($to);
         $timeDiff = abs($end - $start);
-        $numberDays = $timeDiff/86400; 
+        $numberDays = $timeDiff / 86400;
         $numberDays = intval($numberDays);
         return $numberDays;
+    }
+
+    public function getHours($time1, $time2) {
+        $start_date = new DateTime($time1);
+        $since_start = $start_date->diff(new DateTime($time2));
+        return $since_start->h . '.' . $since_start->i;
     }
 
     public function number_format($param) {

@@ -130,6 +130,8 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
         $this->data = array();
 
         $this->form_validation->set_rules('user_id', 'user_id', 'required');
+        $this->form_validation->set_rules('leave_reason_id', 'leave_reason_id', 'required');
+        $this->form_validation->set_rules('leave_type_id', 'leave_type_id', 'required');
         $this->form_validation->set_rules('from_date', 'from_date', 'required|callback_check_total_leave');
         $this->form_validation->set_rules('to_date', 'to_date', 'required');
         $this->form_validation->set_rules('subject', 'subject', 'required');
@@ -140,6 +142,18 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
                 $this->error[] = array(
                     'id' => 'user_id',
                     'text' => form_error('user_id', '', '')
+                );
+            endif;
+            if (form_error('leave_reason_id', '', '')):
+                $this->error[] = array(
+                    'id' => 'leave_reason_id',
+                    'text' => form_error('leave_reason_id', '', '')
+                );
+            endif;
+            if (form_error('leave_type_id', '', '')):
+                $this->error[] = array(
+                    'id' => 'leave_type_id',
+                    'text' => form_error('leave_type_id', '', '')
                 );
             endif;
             if (form_error('from_date', '', '')):
@@ -220,29 +234,52 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
 
     public function dateToDay_post() {
         $this->data = array();
-        $this->_dateToDayValidation();
         $total = 0;
-        $from_date = $this->input->post('from_date');
-        $to_date = $this->input->post('to_date');
-        $total = $this->settings_lib->dateToDay($from_date, $to_date);
-        if ($total):
+        $type = 'days';
+
+        $this->_dateToDayValidation();
+        $leave_types = $this->leave_applications_model->getTypeById($this->input->post('leave_type_id'));
+        if ($leave_types):
+
+            if ($this->input->post('from_date') && $this->input->post('to_date')):
+
+                if ($leave_types['type'] == 'hour'):
+                    $from_date = date('Y-m-d H:i', strtotime($this->input->post('from_date')));                    
+                    $to_date = date('Y-m-d H:i', strtotime($this->input->post('to_date')));
+                    $total = $this->settings_lib->getHours($from_date, $to_date);
+                    $type = 'hours';
+                else:
+                    $from_date = date('Y-m-d', strtotime($this->input->post('from_date')));
+                    $to_date = date('Y-m-d', strtotime($this->input->post('to_date')));
+                    $total = $this->settings_lib->dateToDay($from_date, $to_date);
+                endif;
+            endif;
+
+            $this->data['total'] = $total . ' ' . $type;
             $this->data['status'] = TRUE;
-            $this->data['total'] = $total;
         else:
+            $this->data['total'] = $total . ' ' . $type;
             $this->data['status'] = FALSE;
-            $this->data['total'] = $total;
         endif;
+
         $this->response($this->data);
     }
 
     public function _dateToDayValidation() {
         $this->data = array();
 
+        $this->form_validation->set_rules('leave_type_id', 'leave_type_id', 'required');
         $this->form_validation->set_rules('from_date', 'from_date', 'required');
         $this->form_validation->set_rules('to_date', 'to_date', 'required');
 
 
         if ($this->form_validation->run() == FALSE):
+            if (form_error('leave_type_id', '', '')):
+                $this->error[] = array(
+                    'id' => 'leave_type_id',
+                    'text' => form_error('leave_type_id', '', '')
+                );
+            endif;
             if (form_error('from_date', '', '')):
                 $this->error[] = array(
                     'id' => 'from_date',

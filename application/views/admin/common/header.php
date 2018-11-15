@@ -20,6 +20,7 @@ and open the template in the editor.
         <link href="<?= base_url() ?>node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script src="<?= base_url() ?>node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
         
+        <script src="<?= base_url() ?>node_modules/moment/moment.js" type="text/javascript"></script>        
         <script src="<?= base_url() ?>node_modules/gijgo/js/gijgo.min.js" type="text/javascript"></script>        
         <link href="<?= base_url() ?>node_modules/gijgo/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
 

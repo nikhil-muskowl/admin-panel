@@ -119,16 +119,21 @@
     $('#leave_type_id').select2();
     $('#fromDatePicker').datetimepicker({
         footer: true,
-        modal: true,
+        modal: true,        
         uiLibrary: 'bootstrap4',
-        format: 'dd-mm-yyyy HH:MM'
+        ampm: true,
+        format: 'dd-mm-yyyy hh:MM'
+        
     });
     $('#toDatePicker').datetimepicker({
         footer: true,
-        modal: true,
+        modal: true,        
         uiLibrary: 'bootstrap4',
-        format: 'dd-mm-yyyy HH:MM'
+        ampm: true,
+        format: 'dd-mm-yyyy hh:MM'
     });
+
+    check_total_leave();
 
     $('input[name=from_date]').change(function () {
         check_total_leave();
@@ -137,6 +142,15 @@
     $('input[name=to_date]').change(function () {
         check_total_leave();
     });
+    
+    $('input[name=to_date]').keyup(function () {
+        check_total_leave();
+    });
+
+    $('#leave_type_id').change(function () {
+        check_total_leave();
+    });
+
     function check_total_leave() {
 
         var formData = new FormData($('#form')[0]);
@@ -151,6 +165,8 @@
             success: function (data) {
                 if (data.status) {
                     $('input[name=total]').val(data.total);
+                }else{
+                    $('input[name=total]').val('');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

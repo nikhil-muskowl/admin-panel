@@ -134,15 +134,25 @@ class Leave_applications_model extends CI_Model {
         endif;
         $this->db->set('language_id', $this->language_id);
 
+        $total = 0;
+        $leave_types = $this->getTypeById($this->input->post('leave_type_id'));
+        if ($leave_types):
+            if ($this->input->post('from_date') && $this->input->post('to_date')):
 
-
-        $from_date = date('Y-m-d H:i:s', strtotime($this->input->post('from_date')));
-        $to_date = date('Y-m-d H:i:s', strtotime($this->input->post('to_date')));
+                if ($leave_types['type'] == 'hour'):
+                    $from_date = date('Y-m-d h:i:sa', strtotime($this->input->post('from_date')));
+                    $to_date = date('Y-m-d h:i:sa', strtotime($this->input->post('to_date')));
+                    $total = $this->settings_lib->getHours($from_date, $to_date);
+                else:
+                    $from_date = date('Y-m-d', strtotime($this->input->post('from_date')));
+                    $to_date = date('Y-m-d', strtotime($this->input->post('to_date')));
+                    $total = $this->settings_lib->dateToDay($from_date, $to_date);
+                endif;
+            endif;
+        endif;
 
         $this->db->set('from_date', $from_date);
         $this->db->set('to_date', $to_date);
-        $total = $this->settings_lib->dateToDay($from_date, $to_date);
-
         $this->db->set('total', $total);
 
         $this->db->set('subject', $this->input->post('subject'));
@@ -166,6 +176,13 @@ class Leave_applications_model extends CI_Model {
             $this->db->trans_commit();
             return $this->getById($id);
         }
+    }
+
+    public function getTypeById($id) {
+        $this->db->from('leave_types');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
     }
 
 }
