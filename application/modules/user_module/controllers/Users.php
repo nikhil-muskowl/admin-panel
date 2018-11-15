@@ -14,7 +14,7 @@ class Users extends MX_Controller {
         $this->load->model('user_module/users_model');
 
         $this->meta_title = humanize(__CLASS__);
-
+        $this->lang->load('user', $this->languages_lib->getLanguage());
         $this->imageWidth = $this->settings_lib->config('config', 'list_image_width');
         $this->imageHeight = $this->settings_lib->config('config', 'list_image_height');
         $this->bannerWidth = $this->settings_lib->config('config', 'list_banner_width');
@@ -37,6 +37,17 @@ class Users extends MX_Controller {
         $this->data['ajax_password_form'] = base_url('user_module/users/password_form');
         $this->data['ajax_change_status'] = base_url('user_module/api/users_api/change_status');
 
+
+        $this->load->model('user_module/genders_model');
+        $this->data['genders'] = $this->genders_model->getTables();
+
+        $this->load->model('user_module/user_groups_model');
+        $this->data['user_groups'] = $this->user_groups_model->getTables();
+
+        $this->data['statuses'] = array(
+            1 => 'yes',
+            0 => 'no',
+        );
 
         $this->data['sidebar'] = $this->sidebar->load();
         $this->data['meta_title'] = $this->meta_title;

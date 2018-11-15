@@ -7,6 +7,7 @@
                     <button class="btn btn-default" data-toggle="tooltip" title="<?= $this->lang->line('text_refresh') ?>" onclick="reload_table()"><i class="fa fa-refresh"></i></button>
                     <button class="btn btn-danger" data-toggle="tooltip" title="<?= $this->lang->line('text_bulk_delete') ?>" onclick="bulk_delete()"><i class="fa fa-trash"></i></button>
                     <input type="checkbox" checked name="status_filter" data-size="mini" id="toggle-filter" data-toggle="toggle" data-on="<?= $this->lang->line('text_enable') ?>" data-off="<?= $this->lang->line('text_disable') ?>">
+                    <button type="button" title="<?= $this->lang->line('text_filter') ?>" class="btn btn-primary" data-toggle="modal" data-target="#filterModal"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="card-title">
                     <h2><?= $meta_title ?></h2>
@@ -35,10 +36,95 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filter Result</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="filter-form" class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="control-label col-md-3"><?= $this->lang->line('text_user_group') ?></label>
+                        <div class="col-md-9">
+                            <select name="user_group_id" id="user_group_id" class="form-control" style="width: 100%">
+                                <option value="0">--none--</option>
+                                <?php if ($user_groups): ?> 
+                                    <?php foreach ($user_groups as $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['title'] ?></option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="0">No result</option>
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>  
+                    <div class="form-group row">
+                        <label class="control-label col-md-3"><?= $this->lang->line('text_gender') ?></label>
+                        <div class="col-md-9">
+                            <select name="gender_id" id="gender_id" class="form-control" style="width: 100%">
+                                <option value="0">--none--</option>
+                                <?php if ($genders): ?> 
+                                    <?php foreach ($genders as $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['title'] ?></option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="0">No result</option>
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>  
+                    <div class="form-group row">
+                        <label class="control-label col-md-3"><?= $this->lang->line('text_admin') ?></label>
+                        <div class="col-md-9">
+                            <select name="is_admin" id="is_admin" class="form-control" style="width: 100%">
+                                <option value="0">--none--</option>
+                                <?php if ($statuses): ?> 
+                                    <?php foreach ($statuses as $key => $value) : ?>
+                                        <option value="<?= $key ?>"><?= $value ?></option>
+                                    <?php endforeach; ?>                                
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label class="control-label col-md-3"><?= $this->lang->line('text_verified') ?></label>
+                        <div class="col-md-9">
+                            <select name="verified" id="verified" class="form-control" style="width: 100%">
+                                <option value="0">--none--</option>
+                                <?php if ($statuses): ?> 
+                                    <?php foreach ($statuses as $key => $value) : ?>
+                                        <option value="<?= $key ?>"><?= $value ?></option>
+                                    <?php endforeach; ?>                                
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="filter()">Filter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     var save_method;
     var table;
     var base_url = '<?= base_url() ?>';
+
+    $('#user_group_id').select2();
 
     $(document).ready(function () {
         table = $('#table').DataTable({
@@ -50,6 +136,10 @@
                 "type": "POST",
                 "data": function (data) {
                     data.status = $('[name="status_filter"]').prop('checked');
+                    data.user_group_id = $('[name="user_group_id"]').val();
+                    data.gender_id = $('[name="gender_id"]').val();
+                    data.is_admin = $('[name="is_admin"]').val();
+                    data.verified = $('[name="verified"]').val();
                 }
             },
             "fnDrawCallback": function () {
@@ -99,6 +189,11 @@
             table.ajax.reload(null, false);
         });
     });
+
+    function filter() {
+        table.ajax.reload(null, false);
+        $('#filterModal').modal('hide');
+    }
 
     function reload_table() {
         table.ajax.reload(null, false);

@@ -1,4 +1,4 @@
 <?php
 
-$lang['text_heading_list'] = 'लिंग सूची';
-$lang['text_heading_form'] = 'लिंग';
+$lang['text_heading_list'] = 'genders list';
+$lang['text_heading_form'] = 'gender';

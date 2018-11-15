@@ -111,6 +111,7 @@
 
 
 <script>
+    $('#user_group_id').select2();
     $('#datepicker').datepicker({
         uiLibrary: 'bootstrap4',
         format: 'yyyy-mm-dd'

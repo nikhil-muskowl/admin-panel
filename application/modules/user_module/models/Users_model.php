@@ -11,6 +11,20 @@ class Users_model extends CI_Model {
     private function _getTablesQuery($array = array()) {
         $this->db->from($this->table_view);
 
+        if ($this->input->post('user_group_id')):
+            $this->db->where('user_group_id', $this->input->post('user_group_id'));
+        endif;
+        
+        if ($this->input->post('gender_id')):
+            $this->db->where('gender_id', $this->input->post('gender_id'));
+        endif;
+        if ($this->input->post('is_admin')):
+            $this->db->where('is_admin', $this->input->post('is_admin'));
+        endif;
+        if ($this->input->post('verified')):
+            $this->db->where('verified', $this->input->post('verified'));
+        endif;
+
         if (isset($array['name']) && !empty($array['name'])):
             $this->db->like('name', $array['name']);
         endif;
