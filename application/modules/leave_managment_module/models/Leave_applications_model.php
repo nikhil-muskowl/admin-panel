@@ -30,7 +30,9 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
         elseif ($this->languages_lib->getLanguageId()):
@@ -90,6 +92,9 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
         elseif ($this->languages_lib->getLanguageId()):

@@ -25,6 +25,7 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
         foreach ($list as $object) :
             $result[] = array(
                 'id' => $object['id'],
+                'user_id' => $object['user_id'],
                 'user_name' => $object['user_name'],
                 'from_date' => date($this->datetime_format, strtotime($object['from_date'])),
                 'to_date' => date($this->datetime_format, strtotime($object['to_date'])),
