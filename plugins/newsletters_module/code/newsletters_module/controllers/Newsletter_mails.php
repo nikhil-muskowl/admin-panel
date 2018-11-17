@@ -19,6 +19,7 @@ class Newsletter_mails extends MX_Controller {
         $this->data = array();
         $this->data['ajax_list'] = base_url('newsletters_module/api/newsletter_mails_api/list');
         $this->data['ajax_delete'] = base_url('newsletters_module/api/newsletter_mails_api/delete');
+        $this->data['ajax_send'] = base_url('newsletters_module/api/newsletter_mails_api/send');
         $this->data['ajax_form'] = base_url('newsletters_module/newsletter_mails/form');
 
         $this->data['sidebar'] = $this->sidebar->load();
@@ -84,6 +85,7 @@ class Newsletter_mails extends MX_Controller {
         $this->data['ajax_list'] = base_url('newsletters_module/newsletter_mails');
         $this->data['ajax_save'] = base_url('newsletters_module/api/newsletter_mails_api/save');
         $this->data['ajax_image_form'] = base_url('newsletters_module/newsletter_mails/image_form/');
+        
 
         $this->data['sidebar'] = $this->sidebar->load();
         $this->data['meta_title'] = $this->meta_title;

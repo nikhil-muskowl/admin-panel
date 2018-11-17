@@ -6,6 +6,8 @@
                     <a href="<?= $ajax_form ?>" class="btn btn-success" data-toggle="tooltip" title="Add"><i class="fa fa-plus"></i></a>                        
                     <button class="btn btn-default" data-toggle="tooltip" title="Reload" onclick="reload_table()"><i class="fa fa-refresh"></i></button>
                     <button class="btn btn-danger" data-toggle="tooltip" title="Bulk Delete" onclick="bulk_delete()"><i class="fa fa-trash"></i></button>
+                    <a href="<?= $ajax_csv_export ?>" class="btn btn-success" data-toggle="tooltip" title="Export in csv"><i class="fa fa-download"></i></a>
+                    <button type="button" onclick="upload('<?= $ajax_csv_import ?>')" data-loading-text="loading..." class="btn btn-warning" title="Csv Import" data-toggle="tooltip" data-placement="top"><i class="fa fa-upload"></i></button>
                 </div>
                 <div class="card-title">
                     <h2><?= $meta_title ?></h2>
@@ -141,6 +143,51 @@
         } else {
             notification('Warning:', 'warning', '<?= $this->lang->line('textNoDataSelectedError') ?>');
         }
+    }
+
+    function upload(url) {
+        $('#form-upload').remove();
+
+        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+
+        $('#form-upload input[name=\'file\']').trigger('click');
+
+        if (typeof timer != 'undefined') {
+            clearInterval(timer);
+        }
+
+        timer = setInterval(function () {
+            if ($('#form-upload input[name=\'file\']').val() != '') {
+                clearInterval(timer);
+
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: new FormData($('#form-upload')[0]),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#loading").show();
+                    },
+                    complete: function () {
+                        $("#loading").hide();
+                    },
+                    success: function (data) {
+                        if (data.status) {
+                            reload_table();
+                            notification('Success:', 'success', data.message);
+                        } else {
+                            notification('Error:', 'error', data.message);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+            }
+        }, 500);
     }
 </script>
 

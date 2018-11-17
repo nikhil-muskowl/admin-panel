@@ -59,6 +59,7 @@ class Newsletters_api extends Restserver\Libraries\REST_Controller {
             $action = '';
             $action .= '<a class="btn btn-sm btn-primary" href="' . base_url('newsletters_module/newsletters/form/' . $object['id']) . '" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>';
             $action .= ' <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-toggle="tooltip" title="Delete" onclick="delete_record(' . "'" . $object['id'] . "'" . ')"><i class="fa fa-trash"></i></a>';
+            
 
             $checkbox = '<input type="checkbox" class="data-check" value="' . $object['id'] . '">';
 
@@ -178,5 +179,7 @@ class Newsletters_api extends Restserver\Libraries\REST_Controller {
         }
         $this->response($this->data);
     }
+
+    
 
 }

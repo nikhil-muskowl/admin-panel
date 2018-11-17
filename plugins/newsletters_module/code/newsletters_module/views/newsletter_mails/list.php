@@ -23,7 +23,7 @@
                                 <th><?= $this->lang->line('text_contact') ?></th>                                
                                 <th><?= $this->lang->line('text_status') ?></th>
                                 <th><?= $this->lang->line('text_modified_date') ?></th>                            
-                                <th style="width:80px;"><?= $this->lang->line('text_action') ?></th>
+                                <th style="width:120px;"><?= $this->lang->line('text_action') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -140,6 +140,27 @@
             }
         } else {
             notification('Warning:', 'warning', '<?= $this->lang->line('textNoDataSelectedError') ?>');
+        }
+    }
+    
+    function send_record(id) {
+        if (confirm("are you sure to send?")) {
+            $.ajax({
+                url: '<?= $ajax_send ?>/' + id,
+                type: "GET",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.status) {
+                        notification('Success:', 'success', data.message);
+                        reload_table();
+                    } else {
+                        notification('Error:', 'error', data.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    notification('Error:', 'error', 'error');
+                }
+            });
         }
     }
 </script>

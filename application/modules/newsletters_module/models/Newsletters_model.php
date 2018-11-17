@@ -75,13 +75,13 @@ class Newsletters_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-        
+
         return $this->db->count_all_results();
     }
 
     public function getById($id) {
         $this->db->from($this->table_view);
-        $this->db->where('id', $id);        
+        $this->db->where('id', $id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -115,7 +115,7 @@ class Newsletters_model extends CI_Model {
         else:
             $this->db->insert($this->table);
             $id = $this->db->insert_id();
-        endif;        
+        endif;
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -125,6 +125,23 @@ class Newsletters_model extends CI_Model {
             $this->db->trans_commit();
             return $this->getById($id);
         }
+    }
+
+    public function get_data_csv() {
+        $result = $this->db->get($this->table);
+        return $result;
+    }
+
+    public function get_data() {
+        $result = $this->db->get($this->table)->result();
+        $fields = (object) $this->db->list_fields($this->table);
+        array_unshift($result, $fields);
+        return $result;
+    }
+
+    public function insert_batch($array) {
+        $this->db->truncate($this->table);
+        return $this->db->insert_batch($this->table, $array);
     }
 
 }

@@ -16,9 +16,10 @@ CREATE TABLE `newsletters` (
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-INSERT INTO `newsletters` (`id`, `name`, `email`, `contact`, `subscribe`, `status`, `created_date`, `modified_date`) VALUES (1, 'nadim', 'nadim.sheikh.07@gmail.com', '7737033665', 1, 1, '2018-11-13 14:24:00', '2018-11-13 14:24:00');
+INSERT INTO `newsletters` (`id`, `name`, `email`, `contact`, `subscribe`, `status`, `created_date`, `modified_date`) VALUES (1, 'nadim', 'nadim.sheikh.07@gmail.com', '7737033665', 1, 1, '2018-11-17 14:39:43', '2018-11-17 14:39:43');
+INSERT INTO `newsletters` (`id`, `name`, `email`, `contact`, `subscribe`, `status`, `created_date`, `modified_date`) VALUES (2, 'rajesh', 'rajesh.muskowl@gmail.com', '123456', 1, 1, '2018-11-17 14:39:43', '2018-11-17 14:39:43');
 
 
 #
@@ -43,9 +44,9 @@ CREATE TABLE `newsletter_mails` (
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-INSERT INTO `newsletter_mails` (`id`, `title`, `name`, `email`, `contact`, `type`, `type_value`, `subject`, `text`, `html`, `status`, `created_date`, `modified_date`) VALUES (1, 'test', 'nadim', 'nadim.sheikh.07@gmail.com', '7737033665', '', '', '123', '123', '23', 1, '2018-11-14 10:51:12', '2018-11-14 10:51:12');
+INSERT INTO `newsletter_mails` (`id`, `title`, `name`, `email`, `contact`, `type`, `type_value`, `subject`, `text`, `html`, `status`, `created_date`, `modified_date`) VALUES (2, 'test', 'muskowl', 'info@muskowl.com', '7737033665', '', '', 'test', 'test', 'test', 1, '2018-11-17 15:09:29', '2018-11-17 15:09:29');
 
 
 #
@@ -70,9 +71,13 @@ CREATE TABLE `newsletter_mail_trackers` (
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (1, 'fd', 'fgdg', 'gdgdf', 'gdfg', 'dfg', 'dfgdfg', 'dfg', 'gdfg', '', 1, '2018-11-14 11:03:33', '2018-11-14 11:03:33');
+INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (2, 'test', 'nadim', '', '7737033665', 'info@muskowl.com', 'test', 'test', 'test', 'Send', 1, '2018-11-17 15:09:32', '2018-11-17 15:09:32');
+INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (3, 'test', 'rajesh', '', '7737033665', 'info@muskowl.com', 'test', 'test', 'test', 'Send', 1, '2018-11-17 15:09:33', '2018-11-17 15:09:33');
+INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (4, 'test', 'nadim', '', '7737033665', 'info@muskowl.com', 'test', 'test', 'test', 'Failed', 1, '2018-11-17 15:10:32', '2018-11-17 15:10:32');
+INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (5, 'test', 'rajesh', '', '7737033665', 'info@muskowl.com', 'test', 'test', 'test', 'Failed', 1, '2018-11-17 15:10:33', '2018-11-17 15:10:33');
 
 
 SET foreign_key_checks = 1;

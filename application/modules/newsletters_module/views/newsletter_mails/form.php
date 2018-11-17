@@ -4,8 +4,7 @@
             <div class="card-header">   
                 <div class="button-group float-right">
                     <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
-                    <a href="<?= $ajax_list ?>" class="btn btn-danger">Cancel</a>
-
+                    <a href="<?= $ajax_list ?>" class="btn btn-danger">Cancel</a>                   
                 </div>
                 <div class="card-title">
                     <h2><?= $meta_title ?></h2>

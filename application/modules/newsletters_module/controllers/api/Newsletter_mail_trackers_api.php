@@ -33,6 +33,8 @@ class Newsletter_mail_trackers_api extends Restserver\Libraries\REST_Controller 
                 'to_email' => $object['to_email'],
                 'subject' => $object['subject'],
                 'text' => $object['text'],
+                'html' => $object['html'],
+                'email_status' => $object['email_status'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
                 'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
@@ -72,6 +74,7 @@ class Newsletter_mail_trackers_api extends Restserver\Libraries\REST_Controller 
                 $object['email'],
                 $object['contact'],                
                 $object['to_email'],                
+                $object['email_status'],                
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 date($this->datetime_format, strtotime($object['modified_date'])),
                 $action

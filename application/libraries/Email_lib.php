@@ -69,6 +69,7 @@ class Email_lib {
 
         if ($this->ci->email->send()):
             $this->email_status = 'Sent';
+            $this->status = TRUE;
         else:
             $this->email_status = 'Failed';
             $this->status = FALSE;

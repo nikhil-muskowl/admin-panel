@@ -130,4 +130,85 @@ class Newsletter_mails_model extends CI_Model {
         }
     }
 
+    public function getNewsletters() {
+        $this->db->from('newsletters');
+        $this->db->where('subscribe', 1);
+        $this->db->where('status', 1);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function setNewsletterMails($data = array()) {
+        $this->db->trans_start();
+
+        $this->db->set('title', $data['title']);
+        $this->db->set('name', $data['name']);
+        $this->db->set('to_email', $data['email']);
+        $this->db->set('contact', $data['contact']);
+        $this->db->set('subject', $data['subject']);
+        $this->db->set('text', $data['text']);
+        $this->db->set('html', $data['html']);
+        $this->db->set('email_status', $data['email_status']);
+
+        $this->db->insert('newsletter_mail_trackers');
+
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
+    }
+
+    public function postEmails($id) {
+        $newsletter_mails = $this->getById($id);
+        if ($newsletter_mails):
+
+            $this->email_lib->fromEmail = $newsletter_mails['email'];
+            $this->email_lib->fromName = $newsletter_mails['name'];
+
+            $newsletters = $this->getNewsletters();
+            if ($newsletters):
+                foreach ($newsletters as $newsletter) :
+                    $status = $this->sendEmail($newsletter['email'], $newsletter_mails['subject'], $newsletter_mails['html']);
+                    if ($status):
+                        $email_status = 'Send';
+                    else:
+                        $email_status = 'Failed';
+                    endif;
+
+                    $dataArray = array(
+                        'title' => $newsletter_mails['title'],
+                        'name' => $newsletter['name'],
+                        'email' => $newsletter_mails['email'],
+                        'contact' => $newsletter_mails['contact'],
+                        'to_email' => $newsletter['email'],
+                        'subject' => $newsletter_mails['subject'],
+                        'text' => $newsletter_mails['text'],
+                        'html' => $newsletter_mails['html'],
+                        'email_status' => $email_status,
+                    );
+
+                    $this->setNewsletterMails($dataArray);
+                endforeach;
+            endif;
+
+        else:
+            return FALSE;
+        endif;
+    }
+
+    public function sendEmail($email, $subject, $message) {
+        $this->email_lib->toEmail = $email;
+        $this->email_lib->subject = $subject;
+        $this->email_lib->message = $message;
+        if ($this->email_lib->send()):
+            return TRUE;
+        else:
+            return FALSE;
+        endif;
+    }
+
 }

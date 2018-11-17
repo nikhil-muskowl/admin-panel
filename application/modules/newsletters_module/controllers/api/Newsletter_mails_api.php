@@ -61,7 +61,7 @@ class Newsletter_mails_api extends Restserver\Libraries\REST_Controller {
             $action = '';
             $action .= '<a class="btn btn-sm btn-primary" href="' . base_url('newsletters_module/newsletter_mails/form/' . $object['id']) . '" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>';
             $action .= ' <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-toggle="tooltip" title="Delete" onclick="delete_record(' . "'" . $object['id'] . "'" . ')"><i class="fa fa-trash"></i></a>';
-
+            $action .= ' <a class="btn btn-sm btn-warning" href="javascript:void(0)" data-toggle="tooltip" title="Send" onclick="send_record(' . "'" . $object['id'] . "'" . ')"><i class="fa fa-send"></i></a>';
             $checkbox = '<input type="checkbox" class="data-check" value="' . $object['id'] . '">';
 
             $result[] = array(
@@ -69,7 +69,7 @@ class Newsletter_mails_api extends Restserver\Libraries\REST_Controller {
                 $object['title'],
                 $object['name'],
                 $object['email'],
-                $object['contact'],                
+                $object['contact'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
@@ -90,13 +90,13 @@ class Newsletter_mails_api extends Restserver\Libraries\REST_Controller {
         $object = $this->newsletter_mails_model->getById($id);
 
         if ($object):
-            $result = array(                
+            $result = array(
                 $object['title'],
                 $object['name'],
                 $object['email'],
-                $object['contact'],                
+                $object['contact'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                date($this->datetime_format, strtotime($object['modified_date'])),                
+                date($this->datetime_format, strtotime($object['modified_date'])),
             );
 
             $this->data['status'] = TRUE;
@@ -198,4 +198,17 @@ class Newsletter_mails_api extends Restserver\Libraries\REST_Controller {
         $this->response($this->data);
     }
 
+    public function send_get($id) {
+        $this->data = array();
+        $result = $this->newsletter_mails_model->postEmails($id);
+        if ($result) {
+            $this->data['status'] = TRUE;
+            $this->data['message'] = 'sending successfully';
+        } else {
+            $this->data['status'] = FALSE;
+            $this->data['message'] = 'sending failed!';
+        }
+
+        $this->response($this->data);
+    }
 }
