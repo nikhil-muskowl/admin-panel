@@ -1,6 +1,6 @@
 <?php
 
-class leave_reasons_model extends CI_Model {
+class Leave_reasons_model extends CI_Model {
 
     private $table = 'leave_reasons';
     private $table_view = 'leave_reasons_view';

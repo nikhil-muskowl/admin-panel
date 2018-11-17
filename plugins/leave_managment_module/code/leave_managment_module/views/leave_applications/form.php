@@ -107,6 +107,23 @@
                             <span class="help-block"></span>
                         </div>
                     </div>  
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('leave_status') ?></label>
+                        <div class="col-md-10">
+                            <select name="leave_status_id" id="leave_status_id" class="form-control">
+                                <?php if ($leave_statuses): ?> 
+                                    <?php foreach ($leave_statuses as $value) : ?>
+                                        <?php if ($value['id'] == $leave_status_id): ?>
+                                            <option value="<?= $value['id'] ?>" selected><?= $value['title'] ?></option>
+                                        <?php else: ?>
+                                            <option value="<?= $value['id'] ?>"><?= $value['title'] ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>                                
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>  
                 </form>
             </div>    
         </div>
@@ -117,6 +134,7 @@
     $('#user_id').select2();
     $('#leave_reason_id').select2();
     $('#leave_type_id').select2();
+    $('#leave_status_id').select2();
     $('#fromDatePicker').datetimepicker({
         footer: true,
         modal: true,        

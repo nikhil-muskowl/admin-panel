@@ -78,6 +78,23 @@ class Plugins_model extends CI_Model {
             $this->uninstall_table($code);
             $this->uninstall_view($code);
             $this->uninstall_code($code);
+            $this->uninstallSetting($code);
+            return TRUE;
+        }
+    }
+    
+    public function uninstallSetting($code) {
+        $this->db->trans_start();
+
+        $this->db->where('code', $code);
+        $this->db->delete('settings');
+
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();            
             return TRUE;
         }
     }

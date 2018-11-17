@@ -8,11 +8,13 @@ DROP TABLE IF EXISTS `user_leaves`;
 
 DROP TABLE IF EXISTS `leave_applications`;
 
-DROP TABLE IF EXISTS `leave_application_details`;
-
 DROP TABLE IF EXISTS `leave_reasons`;
 
 DROP TABLE IF EXISTS `leave_reason_details`;
+
+DROP TABLE IF EXISTS `leave_statuses`;
+
+DROP TABLE IF EXISTS `leave_status_details`;
 
 DROP TABLE IF EXISTS `leave_types`;
 

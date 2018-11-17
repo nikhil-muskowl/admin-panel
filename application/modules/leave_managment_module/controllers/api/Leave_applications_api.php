@@ -65,6 +65,8 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
             $result[] = array(
                 $checkbox,
                 $object['user_name'],
+                $object['leave_reason'],
+                $object['leave_type'],
                 date($this->datetime_format, strtotime($object['from_date'])),
                 date($this->datetime_format, strtotime($object['to_date'])),
                 $object['total'],
@@ -244,7 +246,7 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
             if ($this->input->post('from_date') && $this->input->post('to_date')):
 
                 if ($leave_types['type'] == 'hour'):
-                    $from_date = date('Y-m-d H:i', strtotime($this->input->post('from_date')));                    
+                    $from_date = date('Y-m-d H:i', strtotime($this->input->post('from_date')));
                     $to_date = date('Y-m-d H:i', strtotime($this->input->post('to_date')));
                     $total = $this->settings_lib->getHours($from_date, $to_date);
                     $type = 'hours';
@@ -290,6 +292,56 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
                 $this->error[] = array(
                     'id' => 'to_date',
                     'text' => form_error('to_date', '', '')
+                );
+            endif;
+
+            $this->data['status'] = FALSE;
+            $this->data['message'] = $this->lang->line('text_validation_error');
+            $this->data['result'] = $this->error;
+            echo json_encode($this->data);
+            exit;
+        endif;
+    }
+
+    public function leave_status_post() {
+        $this->data = array();
+        $this->_StatusValidation();
+        $result = $this->leave_applications_model->leave_status();
+        if ($result):
+            $this->data['status'] = TRUE;
+            $this->data['message'] = $this->lang->line('text_submit_success');
+        else:
+            $this->data['status'] = FALSE;
+            $this->data['message'] = $this->lang->line('text_submit_error');
+        endif;
+        $this->response($this->data);
+    }
+
+    public function _StatusValidation() {
+        $this->data = array();
+
+        $this->form_validation->set_rules('id', 'id', 'required');
+        $this->form_validation->set_rules('user_id', 'user', 'required');
+        $this->form_validation->set_rules('leave_status_id', 'leave status', 'required');
+
+
+        if ($this->form_validation->run() == FALSE):
+            if (form_error('id', '', '')):
+                $this->error[] = array(
+                    'id' => 'id',
+                    'text' => form_error('id', '', '')
+                );
+            endif;
+            if (form_error('user_id', '', '')):
+                $this->error[] = array(
+                    'id' => 'user_id',
+                    'text' => form_error('user_id', '', '')
+                );
+            endif;
+            if (form_error('leave_status_id', '', '')):
+                $this->error[] = array(
+                    'id' => 'leave_status_id',
+                    'text' => form_error('leave_status_id', '', '')
                 );
             endif;
 

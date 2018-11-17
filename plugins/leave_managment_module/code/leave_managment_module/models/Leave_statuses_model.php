@@ -1,12 +1,12 @@
 <?php
 
-class Leave_applications_model extends CI_Model {
+class Leave_statuses_model extends CI_Model {
 
-    private $table = 'leave_applications';
-    private $table_view = 'leave_applications_view';
-    private $column_order = array(null, 'user_name', 'leave_reason', 'leave_type', 'from_date', 'to_date', 'total', 'leave_status', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('user_name', 'leave_reason', 'leave_type', 'from_date', 'to_date', 'total', 'leave_status', 'status', 'created_date', 'modified_date');
-    private $order = array('modified_date' => 'desc');
+    private $table = 'leave_statuses';
+    private $table_view = 'leave_statuses_view';
+    private $column_order = array(null, 'title', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('title', 'status', 'created_date', 'modified_date');
+    private $order = array('title' => 'asc');
     private $status;
     private $language_id;
 
@@ -23,6 +23,7 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+
 
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
@@ -83,10 +84,10 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+
+
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
-        elseif ($this->languages_lib->getLanguageId()):
-            $this->language_id = $this->languages_lib->getLanguageId();
         endif;
         $this->db->where('language_id', $this->language_id);
         return $this->db->count_all_results();
@@ -95,12 +96,6 @@ class Leave_applications_model extends CI_Model {
     public function getById($id) {
         $this->db->from($this->table_view);
         $this->db->where('id', $id);
-        if ($this->input->post('language_id')):
-            $this->language_id = $this->input->post('language_id');
-        elseif ($this->languages_lib->getLanguageId()):
-            $this->language_id = $this->languages_lib->getLanguageId();
-        endif;
-        $this->db->where('language_id', $this->language_id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -122,50 +117,6 @@ class Leave_applications_model extends CI_Model {
     public function postData() {
         $this->db->trans_start();
 
-        $this->db->set('user_id', $this->input->post('user_id'));
-        $this->db->set('leave_reason_id', $this->input->post('leave_reason_id'));
-        $this->db->set('leave_type_id', $this->input->post('leave_type_id'));
-
-        if ($this->input->post('leave_status_id')):
-            $leave_status_id = $this->input->post('leave_status_id');
-        else:
-            $leave_status_id = $this->settings_lib->config('leave_managment_module', 'pending_id');
-        endif;
-
-        $this->db->set('leave_status_id', $leave_status_id);
-
-
-        if ($this->input->post('language_id')):
-            $this->language_id = $this->input->post('language_id');
-        elseif ($this->languages_lib->getLanguageId()):
-            $this->language_id = $this->languages_lib->getLanguageId();
-        endif;
-        $this->db->set('language_id', $this->language_id);
-
-        $total = 0;
-        $leave_types = $this->getTypeById($this->input->post('leave_type_id'));
-        if ($leave_types):
-            if ($this->input->post('from_date') && $this->input->post('to_date')):
-
-                if ($leave_types['type'] == 'hour'):
-                    $from_date = date('Y-m-d h:i:sa', strtotime($this->input->post('from_date')));
-                    $to_date = date('Y-m-d h:i:sa', strtotime($this->input->post('to_date')));
-                    $total = $this->settings_lib->getHours($from_date, $to_date);
-                else:
-                    $from_date = date('Y-m-d', strtotime($this->input->post('from_date')));
-                    $to_date = date('Y-m-d', strtotime($this->input->post('to_date')));
-                    $total = $this->settings_lib->dateToDay($from_date, $to_date);
-                endif;
-            endif;
-        endif;
-
-        $this->db->set('from_date', $from_date);
-        $this->db->set('to_date', $to_date);
-        $this->db->set('total', $total);
-
-        $this->db->set('subject', $this->input->post('subject'));
-        $this->db->set('text', $this->input->post('text'));
-
         $this->db->set('status', 1);
         if ($this->input->post('id')):
             $id = $this->input->post('id');
@@ -175,6 +126,9 @@ class Leave_applications_model extends CI_Model {
             $this->db->insert($this->table);
             $id = $this->db->insert_id();
         endif;
+
+
+        $this->postDetails($id);
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -186,28 +140,38 @@ class Leave_applications_model extends CI_Model {
         }
     }
 
-    public function getTypeById($id) {
-        $this->db->from('leave_types');
+    public function postDetails($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get();
-        return $query->row_array();
+        $this->db->delete('leave_status_details');
+
+        if ($this->input->post('details')):
+            foreach ($this->input->post('details') as $key => $value) :
+                $this->db->set('id', $id);
+                $this->db->set('language_id', $key);
+                $this->db->set('title', $value['title']);
+                $this->db->insert('leave_status_details');
+            endforeach;
+        endif;
     }
 
-    public function leave_status() {
-        $this->db->trans_start();
+    public function details($id) {
+        $result = array();
+        $this->db->from('leave_status_details');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        $description = $query->result_array();
 
-        $this->db->set('leave_status_id', $this->input->post('leave_status_id'));
-        $this->db->where('id', $this->input->post('id'));
-        $this->db->update($this->table);
+        if ($description):
+            foreach ($description as $value) :
+                $result[$value['language_id']] = array(
+                    'id' => $value['id'],
+                    'language_id' => $value['language_id'],
+                    'title' => $value['title']
+                );
+            endforeach;
+        endif;
 
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === FALSE) {
-            $this->db->trans_rollback();
-            return FALSE;
-        } else {
-            $this->db->trans_commit();
-            return TRUE;
-        }
+        return $result;
     }
 
 }

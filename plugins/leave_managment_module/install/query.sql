@@ -93,14 +93,13 @@ CREATE TABLE `leave_applications` (
   `leave_reason_id` int(11) NOT NULL,
   `leave_type_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
+  `leave_status_id` int(11) NOT NULL,
   `from_date` datetime NOT NULL,
   `to_date` datetime NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `file_attach` text NOT NULL,
   `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `leave_status` enum('P','A','C') NOT NULL,
-  `verified` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int(11) NOT NULL,
   `modified_by` int(11) NOT NULL,
@@ -110,16 +109,18 @@ CREATE TABLE `leave_applications` (
   KEY `user_id` (`user_id`),
   KEY `leave_reason_id` (`leave_reason_id`),
   KEY `leave_type_id` (`leave_type_id`),
-  KEY `language_id` (`language_id`),
+  KEY `leave_applications_ibfk_4` (`language_id`),
+  KEY `leave_status_id` (`leave_status_id`),
   CONSTRAINT `leave_applications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `leave_applications_ibfk_2` FOREIGN KEY (`leave_reason_id`) REFERENCES `leave_reasons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `leave_applications_ibfk_3` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `leave_applications_ibfk_4` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `leave_applications_ibfk_2` FOREIGN KEY (`leave_reason_id`) REFERENCES `leave_reasons` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `leave_applications_ibfk_3` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_types` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `leave_applications_ibfk_4` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `leave_applications_ibfk_5` FOREIGN KEY (`leave_status_id`) REFERENCES `leave_statuses` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
-INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `leave_status`, `verified`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 2, 4, 1, '2018-11-13 00:00:00', '2018-11-15 00:00:00', '2.00', '', 'dahsodh', 'jjfsdf', 'P', 0, 1, 0, 0, '2018-11-13 10:29:44', '2018-11-15 10:56:22');
-INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `leave_status`, `verified`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 2, 1, 2, 1, '2018-11-15 00:00:00', '2018-11-16 00:00:00', '1.00', '', 'cc', 'sdffsd', 'P', 0, 1, 0, 0, '2018-11-15 11:20:01', '2018-11-15 13:05:34');
-INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `leave_status`, `verified`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 3, 2, 3, 1, '2018-11-15 09:30:00', '2018-11-15 12:00:00', '2.30', '', 'fsd', 'fsdf', 'P', 0, 1, 0, 0, '2018-11-15 12:41:10', '2018-11-15 13:04:47');
+INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 2, 4, 1, 1, '2018-11-13 00:00:00', '2018-11-15 00:00:00', '2.00', '', 'dahsodh', 'jjfsdf', 1, 0, 0, '2018-11-13 10:29:44', '2018-11-16 16:53:43');
+INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 2, 1, 2, 1, 1, '2018-11-15 00:00:00', '2018-11-16 00:00:00', '1.00', '', 'cc', 'sdffsd', 1, 0, 0, '2018-11-15 11:20:01', '2018-11-16 16:53:47');
+INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 3, 2, 3, 1, 2, '2018-11-15 09:30:00', '2018-11-15 12:00:00', '2.30', '', 'fsd', 'fsdf', 1, 0, 0, '2018-11-15 12:41:10', '2018-11-16 17:25:27');
 
 
 #
@@ -164,6 +165,53 @@ INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`,
 INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'आपात चिकित्सा', '', '');
 INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 1, 'casual', '', '');
 INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 2, 'आकस्मिक', '', '');
+
+
+#
+# TABLE STRUCTURE FOR: leave_statuses
+#
+
+DROP TABLE IF EXISTS `leave_statuses`;
+
+CREATE TABLE `leave_statuses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+INSERT INTO `leave_statuses` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 1, 0, 0, '2018-11-16 16:56:42', '2018-11-16 16:56:42');
+INSERT INTO `leave_statuses` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 1, 0, 0, '2018-11-16 16:56:59', '2018-11-16 16:56:59');
+INSERT INTO `leave_statuses` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 1, 0, 0, '2018-11-16 16:57:04', '2018-11-16 16:57:04');
+
+
+#
+# TABLE STRUCTURE FOR: leave_status_details
+#
+
+DROP TABLE IF EXISTS `leave_status_details`;
+
+CREATE TABLE `leave_status_details` (
+  `id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `html` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  UNIQUE KEY `id` (`id`,`language_id`),
+  KEY `language_id` (`language_id`),
+  CONSTRAINT `leave_status_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `leave_applications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `leave_status_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `leave_status_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, 'pending', '', '');
+INSERT INTO `leave_status_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'pending', '', '');
+INSERT INTO `leave_status_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 1, 'approved', '', '');
+INSERT INTO `leave_status_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 2, 'approved', '', '');
+INSERT INTO `leave_status_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (3, 1, 'cancel', '', '');
+INSERT INTO `leave_status_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (3, 2, 'cancel', '', '');
 
 
 #

@@ -62,6 +62,11 @@ class Leave_applications extends MX_Controller {
         else:
             $this->data['leave_type_id'] = 0;
         endif;
+        if (isset($result['leave_status_id']) && $result['leave_status_id']) :
+            $this->data['leave_status_id'] = $result['leave_status_id'];
+        else:
+            $this->data['leave_status_id'] = 0;
+        endif;
 
         if (isset($result['from_date']) && $result['from_date']) :
             $this->data['from_date'] = date('d-m-Y H:i', strtotime($result['from_date']));
@@ -100,6 +105,9 @@ class Leave_applications extends MX_Controller {
         $this->load->model('leave_managment_module/leave_types_model');
         $this->data['leave_types'] = $this->leave_types_model->getTables();
 
+        $this->load->model('leave_managment_module/leave_statuses_model');
+        $this->data['leave_statuses'] = $this->leave_statuses_model->getTables();
+        
         $this->data['ajax_list'] = base_url('leave_managment_module/leave_applications');
         $this->data['ajax_save'] = base_url('leave_managment_module/api/leave_applications_api/save');
         $this->data['ajax_date_days'] = base_url('leave_managment_module/api/leave_applications_api/dateToDay');

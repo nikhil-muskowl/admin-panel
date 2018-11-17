@@ -5,6 +5,8 @@
     "leave_applications",    
     "leave_reasons",
     "leave_reason_details",
+    "leave_statuses",
+    "leave_status_details",
     "leave_types",
     "leave_type_details",
     "user_leave_authorities"
