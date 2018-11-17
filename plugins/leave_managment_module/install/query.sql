@@ -77,7 +77,7 @@ INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, 
 INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (8, 2, 4, '1.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43');
 INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (9, 3, 1, '1.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43');
 INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (10, 3, 2, '1.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43');
-INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (11, 3, 3, '2.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43');
+INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (11, 3, 3, '-2.30', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-17 11:05:00');
 INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (12, 3, 4, '1.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43');
 
 
@@ -120,7 +120,7 @@ CREATE TABLE `leave_applications` (
 
 INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 2, 4, 1, 1, '2018-11-13 00:00:00', '2018-11-15 00:00:00', '2.00', '', 'dahsodh', 'jjfsdf', 1, 0, 0, '2018-11-13 10:29:44', '2018-11-16 16:53:43');
 INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 2, 1, 2, 1, 1, '2018-11-15 00:00:00', '2018-11-16 00:00:00', '1.00', '', 'cc', 'sdffsd', 1, 0, 0, '2018-11-15 11:20:01', '2018-11-16 16:53:47');
-INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 3, 2, 3, 1, 2, '2018-11-15 09:30:00', '2018-11-15 12:00:00', '2.30', '', 'fsd', 'fsdf', 1, 0, 0, '2018-11-15 12:41:10', '2018-11-16 17:25:27');
+INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 3, 2, 3, 1, 2, '2018-11-15 09:30:00', '2018-11-15 12:00:00', '2.30', '', 'fsd', 'fsdf', 1, 0, 0, '2018-11-15 12:41:10', '2018-11-17 11:05:00');
 
 
 #
@@ -161,8 +161,8 @@ CREATE TABLE `leave_reason_details` (
   CONSTRAINT `leave_reason_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, 'medical emergency', '', '');
-INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'आपात चिकित्सा', '', '');
+INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, 'mobile', '', '');
+INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'mobile', '', '');
 INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 1, 'casual', '', '');
 INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (2, 2, 'आकस्मिक', '', '');
 

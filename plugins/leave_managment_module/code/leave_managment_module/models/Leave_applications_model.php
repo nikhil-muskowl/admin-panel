@@ -9,11 +9,18 @@ class Leave_applications_model extends CI_Model {
     private $order = array('modified_date' => 'desc');
     private $status;
     private $language_id;
+    private $pending_id;
+    private $approved_id;
+    private $cancel_id;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
         $this->language_id = 1;
+
+        $this->pending_id = $this->settings_lib->config('leave_managment_module', 'pending_id');
+        $this->approved_id = $this->settings_lib->config('leave_managment_module', 'approved_id');
+        $this->cancel_id = $this->settings_lib->config('leave_managment_module', 'cancel_id');
     }
 
     private function _getTablesQuery($array = array()) {
@@ -126,15 +133,6 @@ class Leave_applications_model extends CI_Model {
         $this->db->set('leave_reason_id', $this->input->post('leave_reason_id'));
         $this->db->set('leave_type_id', $this->input->post('leave_type_id'));
 
-        if ($this->input->post('leave_status_id')):
-            $leave_status_id = $this->input->post('leave_status_id');
-        else:
-            $leave_status_id = $this->settings_lib->config('leave_managment_module', 'pending_id');
-        endif;
-
-        $this->db->set('leave_status_id', $leave_status_id);
-
-
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
         elseif ($this->languages_lib->getLanguageId()):
@@ -171,7 +169,10 @@ class Leave_applications_model extends CI_Model {
             $id = $this->input->post('id');
             $this->db->where('id', $id);
             $this->db->update($this->table);
+            $this->leave_status();
         else:
+            $leave_status_id = $this->pending_id;
+            $this->db->set('leave_status_id', $leave_status_id);
             $this->db->insert($this->table);
             $id = $this->db->insert_id();
         endif;
@@ -196,9 +197,29 @@ class Leave_applications_model extends CI_Model {
     public function leave_status() {
         $this->db->trans_start();
 
-        $this->db->set('leave_status_id', $this->input->post('leave_status_id'));
-        $this->db->where('id', $this->input->post('id'));
-        $this->db->update($this->table);
+        $leaveApplication = $this->getById($this->input->post('id'));
+
+        if ($leaveApplication):
+
+            $user_leaves = $this->db->get_where('user_leaves', array('user_id' => $leaveApplication['user_id'], 'leave_type_id' => $leaveApplication['leave_type_id']))->row_array();
+
+            if ($user_leaves && $this->input->post('leave_status_id') != $this->pending_id):
+                if ($this->input->post('leave_status_id') == $this->approved_id):
+                    $total = $user_leaves['total'] - $leaveApplication['total'];
+                elseif ($this->input->post('leave_status_id') == $this->cancel_id):
+                    $total = $user_leaves['total'] + $leaveApplication['total'];
+                endif;
+
+                $this->db->set('total', $total);
+                $this->db->where('user_id', $leaveApplication['user_id']);
+                $this->db->where('leave_type_id', $leaveApplication['leave_type_id']);
+                $this->db->update('user_leaves');
+
+                $this->db->set('leave_status_id', $this->input->post('leave_status_id'));
+                $this->db->where('id', $this->input->post('id'));
+                $this->db->update($this->table);
+            endif;
+        endif;
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {

@@ -1,26 +1,18 @@
 <?php
 
-class Leave_applications_model extends CI_Model {
+class Penalties_model extends CI_Model {
 
-    private $table = 'leave_applications';
-    private $table_view = 'leave_applications_view';
-    private $column_order = array(null, 'user_name', 'leave_reason', 'leave_type', 'from_date', 'to_date', 'total', 'leave_status', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('user_name', 'leave_reason', 'leave_type', 'from_date', 'to_date', 'total', 'leave_status', 'status', 'created_date', 'modified_date');
+    private $table = 'penalties';
+    private $table_view = 'penalties_view';
+    private $column_order = array(null, 'user_name', 'penalty_reason', 'date', 'total', 'subject', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('user_name', 'penalty_reason', 'date', 'total', 'subject', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
-    private $language_id;
-    private $pending_id;
-    private $approved_id;
-    private $cancel_id;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
         $this->language_id = 1;
-
-        $this->pending_id = $this->settings_lib->config('leave_managment_module', 'pending_id');
-        $this->approved_id = $this->settings_lib->config('leave_managment_module', 'approved_id');
-        $this->cancel_id = $this->settings_lib->config('leave_managment_module', 'cancel_id');
     }
 
     private function _getTablesQuery($array = array()) {
@@ -30,6 +22,11 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
+
 
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
@@ -90,6 +87,11 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
+
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
         elseif ($this->languages_lib->getLanguageId()):
@@ -130,8 +132,7 @@ class Leave_applications_model extends CI_Model {
         $this->db->trans_start();
 
         $this->db->set('user_id', $this->input->post('user_id'));
-        $this->db->set('leave_reason_id', $this->input->post('leave_reason_id'));
-        $this->db->set('leave_type_id', $this->input->post('leave_type_id'));
+        $this->db->set('penalty_reason_id', $this->input->post('penalty_reason_id'));
 
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
@@ -140,27 +141,9 @@ class Leave_applications_model extends CI_Model {
         endif;
         $this->db->set('language_id', $this->language_id);
 
-        $total = 0;
-        $leave_types = $this->getTypeById($this->input->post('leave_type_id'));
-        if ($leave_types):
-            if ($this->input->post('from_date') && $this->input->post('to_date')):
 
-                if ($leave_types['type'] == 'hour'):
-                    $from_date = date('Y-m-d h:i:sa', strtotime($this->input->post('from_date')));
-                    $to_date = date('Y-m-d h:i:sa', strtotime($this->input->post('to_date')));
-                    $total = $this->settings_lib->getHours($from_date, $to_date);
-                else:
-                    $from_date = date('Y-m-d', strtotime($this->input->post('from_date')));
-                    $to_date = date('Y-m-d', strtotime($this->input->post('to_date')));
-                    $total = $this->settings_lib->dateToDay($from_date, $to_date);
-                endif;
-            endif;
-        endif;
-
-        $this->db->set('from_date', $from_date);
-        $this->db->set('to_date', $to_date);
-        $this->db->set('total', $total);
-
+        $this->db->set('date', date('Y-m-d', strtotime($this->input->post('date'))));
+        $this->db->set('total', $this->input->post('total'));
         $this->db->set('subject', $this->input->post('subject'));
         $this->db->set('text', $this->input->post('text'));
 
@@ -169,10 +152,7 @@ class Leave_applications_model extends CI_Model {
             $id = $this->input->post('id');
             $this->db->where('id', $id);
             $this->db->update($this->table);
-            $this->leave_status();
         else:
-            $leave_status_id = $this->pending_id;
-            $this->db->set('leave_status_id', $leave_status_id);
             $this->db->insert($this->table);
             $id = $this->db->insert_id();
         endif;
@@ -184,50 +164,6 @@ class Leave_applications_model extends CI_Model {
         } else {
             $this->db->trans_commit();
             return $this->getById($id);
-        }
-    }
-
-    public function getTypeById($id) {
-        $this->db->from('leave_types');
-        $this->db->where('id', $id);
-        $query = $this->db->get();
-        return $query->row_array();
-    }
-
-    public function leave_status() {
-        $this->db->trans_start();
-
-        $leaveApplication = $this->getById($this->input->post('id'));
-
-        if ($leaveApplication):
-
-            $user_leaves = $this->db->get_where('user_leaves', array('user_id' => $leaveApplication['user_id'], 'leave_type_id' => $leaveApplication['leave_type_id']))->row_array();
-
-            if ($user_leaves && $this->input->post('leave_status_id') != $this->pending_id):
-                if ($this->input->post('leave_status_id') == $this->approved_id):
-                    $total = $user_leaves['total'] - $leaveApplication['total'];
-                elseif ($this->input->post('leave_status_id') == $this->cancel_id):
-                    $total = $user_leaves['total'] + $leaveApplication['total'];
-                endif;
-
-                $this->db->set('total', $total);
-                $this->db->where('user_id', $leaveApplication['user_id']);
-                $this->db->where('leave_type_id', $leaveApplication['leave_type_id']);
-                $this->db->update('user_leaves');
-
-                $this->db->set('leave_status_id', $this->input->post('leave_status_id'));
-                $this->db->where('id', $this->input->post('id'));
-                $this->db->update($this->table);
-            endif;
-        endif;
-
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === FALSE) {
-            $this->db->trans_rollback();
-            return FALSE;
-        } else {
-            $this->db->trans_commit();
-            return TRUE;
         }
     }
 
