@@ -199,13 +199,18 @@ class Leave_applications_model extends CI_Model {
             if ($user_leaves):
                 if ($this->input->post('leave_status_id') == $this->settings_lib->config('leave_managment_module', 'approved_id')):
                     $total = $user_leaves['total'] - $leaveApplication['total'];
+                    $this->db->set('total', $total);
+                    $this->db->where('user_id', $leaveApplication['user_id']);
+                    $this->db->where('leave_type_id', $leaveApplication['leave_type_id']);
+                    $this->db->update('user_leaves');
                 elseif ($this->input->post('leave_status_id') == $this->settings_lib->config('leave_managment_module', 'cancel_id')):
                     $total = $user_leaves['total'] + $leaveApplication['total'];
+                    $this->db->set('total', $total);
+                    $this->db->where('user_id', $leaveApplication['user_id']);
+                    $this->db->where('leave_type_id', $leaveApplication['leave_type_id']);
+                    $this->db->update('user_leaves');
                 endif;
-                $this->db->set('total', $total);
-                $this->db->where('user_id', $leaveApplication['user_id']);
-                $this->db->where('leave_type_id', $leaveApplication['leave_type_id']);
-                $this->db->update('user_leaves');
+
             endif;
         endif;
 
