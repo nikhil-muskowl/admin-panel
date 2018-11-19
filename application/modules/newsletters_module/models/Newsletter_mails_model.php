@@ -175,14 +175,15 @@ class Newsletter_mails_model extends CI_Model {
             $newsletters = $this->getNewsletters();
             if ($newsletters):
                 foreach ($newsletters as $newsletter) :
-                    $sendStatus = $this->sendEmail($newsletter['email'], $newsletter_mails['subject'], $newsletter_mails['html']);
-
-                    if ($sendStatus):
-                        $email_status = 'Send';
+                    $this->email_lib->toEmail = $newsletter['email'];
+                    $this->email_lib->subject = $newsletter_mails['subject'];
+                    $this->email_lib->message = $newsletter_mails['html'];
+                    if ($this->email_lib->send()):
                         $status = TRUE;
+                        $email_status = 'sent';
                     else:
-                        $email_status = 'Failed';
                         $status = FALSE;
+                        $email_status = 'failed';
                     endif;
 
                     $dataArray = array(
@@ -205,17 +206,6 @@ class Newsletter_mails_model extends CI_Model {
         endif;
 
         return $status;
-    }
-
-    public function sendEmail($email, $subject, $message) {
-        $this->email_lib->toEmail = $email;
-        $this->email_lib->subject = $subject;
-        $this->email_lib->message = $message;
-        if ($this->email_lib->send()):
-            return TRUE;
-        else:
-            return FALSE;
-        endif;
     }
 
 }
