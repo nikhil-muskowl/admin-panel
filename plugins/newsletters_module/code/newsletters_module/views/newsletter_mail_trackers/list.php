@@ -22,6 +22,7 @@
                                 <th><?= $this->lang->line('text_email') ?></th>
                                 <th><?= $this->lang->line('text_contact') ?></th>                                
                                 <th><?= $this->lang->line('text_to_email') ?></th>                                
+                                <th><?= $this->lang->line('text_email_status') ?></th>                                
                                 <th><?= $this->lang->line('text_status') ?></th>
                                 <th><?= $this->lang->line('text_modified_date') ?></th>                            
                                 <th style="width:80px;"><?= $this->lang->line('text_action') ?></th>

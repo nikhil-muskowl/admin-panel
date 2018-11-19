@@ -25,6 +25,7 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
         foreach ($list as $object) :
             $result[] = array(
                 'id' => $object['id'],
+                'user_id' => $object['user_id'],
                 'user_name' => $object['user_name'],
                 'from_date' => date($this->datetime_format, strtotime($object['from_date'])),
                 'to_date' => date($this->datetime_format, strtotime($object['to_date'])),
@@ -59,6 +60,8 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
             $action = '';
             $action .= '<a class="btn btn-sm btn-primary" href="' . base_url('leave_managment_module/leave_applications/form/' . $object['id']) . '" data-toggle="tooltip" title="' . $this->lang->line('text_edit') . '"><i class="fa fa-pencil"></i></a>';
             $action .= ' <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-toggle="tooltip" title="' . $this->lang->line('text_delete') . '" onclick="delete_record(' . "'" . $object['id'] . "'" . ')"><i class="fa fa-trash"></i></a>';
+            $action .= ' <a class="btn btn-sm btn-default" href="javascript:void(0)" data-toggle="tooltip" title="' . $this->lang->line('text_view') . '" onclick="preview_record(' . "'" . $object['id'] . "'" . ')"><i class="fa fa-eye"></i></a>';
+            $action .= ' <a class="btn btn-sm btn-warning" href="javascript:void(0)" data-toggle="tooltip" title="' . $this->lang->line('text_send') . '" onclick="send_record(' . "'" . $object['id'] . "'" . ')"><i class="fa fa-send"></i></a>';
 
             $checkbox = '<input type="checkbox" class="data-check" value="' . $object['id'] . '">';
 
@@ -351,6 +354,26 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
             echo json_encode($this->data);
             exit;
         endif;
+    }
+
+    public function preview_get($id) {
+        $result = '';
+        $result = $this->leave_applications_model->getPreview($id);
+        echo $result;
+    }
+
+    public function send_get($id) {
+        $this->data = array();
+        $result = $this->leave_applications_model->sendMail($id);
+        if ($result):
+            $this->data['status'] = TRUE;
+            $this->data['message'] = $this->lang->line('text_submit_success');
+        else:
+            $this->data['status'] = FALSE;
+            $this->data['message'] = $this->lang->line('text_submit_error');
+        endif;
+
+        $this->response($this->data);
     }
 
 }

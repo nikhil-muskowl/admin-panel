@@ -1,17 +1,19 @@
 <?php
 
-class User_leave_authorities_model extends CI_Model {
+class Todo_lists_model extends CI_Model {
 
-    private $table = 'user_leave_authorities';
-    private $table_view = 'user_leave_authorities_view';
-    private $column_order = array(null, 'user_name', 'author_name', 'priority', 'status', 'modified_date', null);
-    private $column_search = array('user_name', 'author_name', 'priority', 'status', 'modified_date');
+    private $table = 'todo_lists';
+    private $table_view = 'todo_lists_view';
+    private $column_order = array(null, 'user_name', 'subject', 'text', 'closed', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('user_name', 'subject', 'text', 'closed', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
+    private $language_id;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
+        $this->language_id = 1;
     }
 
     private function _getTablesQuery($array = array()) {
@@ -21,6 +23,17 @@ class User_leave_authorities_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
+
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -74,12 +87,27 @@ class User_leave_authorities_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
         return $this->db->count_all_results();
     }
 
     public function getById($id) {
         $this->db->from($this->table_view);
         $this->db->where('id', $id);
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -102,8 +130,16 @@ class User_leave_authorities_model extends CI_Model {
         $this->db->trans_start();
 
         $this->db->set('user_id', $this->input->post('user_id'));
-        $this->db->set('author_id', $this->input->post('author_id'));
-        $this->db->set('priority', $this->input->post('priority'));
+
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->set('language_id', $this->language_id);
+
+        $this->db->set('subject', $this->input->post('subject'));
+        $this->db->set('text', $this->input->post('text'));
 
         $this->db->set('status', 1);
         if ($this->input->post('id')):

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2018 at 12:29 PM
+-- Generation Time: Nov 19, 2018 at 08:05 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `followers`
 --
 
-DROP TABLE IF EXISTS `followers`;
 CREATE TABLE `followers` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -45,7 +44,6 @@ CREATE TABLE `followers` (
 -- Stand-in structure for view `followers_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `followers_view`;
 CREATE TABLE `followers_view` (
 `id` int(11)
 ,`user_id` int(11)
@@ -65,9 +63,9 @@ CREATE TABLE `followers_view` (
 -- Table structure for table `genders`
 --
 
-DROP TABLE IF EXISTS `genders`;
 CREATE TABLE `genders` (
   `id` int(11) NOT NULL,
+  `image` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int(11) NOT NULL,
   `modified_by` int(11) NOT NULL,
@@ -79,9 +77,9 @@ CREATE TABLE `genders` (
 -- Dumping data for table `genders`
 --
 
-INSERT INTO `genders` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
-(1, 1, 0, 0, '2018-08-08 11:04:08', '2018-08-08 11:04:08'),
-(2, 1, 0, 0, '2018-08-08 11:04:21', '2018-08-08 11:04:21');
+INSERT INTO `genders` (`id`, `image`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
+(1, '', 1, 0, 0, '2018-08-08 11:04:08', '2018-08-08 11:04:08'),
+(2, '', 1, 0, 0, '2018-08-08 11:04:21', '2018-08-08 11:04:21');
 
 -- --------------------------------------------------------
 
@@ -89,7 +87,6 @@ INSERT INTO `genders` (`id`, `status`, `created_by`, `modified_by`, `created_dat
 -- Stand-in structure for view `genders_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `genders_view`;
 CREATE TABLE `genders_view` (
 `id` int(11)
 ,`status` tinyint(1)
@@ -109,7 +106,6 @@ CREATE TABLE `genders_view` (
 -- Table structure for table `gender_details`
 --
 
-DROP TABLE IF EXISTS `gender_details`;
 CREATE TABLE `gender_details` (
   `id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
@@ -134,7 +130,6 @@ INSERT INTO `gender_details` (`id`, `language_id`, `title`, `description`, `html
 -- Table structure for table `holidays`
 --
 
-DROP TABLE IF EXISTS `holidays`;
 CREATE TABLE `holidays` (
   `id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
@@ -159,7 +154,6 @@ INSERT INTO `holidays` (`id`, `status`, `date`, `created_by`, `modified_by`, `cr
 -- Stand-in structure for view `holidays_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `holidays_view`;
 CREATE TABLE `holidays_view` (
 `id` int(11)
 ,`status` tinyint(1)
@@ -178,7 +172,6 @@ CREATE TABLE `holidays_view` (
 -- Table structure for table `holiday_details`
 --
 
-DROP TABLE IF EXISTS `holiday_details`;
 CREATE TABLE `holiday_details` (
   `id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
@@ -203,7 +196,6 @@ INSERT INTO `holiday_details` (`id`, `language_id`, `title`, `description`, `htm
 -- Table structure for table `languages`
 --
 
-DROP TABLE IF EXISTS `languages`;
 CREATE TABLE `languages` (
   `id` int(11) NOT NULL,
   `code` varchar(50) NOT NULL,
@@ -230,20 +222,19 @@ INSERT INTO `languages` (`id`, `code`, `name`, `sort_order`, `status`, `created_
 -- Table structure for table `leave_applications`
 --
 
-DROP TABLE IF EXISTS `leave_applications`;
 CREATE TABLE `leave_applications` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `leave_reason_id` int(11) NOT NULL,
   `leave_type_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
+  `leave_status_id` int(11) NOT NULL,
   `from_date` datetime NOT NULL,
   `to_date` datetime NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `file_attach` text NOT NULL,
   `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `leave_status` enum('P','A','C') NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int(11) NOT NULL,
   `modified_by` int(11) NOT NULL,
@@ -255,10 +246,11 @@ CREATE TABLE `leave_applications` (
 -- Dumping data for table `leave_applications`
 --
 
-INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `leave_status`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
-(1, 2, 2, 4, 1, '2018-11-13 00:00:00', '2018-11-15 00:00:00', '2.00', '', 'dahsodh', 'jjfsdf', 'P', 1, 0, 0, '2018-11-13 10:29:44', '2018-11-15 10:56:22'),
-(2, 2, 1, 2, 1, '2018-11-15 00:00:00', '2018-11-16 00:00:00', '1.00', '', 'cc', 'sdffsd', 'P', 1, 0, 0, '2018-11-15 11:20:01', '2018-11-15 13:05:34'),
-(3, 3, 2, 3, 1, '2018-11-15 09:30:00', '2018-11-15 12:00:00', '2.30', '', 'fsd', 'fsdf', 'P', 1, 0, 0, '2018-11-15 12:41:10', '2018-11-15 13:04:47');
+INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
+(1, 2, 2, 4, 1, 1, '2018-11-13 00:00:00', '2018-11-15 00:00:00', '2.00', '', 'leave application', 'i have some urgent hospital work.', 1, 0, 0, '2018-11-13 10:29:44', '2018-11-19 10:48:02'),
+(2, 2, 1, 2, 1, 1, '2018-11-15 00:00:00', '2018-11-16 00:00:00', '1.00', '', 'Leave application', 'i have some urgent hospital work.', 1, 0, 0, '2018-11-15 11:20:01', '2018-11-19 10:47:38'),
+(3, 3, 2, 3, 1, 2, '2018-11-15 09:30:00', '2018-11-15 12:00:00', '2.30', '', 'leave application', 'leave application', 1, 0, 0, '2018-11-15 12:41:10', '2018-11-19 10:43:41'),
+(4, 3, 1, 2, 1, 1, '2018-11-19 00:00:00', '2018-11-21 00:00:00', '2.00', '', 'leave application', 'dfgfdg', 1, 0, 0, '2018-11-19 12:35:10', '2018-11-19 12:35:10');
 
 -- --------------------------------------------------------
 
@@ -266,20 +258,19 @@ INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_typ
 -- Stand-in structure for view `leave_applications_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `leave_applications_view`;
 CREATE TABLE `leave_applications_view` (
 `id` int(11)
 ,`user_id` int(11)
 ,`leave_reason_id` int(11)
 ,`leave_type_id` int(11)
 ,`language_id` int(11)
+,`leave_status_id` int(11)
 ,`from_date` datetime
 ,`to_date` datetime
 ,`total` decimal(10,2)
 ,`file_attach` text
 ,`subject` varchar(100)
 ,`text` text
-,`leave_status` enum('P','A','C')
 ,`status` tinyint(1)
 ,`created_by` int(11)
 ,`modified_by` int(11)
@@ -287,6 +278,7 @@ CREATE TABLE `leave_applications_view` (
 ,`modified_date` datetime
 ,`user_name` varchar(100)
 ,`leave_reason` varchar(100)
+,`leave_status` varchar(100)
 ,`leave_type` varchar(100)
 ,`type` enum('full','half','hour')
 ,`value` int(11)
@@ -299,7 +291,6 @@ CREATE TABLE `leave_applications_view` (
 -- Table structure for table `leave_reasons`
 --
 
-DROP TABLE IF EXISTS `leave_reasons`;
 CREATE TABLE `leave_reasons` (
   `id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
@@ -323,7 +314,6 @@ INSERT INTO `leave_reasons` (`id`, `status`, `created_by`, `modified_by`, `creat
 -- Stand-in structure for view `leave_reasons_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `leave_reasons_view`;
 CREATE TABLE `leave_reasons_view` (
 `id` int(11)
 ,`status` tinyint(1)
@@ -341,7 +331,6 @@ CREATE TABLE `leave_reasons_view` (
 -- Table structure for table `leave_reason_details`
 --
 
-DROP TABLE IF EXISTS `leave_reason_details`;
 CREATE TABLE `leave_reason_details` (
   `id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
@@ -355,10 +344,77 @@ CREATE TABLE `leave_reason_details` (
 --
 
 INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES
-(1, 1, 'medical emergency', '', ''),
-(1, 2, 'आपात चिकित्सा', '', ''),
+(1, 1, 'emergency', '', ''),
+(1, 2, 'emergency', '', ''),
 (2, 1, 'casual', '', ''),
 (2, 2, 'आकस्मिक', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leave_statuses`
+--
+
+CREATE TABLE `leave_statuses` (
+  `id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `leave_statuses`
+--
+
+INSERT INTO `leave_statuses` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
+(1, 1, 0, 0, '2018-11-16 16:56:42', '2018-11-16 16:56:42'),
+(2, 1, 0, 0, '2018-11-16 16:56:59', '2018-11-16 16:56:59'),
+(3, 1, 0, 0, '2018-11-16 16:57:04', '2018-11-16 16:57:04');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `leave_statuses_view`
+-- (See below for the actual view)
+--
+CREATE TABLE `leave_statuses_view` (
+`id` int(11)
+,`status` tinyint(1)
+,`created_by` int(11)
+,`modified_by` int(11)
+,`created_date` datetime
+,`modified_date` datetime
+,`language_id` int(11)
+,`title` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leave_status_details`
+--
+
+CREATE TABLE `leave_status_details` (
+  `id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `html` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `leave_status_details`
+--
+
+INSERT INTO `leave_status_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES
+(1, 1, 'pending', '', ''),
+(1, 2, 'pending', '', ''),
+(2, 1, 'approved', '', ''),
+(2, 2, 'approved', '', ''),
+(3, 1, 'cancel', '', ''),
+(3, 2, 'cancel', '', '');
 
 -- --------------------------------------------------------
 
@@ -366,7 +422,6 @@ INSERT INTO `leave_reason_details` (`id`, `language_id`, `title`, `description`,
 -- Table structure for table `leave_types`
 --
 
-DROP TABLE IF EXISTS `leave_types`;
 CREATE TABLE `leave_types` (
   `id` int(11) NOT NULL,
   `type` enum('full','half','hour') NOT NULL,
@@ -395,7 +450,6 @@ INSERT INTO `leave_types` (`id`, `type`, `value`, `file`, `status`, `created_by`
 -- Stand-in structure for view `leave_types_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `leave_types_view`;
 CREATE TABLE `leave_types_view` (
 `id` int(11)
 ,`type` enum('full','half','hour')
@@ -416,7 +470,6 @@ CREATE TABLE `leave_types_view` (
 -- Table structure for table `leave_type_details`
 --
 
-DROP TABLE IF EXISTS `leave_type_details`;
 CREATE TABLE `leave_type_details` (
   `id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
@@ -445,7 +498,6 @@ INSERT INTO `leave_type_details` (`id`, `language_id`, `title`, `description`, `
 -- Table structure for table `module_permissions`
 --
 
-DROP TABLE IF EXISTS `module_permissions`;
 CREATE TABLE `module_permissions` (
   `user_group_id` int(11) NOT NULL,
   `module` varchar(200) NOT NULL,
@@ -474,11 +526,15 @@ INSERT INTO `module_permissions` (`user_group_id`, `module`, `is_add`, `is_view`
 (1, 'Languages', 1, 1, 1, 1),
 (1, 'Leave_applications', 1, 1, 1, 1),
 (1, 'Leave_reasons', 1, 1, 1, 1),
+(1, 'Leave_settings', 1, 1, 1, 1),
+(1, 'Leave_statuses', 1, 1, 1, 1),
 (1, 'Leave_types', 1, 1, 1, 1),
 (1, 'Newsletters', 1, 1, 1, 1),
 (1, 'Newsletter_mails', 1, 1, 1, 1),
 (1, 'Newsletter_mail_trackers', 1, 1, 1, 1),
 (1, 'Notifications', 1, 1, 1, 1),
+(1, 'Penalties', 1, 1, 1, 1),
+(1, 'Penalty_reasons', 1, 1, 1, 1),
 (1, 'Pets', 1, 1, 1, 1),
 (1, 'Pet_levels', 1, 1, 1, 1),
 (1, 'Pet_settings', 1, 1, 1, 1),
@@ -501,7 +557,98 @@ INSERT INTO `module_permissions` (`user_group_id`, `module`, `is_add`, `is_view`
 (1, 'User_leaves', 1, 1, 1, 1),
 (1, 'User_leave_authorities', 1, 1, 1, 1),
 (1, 'User_pets', 1, 1, 1, 1),
-(1, 'User_pet_points', 1, 1, 1, 1);
+(1, 'User_pet_points', 1, 1, 1, 1),
+(2, 'Holidays', 0, 1, 0, 0),
+(2, 'Leave_applications', 0, 1, 0, 0),
+(2, 'Leave_reasons', 0, 1, 0, 0),
+(2, 'Leave_statuses', 0, 1, 0, 0),
+(2, 'Leave_types', 0, 1, 0, 0),
+(2, 'User_leaves', 0, 1, 0, 0),
+(2, 'User_leave_authorities', 0, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `newsletters`
+--
+
+CREATE TABLE `newsletters` (
+  `id` int(11) NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `contact` varchar(20) NOT NULL,
+  `subscribe` tinyint(1) NOT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `newsletters`
+--
+
+INSERT INTO `newsletters` (`id`, `name`, `email`, `contact`, `subscribe`, `status`, `created_date`, `modified_date`) VALUES
+(1, 'nadim', 'nadim.sheikh.07@gmail.com', '7737033665', 1, 1, '2018-11-17 14:39:43', '2018-11-17 14:39:43'),
+(2, 'rajesh', 'rajesh.muskowl@gmail.com', '123456', 1, 1, '2018-11-17 14:39:43', '2018-11-17 14:39:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `newsletter_mails`
+--
+
+CREATE TABLE `newsletter_mails` (
+  `id` int(11) NOT NULL,
+  `title` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `contact` varchar(20) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `type_value` text NOT NULL,
+  `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `html` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `newsletter_mails`
+--
+
+INSERT INTO `newsletter_mails` (`id`, `title`, `name`, `email`, `contact`, `type`, `type_value`, `subject`, `text`, `html`, `status`, `created_date`, `modified_date`) VALUES
+(2, 'test', 'muskowl', 'info@muskowl.com', '7737033665', '', '', 'test', 'test', 'test', 1, '2018-11-17 15:09:29', '2018-11-17 15:09:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `newsletter_mail_trackers`
+--
+
+CREATE TABLE `newsletter_mail_trackers` (
+  `id` int(11) NOT NULL,
+  `title` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `contact` varchar(20) NOT NULL,
+  `to_email` varchar(120) NOT NULL,
+  `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `html` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email_status` varchar(10) NOT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `newsletter_mail_trackers`
+--
+
+INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES
+(1, 'test', 'nadim', 'info@muskowl.com', '7737033665', 'nadim.sheikh.07@gmail.com', 'test', 'test', 'test', 'Failed', 1, '2018-11-19 10:11:18', '2018-11-19 10:11:18'),
+(2, 'test', 'rajesh', 'info@muskowl.com', '7737033665', 'rajesh.muskowl@gmail.com', 'test', 'test', 'test', 'Failed', 1, '2018-11-19 10:11:19', '2018-11-19 10:11:19');
 
 -- --------------------------------------------------------
 
@@ -509,7 +656,6 @@ INSERT INTO `module_permissions` (`user_group_id`, `module`, `is_add`, `is_view`
 -- Table structure for table `notifications`
 --
 
-DROP TABLE IF EXISTS `notifications`;
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
   `image` text NOT NULL,
@@ -536,7 +682,6 @@ INSERT INTO `notifications` (`id`, `image`, `type`, `type_id`, `status`, `sort_o
 -- Stand-in structure for view `notifications_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `notifications_view`;
 CREATE TABLE `notifications_view` (
 `id` int(11)
 ,`image` text
@@ -559,7 +704,6 @@ CREATE TABLE `notifications_view` (
 -- Table structure for table `notification_details`
 --
 
-DROP TABLE IF EXISTS `notification_details`;
 CREATE TABLE `notification_details` (
   `id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
@@ -581,7 +725,6 @@ INSERT INTO `notification_details` (`id`, `language_id`, `title`, `description`)
 -- Table structure for table `notification_to_users`
 --
 
-DROP TABLE IF EXISTS `notification_to_users`;
 CREATE TABLE `notification_to_users` (
   `id` int(11) NOT NULL,
   `notification_id` int(11) NOT NULL,
@@ -600,10 +743,128 @@ INSERT INTO `notification_to_users` (`id`, `notification_id`, `user_id`, `is_vie
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `penalties`
+--
+
+CREATE TABLE `penalties` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `penalty_reason_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penalties`
+--
+
+INSERT INTO `penalties` (`id`, `user_id`, `language_id`, `penalty_reason_id`, `date`, `total`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
+(1, 2, 1, 1, '2018-11-17', '100.00', 'mobile penalty', 'mobile penalty', 1, 0, 0, '2018-11-17 11:32:54', '2018-11-17 11:35:16'),
+(2, 2, 1, 2, '2018-11-16', '100.00', 'absent', 'absent', 1, 0, 0, '2018-11-17 11:49:43', '2018-11-17 11:49:43'),
+(3, 3, 1, 2, '2018-11-15', '200.00', 'absent', 'absent', 1, 0, 0, '2018-11-17 11:52:11', '2018-11-17 11:52:11');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `penalties_view`
+-- (See below for the actual view)
+--
+CREATE TABLE `penalties_view` (
+`id` int(11)
+,`user_id` int(11)
+,`language_id` int(11)
+,`penalty_reason_id` int(11)
+,`date` date
+,`total` decimal(10,2)
+,`subject` varchar(100)
+,`text` text
+,`status` tinyint(1)
+,`created_by` int(11)
+,`modified_by` int(11)
+,`created_date` datetime
+,`modified_date` datetime
+,`user_name` varchar(100)
+,`penalty_reason` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penalty_reasons`
+--
+
+CREATE TABLE `penalty_reasons` (
+  `id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penalty_reasons`
+--
+
+INSERT INTO `penalty_reasons` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
+(1, 1, 0, 0, '2018-11-17 11:28:34', '2018-11-17 11:28:34'),
+(2, 1, 0, 0, '2018-11-17 11:29:46', '2018-11-17 11:29:46');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `penalty_reasons_view`
+-- (See below for the actual view)
+--
+CREATE TABLE `penalty_reasons_view` (
+`id` int(11)
+,`status` tinyint(1)
+,`created_by` int(11)
+,`modified_by` int(11)
+,`created_date` datetime
+,`modified_date` datetime
+,`language_id` int(11)
+,`title` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penalty_reason_details`
+--
+
+CREATE TABLE `penalty_reason_details` (
+  `id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `html` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penalty_reason_details`
+--
+
+INSERT INTO `penalty_reason_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES
+(1, 1, 'mobile', '', ''),
+(1, 2, 'mobile', '', ''),
+(2, 1, 'absent', '', ''),
+(2, 2, 'absent', '', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `plugins`
 --
 
-DROP TABLE IF EXISTS `plugins`;
 CREATE TABLE `plugins` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -621,7 +882,9 @@ CREATE TABLE `plugins` (
 
 INSERT INTO `plugins` (`id`, `name`, `code`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
 (57, 'Leave Managment Module', 'leave_managment_module', 1, 0, 0, '2018-11-12 10:47:43', '2018-11-12 10:47:43'),
-(58, 'Notifications Module', 'notifications_module', 1, 0, 0, '2018-11-12 16:41:53', '2018-11-12 16:41:53');
+(58, 'Notifications Module', 'notifications_module', 1, 0, 0, '2018-11-12 16:41:53', '2018-11-12 16:41:53'),
+(59, 'Penalties Module', 'penalties_module', 1, 0, 0, '2018-11-17 11:52:42', '2018-11-17 11:52:42'),
+(60, 'Newsletters Module', 'newsletters_module', 1, 0, 0, '2018-11-17 11:55:29', '2018-11-17 11:55:29');
 
 -- --------------------------------------------------------
 
@@ -629,7 +892,6 @@ INSERT INTO `plugins` (`id`, `name`, `code`, `status`, `created_by`, `modified_b
 -- Table structure for table `settings`
 --
 
-DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
   `id` int(11) NOT NULL,
   `code` varchar(100) NOT NULL,
@@ -642,32 +904,30 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `code`, `code_key`, `value`) VALUES
-(536, 'pet_module', 'register_points', '500'),
-(537, 'pet_module', 'story_upload_points', '100'),
-(538, 'pet_module', 'story_comment_points', '50'),
-(539, 'pet_module', 'story_like_points', '50'),
-(540, 'pet_module', 'story_dislike_points', '20'),
-(562, 'config', 'name', 'Musk'),
-(563, 'config', 'contact', '7737033665'),
-(564, 'config', 'email', 'nadim@muskowl.com'),
-(565, 'config', 'address', 'Pacific'),
-(566, 'config', 'mail_protocol', 'mail'),
-(567, 'config', 'smtp_hostname', 'localhost'),
-(568, 'config', 'smtp_username', 'nadim@muskowl.com'),
-(569, 'config', 'smtp_password', 'NS@123456'),
-(570, 'config', 'smtp_port', '25'),
-(571, 'config', 'smtp_timeout', '5'),
-(572, 'config', 'date_format', 'D m Y'),
-(573, 'config', 'datetime_format', 'd-m-Y H:i A'),
-(574, 'config', 'decimal_format', '2'),
-(575, 'config', 'list_image_width', '100'),
-(576, 'config', 'list_image_height', '100'),
-(577, 'config', 'list_banner_width', '100'),
-(578, 'config', 'list_banner_height', '100'),
-(579, 'config', 'detail_image_width', '800'),
-(580, 'config', 'detail_image_height', '500'),
-(581, 'config', 'detail_banner_width', '1500'),
-(582, 'config', 'detail_banner_height', '500');
+(583, 'leave_managment_module', 'pending_id', '1'),
+(584, 'leave_managment_module', 'approved_id', '2'),
+(585, 'leave_managment_module', 'cancel_id', '3'),
+(628, 'config', 'name', 'Musk'),
+(629, 'config', 'contact', '7737033665'),
+(630, 'config', 'email', 'nadim@muskowl.com'),
+(631, 'config', 'address', 'Pacific'),
+(632, 'config', 'mail_protocol', 'mail'),
+(633, 'config', 'smtp_hostname', 'localhost'),
+(634, 'config', 'smtp_username', 'nadim@muskowl.com'),
+(635, 'config', 'smtp_password', 'NS@123456'),
+(636, 'config', 'smtp_port', '25'),
+(637, 'config', 'smtp_timeout', '5'),
+(638, 'config', 'date_format', 'd-m-Y'),
+(639, 'config', 'datetime_format', 'd-m-Y h:i A'),
+(640, 'config', 'decimal_format', '2'),
+(641, 'config', 'list_image_width', '100'),
+(642, 'config', 'list_image_height', '100'),
+(643, 'config', 'list_banner_width', '100'),
+(644, 'config', 'list_banner_height', '100'),
+(645, 'config', 'detail_image_width', '800'),
+(646, 'config', 'detail_image_height', '500'),
+(647, 'config', 'detail_banner_width', '1500'),
+(648, 'config', 'detail_banner_height', '500');
 
 -- --------------------------------------------------------
 
@@ -675,7 +935,6 @@ INSERT INTO `settings` (`id`, `code`, `code_key`, `value`) VALUES
 -- Table structure for table `url_alias`
 --
 
-DROP TABLE IF EXISTS `url_alias`;
 CREATE TABLE `url_alias` (
   `language_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
@@ -708,7 +967,6 @@ INSERT INTO `url_alias` (`language_id`, `type_id`, `type`, `keyword`, `meta_titl
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `user_group_id` int(11) NOT NULL,
@@ -737,9 +995,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_group_id`, `name`, `email`, `contact`, `gender_id`, `dob`, `otp`, `password`, `image`, `banner`, `is_admin`, `verified`, `status`, `latitude`, `longitude`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
-(1, 1, 'admin', 'admin', '1234567890', 2, '0000-00-00', 0, 'admin', '', '', 1, 0, 1, '0.000000', '0.000000', 0, 0, '2018-08-24 18:04:47', '2018-11-15 16:11:16'),
-(2, 1, 'nadim', 'nadim.sheikh.07@gmail.com', '7737033665', 1, '0000-00-00', 0, '123456', '', '', 0, 0, 1, '0.000000', '0.000000', 0, 0, '2018-11-12 16:39:55', '2018-11-12 16:40:35'),
-(3, 1, 'rajesh', 'rajesh.muskowl@gmail.com', '123456', 1, '0000-00-00', 0, '', '', '', 0, 0, 1, '0.000000', '0.000000', 0, 0, '2018-11-14 17:23:17', '2018-11-14 17:23:17');
+(1, 1, 'arushi', 'arushi@muskowl.com', '1234567890', 2, '0000-00-00', 0, 'admin', '', '', 1, 0, 1, '0.000000', '0.000000', 0, 0, '2018-08-24 18:04:47', '2018-11-19 11:13:05'),
+(2, 1, 'nadim', 'nadim@muskowl.com', '7737033665', 1, '0000-00-00', 0, '123456', '', '', 0, 0, 1, '0.000000', '0.000000', 0, 0, '2018-11-12 16:39:55', '2018-11-19 10:20:16'),
+(3, 2, 'rajesh', 'rajesh.muskowl@gmail.com', '123456', 1, '0000-00-00', 0, '', '', '', 0, 0, 1, '0.000000', '0.000000', 0, 0, '2018-11-14 17:23:17', '2018-11-19 10:21:49'),
+(4, 2, 'pratik', 'pratik@muskowl.com', '1234566456', 1, '0000-00-00', 0, '', '', '', 0, 0, 1, '0.000000', '0.000000', 0, 0, '2018-11-19 10:19:54', '2018-11-19 10:21:44');
 
 -- --------------------------------------------------------
 
@@ -747,7 +1006,6 @@ INSERT INTO `users` (`id`, `user_group_id`, `name`, `email`, `contact`, `gender_
 -- Table structure for table `user_complains`
 --
 
-DROP TABLE IF EXISTS `user_complains`;
 CREATE TABLE `user_complains` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -768,7 +1026,6 @@ CREATE TABLE `user_complains` (
 -- Stand-in structure for view `user_complains_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `user_complains_view`;
 CREATE TABLE `user_complains_view` (
 `id` int(11)
 ,`user_id` int(11)
@@ -791,7 +1048,6 @@ CREATE TABLE `user_complains_view` (
 -- Table structure for table `user_groups`
 --
 
-DROP TABLE IF EXISTS `user_groups`;
 CREATE TABLE `user_groups` (
   `id` int(11) NOT NULL,
   `image` text NOT NULL,
@@ -808,7 +1064,8 @@ CREATE TABLE `user_groups` (
 --
 
 INSERT INTO `user_groups` (`id`, `image`, `banner`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
-(1, '', '', 1, 0, 0, '2018-07-07 17:18:32', '2018-07-07 17:18:32');
+(1, '', '', 1, 0, 0, '2018-07-07 17:18:32', '2018-07-07 17:18:32'),
+(2, '', '', 1, 0, 0, '2018-11-19 10:21:21', '2018-11-19 10:21:21');
 
 -- --------------------------------------------------------
 
@@ -816,7 +1073,6 @@ INSERT INTO `user_groups` (`id`, `image`, `banner`, `status`, `created_by`, `mod
 -- Stand-in structure for view `user_groups_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `user_groups_view`;
 CREATE TABLE `user_groups_view` (
 `id` int(11)
 ,`image` text
@@ -836,7 +1092,6 @@ CREATE TABLE `user_groups_view` (
 -- Table structure for table `user_group_details`
 --
 
-DROP TABLE IF EXISTS `user_group_details`;
 CREATE TABLE `user_group_details` (
   `id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
@@ -849,7 +1104,9 @@ CREATE TABLE `user_group_details` (
 
 INSERT INTO `user_group_details` (`id`, `language_id`, `title`) VALUES
 (1, 1, 'admin'),
-(1, 2, 'admin');
+(1, 2, 'admin'),
+(2, 1, 'employee'),
+(2, 2, 'employee');
 
 -- --------------------------------------------------------
 
@@ -857,7 +1114,6 @@ INSERT INTO `user_group_details` (`id`, `language_id`, `title`) VALUES
 -- Table structure for table `user_leaves`
 --
 
-DROP TABLE IF EXISTS `user_leaves`;
 CREATE TABLE `user_leaves` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -885,7 +1141,7 @@ INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, 
 (8, 2, 4, '1.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43'),
 (9, 3, 1, '1.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43'),
 (10, 3, 2, '1.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43'),
-(11, 3, 3, '2.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43'),
+(11, 3, 3, '-4.60', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-19 10:43:41'),
 (12, 3, 4, '1.00', 1, 0, 0, '2018-11-14 17:25:43', '2018-11-14 17:25:43');
 
 -- --------------------------------------------------------
@@ -894,7 +1150,6 @@ INSERT INTO `user_leaves` (`id`, `user_id`, `leave_type_id`, `total`, `status`, 
 -- Stand-in structure for view `user_leaves_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `user_leaves_view`;
 CREATE TABLE `user_leaves_view` (
 `id` int(11)
 ,`user_id` int(11)
@@ -919,7 +1174,6 @@ CREATE TABLE `user_leaves_view` (
 -- Table structure for table `user_leave_authorities`
 --
 
-DROP TABLE IF EXISTS `user_leave_authorities`;
 CREATE TABLE `user_leave_authorities` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -935,7 +1189,11 @@ CREATE TABLE `user_leave_authorities` (
 --
 
 INSERT INTO `user_leave_authorities` (`id`, `user_id`, `author_id`, `priority`, `status`, `created_date`, `modified_date`) VALUES
-(1, 2, 1, 1, 1, '2018-11-13 10:40:40', '2018-11-13 11:52:19');
+(1, 2, 1, 1, 1, '2018-11-13 10:40:40', '2018-11-13 11:52:19'),
+(2, 2, 4, 2, 1, '2018-11-19 10:24:44', '2018-11-19 10:25:20'),
+(3, 3, 2, 1, 1, '2018-11-19 10:25:04', '2018-11-19 10:25:04'),
+(4, 3, 4, 2, 1, '2018-11-19 10:25:13', '2018-11-19 10:25:13'),
+(5, 3, 1, 3, 1, '2018-11-19 10:25:28', '2018-11-19 10:25:28');
 
 -- --------------------------------------------------------
 
@@ -943,7 +1201,6 @@ INSERT INTO `user_leave_authorities` (`id`, `user_id`, `author_id`, `priority`, 
 -- Stand-in structure for view `user_leave_authorities_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `user_leave_authorities_view`;
 CREATE TABLE `user_leave_authorities_view` (
 `id` int(11)
 ,`user_id` int(11)
@@ -964,7 +1221,6 @@ CREATE TABLE `user_leave_authorities_view` (
 -- Stand-in structure for view `user_notifications_view`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `user_notifications_view`;
 CREATE TABLE `user_notifications_view` (
 `id` int(11)
 ,`image` text
@@ -1018,7 +1274,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `holidays_view`  AS  select
 --
 DROP TABLE IF EXISTS `leave_applications_view`;
 
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `leave_applications_view`  AS  select `la`.`id` AS `id`,`la`.`user_id` AS `user_id`,`la`.`leave_reason_id` AS `leave_reason_id`,`la`.`leave_type_id` AS `leave_type_id`,`la`.`language_id` AS `language_id`,`la`.`from_date` AS `from_date`,`la`.`to_date` AS `to_date`,`la`.`total` AS `total`,`la`.`file_attach` AS `file_attach`,`la`.`subject` AS `subject`,`la`.`text` AS `text`,`la`.`leave_status` AS `leave_status`,`la`.`status` AS `status`,`la`.`created_by` AS `created_by`,`la`.`modified_by` AS `modified_by`,`la`.`created_date` AS `created_date`,`la`.`modified_date` AS `modified_date`,`u`.`name` AS `user_name`,`lrd`.`title` AS `leave_reason`,`ltd`.`title` AS `leave_type`,`lt`.`type` AS `type`,`lt`.`value` AS `value`,`lt`.`file` AS `file` from ((((`leave_applications` `la` left join `users` `u` on((`u`.`id` = `la`.`user_id`))) left join `leave_reason_details` `lrd` on(((`lrd`.`language_id` = `la`.`language_id`) and (`lrd`.`id` = `la`.`leave_reason_id`)))) left join `leave_types` `lt` on((`lt`.`id` = `la`.`leave_type_id`))) left join `leave_type_details` `ltd` on(((`ltd`.`language_id` = `la`.`language_id`) and (`ltd`.`id` = `la`.`leave_type_id`)))) ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `leave_applications_view`  AS  select `la`.`id` AS `id`,`la`.`user_id` AS `user_id`,`la`.`leave_reason_id` AS `leave_reason_id`,`la`.`leave_type_id` AS `leave_type_id`,`la`.`language_id` AS `language_id`,`la`.`leave_status_id` AS `leave_status_id`,`la`.`from_date` AS `from_date`,`la`.`to_date` AS `to_date`,`la`.`total` AS `total`,`la`.`file_attach` AS `file_attach`,`la`.`subject` AS `subject`,`la`.`text` AS `text`,`la`.`status` AS `status`,`la`.`created_by` AS `created_by`,`la`.`modified_by` AS `modified_by`,`la`.`created_date` AS `created_date`,`la`.`modified_date` AS `modified_date`,`u`.`name` AS `user_name`,`lrd`.`title` AS `leave_reason`,`lsd`.`title` AS `leave_status`,`ltd`.`title` AS `leave_type`,`lt`.`type` AS `type`,`lt`.`value` AS `value`,`lt`.`file` AS `file` from (((((`leave_applications` `la` left join `users` `u` on((`u`.`id` = `la`.`user_id`))) left join `leave_reason_details` `lrd` on(((`lrd`.`language_id` = `la`.`language_id`) and (`lrd`.`id` = `la`.`leave_reason_id`)))) left join `leave_types` `lt` on((`lt`.`id` = `la`.`leave_type_id`))) left join `leave_type_details` `ltd` on(((`ltd`.`language_id` = `la`.`language_id`) and (`ltd`.`id` = `la`.`leave_type_id`)))) left join `leave_status_details` `lsd` on(((`lsd`.`id` = `la`.`leave_status_id`) and (`lsd`.`language_id` = `la`.`language_id`)))) ;
 
 -- --------------------------------------------------------
 
@@ -1028,6 +1284,15 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `leave_applications_view`  
 DROP TABLE IF EXISTS `leave_reasons_view`;
 
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `leave_reasons_view`  AS  select `t`.`id` AS `id`,`t`.`status` AS `status`,`t`.`created_by` AS `created_by`,`t`.`modified_by` AS `modified_by`,`t`.`created_date` AS `created_date`,`t`.`modified_date` AS `modified_date`,`td`.`language_id` AS `language_id`,`td`.`title` AS `title` from (`leave_reasons` `t` left join `leave_reason_details` `td` on((`td`.`id` = `t`.`id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `leave_statuses_view`
+--
+DROP TABLE IF EXISTS `leave_statuses_view`;
+
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `leave_statuses_view`  AS  select `t`.`id` AS `id`,`t`.`status` AS `status`,`t`.`created_by` AS `created_by`,`t`.`modified_by` AS `modified_by`,`t`.`created_date` AS `created_date`,`t`.`modified_date` AS `modified_date`,`td`.`language_id` AS `language_id`,`td`.`title` AS `title` from (`leave_statuses` `t` left join `leave_status_details` `td` on((`td`.`id` = `t`.`id`))) ;
 
 -- --------------------------------------------------------
 
@@ -1046,6 +1311,24 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `leave_types_view`  AS  sel
 DROP TABLE IF EXISTS `notifications_view`;
 
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `notifications_view`  AS  select `n`.`id` AS `id`,`n`.`image` AS `image`,`n`.`type` AS `type`,`n`.`type_id` AS `type_id`,`n`.`status` AS `status`,`n`.`sort_order` AS `sort_order`,`n`.`created_by` AS `created_by`,`n`.`modified_by` AS `modified_by`,`n`.`created_date` AS `created_date`,`n`.`modified_date` AS `modified_date`,`nd`.`language_id` AS `language_id`,`nd`.`title` AS `title`,`nd`.`description` AS `description` from (`notifications` `n` left join `notification_details` `nd` on((`nd`.`id` = `n`.`id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `penalties_view`
+--
+DROP TABLE IF EXISTS `penalties_view`;
+
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `penalties_view`  AS  select `p`.`id` AS `id`,`p`.`user_id` AS `user_id`,`p`.`language_id` AS `language_id`,`p`.`penalty_reason_id` AS `penalty_reason_id`,`p`.`date` AS `date`,`p`.`total` AS `total`,`p`.`subject` AS `subject`,`p`.`text` AS `text`,`p`.`status` AS `status`,`p`.`created_by` AS `created_by`,`p`.`modified_by` AS `modified_by`,`p`.`created_date` AS `created_date`,`p`.`modified_date` AS `modified_date`,`u`.`name` AS `user_name`,`prd`.`title` AS `penalty_reason` from ((`penalties` `p` left join `users` `u` on((`u`.`id` = `p`.`user_id`))) left join `penalty_reason_details` `prd` on(((`prd`.`id` = `p`.`penalty_reason_id`) and (`prd`.`language_id` = `p`.`language_id`)))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `penalty_reasons_view`
+--
+DROP TABLE IF EXISTS `penalty_reasons_view`;
+
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `penalty_reasons_view`  AS  select `t`.`id` AS `id`,`t`.`status` AS `status`,`t`.`created_by` AS `created_by`,`t`.`modified_by` AS `modified_by`,`t`.`created_date` AS `created_date`,`t`.`modified_date` AS `modified_date`,`td`.`language_id` AS `language_id`,`td`.`title` AS `title` from (`penalty_reasons` `t` left join `penalty_reason_details` `td` on((`td`.`id` = `t`.`id`))) ;
 
 -- --------------------------------------------------------
 
@@ -1145,7 +1428,8 @@ ALTER TABLE `leave_applications`
   ADD KEY `user_id` (`user_id`),
   ADD KEY `leave_reason_id` (`leave_reason_id`),
   ADD KEY `leave_type_id` (`leave_type_id`),
-  ADD KEY `language_id` (`language_id`);
+  ADD KEY `leave_applications_ibfk_4` (`language_id`),
+  ADD KEY `leave_status_id` (`leave_status_id`);
 
 --
 -- Indexes for table `leave_reasons`
@@ -1157,6 +1441,19 @@ ALTER TABLE `leave_reasons`
 -- Indexes for table `leave_reason_details`
 --
 ALTER TABLE `leave_reason_details`
+  ADD UNIQUE KEY `id` (`id`,`language_id`),
+  ADD KEY `language_id` (`language_id`);
+
+--
+-- Indexes for table `leave_statuses`
+--
+ALTER TABLE `leave_statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `leave_status_details`
+--
+ALTER TABLE `leave_status_details`
   ADD UNIQUE KEY `id` (`id`,`language_id`),
   ADD KEY `language_id` (`language_id`);
 
@@ -1180,6 +1477,27 @@ ALTER TABLE `module_permissions`
   ADD PRIMARY KEY (`user_group_id`,`module`);
 
 --
+-- Indexes for table `newsletters`
+--
+ALTER TABLE `newsletters`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `newsletter_mails`
+--
+ALTER TABLE `newsletter_mails`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `newsletter_mail_trackers`
+--
+ALTER TABLE `newsletter_mail_trackers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
@@ -1199,6 +1517,28 @@ ALTER TABLE `notification_to_users`
   ADD PRIMARY KEY (`id`,`notification_id`,`user_id`),
   ADD KEY `notification_id` (`notification_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `penalties`
+--
+ALTER TABLE `penalties`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `leave_applications_ibfk_4` (`language_id`),
+  ADD KEY `penalties_ibfk_2` (`penalty_reason_id`);
+
+--
+-- Indexes for table `penalty_reasons`
+--
+ALTER TABLE `penalty_reasons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `penalty_reason_details`
+--
+ALTER TABLE `penalty_reason_details`
+  ADD UNIQUE KEY `id` (`id`,`language_id`),
+  ADD KEY `language_id` (`language_id`);
 
 --
 -- Indexes for table `plugins`
@@ -1295,7 +1635,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `leave_applications`
 --
 ALTER TABLE `leave_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `leave_reasons`
@@ -1304,10 +1644,34 @@ ALTER TABLE `leave_reasons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `leave_statuses`
+--
+ALTER TABLE `leave_statuses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `leave_types`
 --
 ALTER TABLE `leave_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `newsletters`
+--
+ALTER TABLE `newsletters`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `newsletter_mails`
+--
+ALTER TABLE `newsletter_mails`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `newsletter_mail_trackers`
+--
+ALTER TABLE `newsletter_mail_trackers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1322,22 +1686,34 @@ ALTER TABLE `notification_to_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `penalties`
+--
+ALTER TABLE `penalties`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `penalty_reasons`
+--
+ALTER TABLE `penalty_reasons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `plugins`
 --
 ALTER TABLE `plugins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=583;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=649;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_complains`
@@ -1349,7 +1725,7 @@ ALTER TABLE `user_complains`
 -- AUTO_INCREMENT for table `user_groups`
 --
 ALTER TABLE `user_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_leaves`
@@ -1361,7 +1737,7 @@ ALTER TABLE `user_leaves`
 -- AUTO_INCREMENT for table `user_leave_authorities`
 --
 ALTER TABLE `user_leave_authorities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -1393,9 +1769,10 @@ ALTER TABLE `holiday_details`
 --
 ALTER TABLE `leave_applications`
   ADD CONSTRAINT `leave_applications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `leave_applications_ibfk_2` FOREIGN KEY (`leave_reason_id`) REFERENCES `leave_reasons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `leave_applications_ibfk_3` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `leave_applications_ibfk_4` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `leave_applications_ibfk_2` FOREIGN KEY (`leave_reason_id`) REFERENCES `leave_reasons` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `leave_applications_ibfk_3` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_types` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `leave_applications_ibfk_4` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `leave_applications_ibfk_5` FOREIGN KEY (`leave_status_id`) REFERENCES `leave_statuses` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `leave_reason_details`
@@ -1403,6 +1780,13 @@ ALTER TABLE `leave_applications`
 ALTER TABLE `leave_reason_details`
   ADD CONSTRAINT `leave_reason_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `leave_reasons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `leave_reason_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `leave_status_details`
+--
+ALTER TABLE `leave_status_details`
+  ADD CONSTRAINT `leave_status_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `leave_applications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `leave_status_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `leave_type_details`
@@ -1430,6 +1814,21 @@ ALTER TABLE `notification_details`
 ALTER TABLE `notification_to_users`
   ADD CONSTRAINT `notification_to_users_ibfk_1` FOREIGN KEY (`notification_id`) REFERENCES `notifications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `notification_to_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `penalties`
+--
+ALTER TABLE `penalties`
+  ADD CONSTRAINT `penalties_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `penalties_ibfk_2` FOREIGN KEY (`penalty_reason_id`) REFERENCES `leave_reasons` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `penalties_ibfk_3` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `penalty_reason_details`
+--
+ALTER TABLE `penalty_reason_details`
+  ADD CONSTRAINT `penalty_reason_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `penalty_reasons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `penalty_reason_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `url_alias`

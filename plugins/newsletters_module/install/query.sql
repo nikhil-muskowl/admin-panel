@@ -71,13 +71,10 @@ CREATE TABLE `newsletter_mail_trackers` (
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (1, 'fd', 'fgdg', 'gdgdf', 'gdfg', 'dfg', 'dfgdfg', 'dfg', 'gdfg', '', 1, '2018-11-14 11:03:33', '2018-11-14 11:03:33');
-INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (2, 'test', 'nadim', '', '7737033665', 'info@muskowl.com', 'test', 'test', 'test', 'Send', 1, '2018-11-17 15:09:32', '2018-11-17 15:09:32');
-INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (3, 'test', 'rajesh', '', '7737033665', 'info@muskowl.com', 'test', 'test', 'test', 'Send', 1, '2018-11-17 15:09:33', '2018-11-17 15:09:33');
-INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (4, 'test', 'nadim', '', '7737033665', 'info@muskowl.com', 'test', 'test', 'test', 'Failed', 1, '2018-11-17 15:10:32', '2018-11-17 15:10:32');
-INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (5, 'test', 'rajesh', '', '7737033665', 'info@muskowl.com', 'test', 'test', 'test', 'Failed', 1, '2018-11-17 15:10:33', '2018-11-17 15:10:33');
+INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (1, 'test', 'nadim', 'info@muskowl.com', '7737033665', 'nadim.sheikh.07@gmail.com', 'test', 'test', 'test', 'Failed', 1, '2018-11-19 10:11:18', '2018-11-19 10:11:18');
+INSERT INTO `newsletter_mail_trackers` (`id`, `title`, `name`, `email`, `contact`, `to_email`, `subject`, `text`, `html`, `email_status`, `status`, `created_date`, `modified_date`) VALUES (2, 'test', 'rajesh', 'info@muskowl.com', '7737033665', 'rajesh.muskowl@gmail.com', 'test', 'test', 'test', 'Failed', 1, '2018-11-19 10:11:19', '2018-11-19 10:11:19');
 
 
 SET foreign_key_checks = 1;

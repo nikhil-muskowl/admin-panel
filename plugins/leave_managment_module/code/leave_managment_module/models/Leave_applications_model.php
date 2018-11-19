@@ -12,6 +12,9 @@ class Leave_applications_model extends CI_Model {
     private $pending_id;
     private $approved_id;
     private $cancel_id;
+    private $datetime_format;
+    private $date_format;
+    private $data = array();
 
     public function __construct() {
         parent::__construct();
@@ -21,6 +24,8 @@ class Leave_applications_model extends CI_Model {
         $this->pending_id = $this->settings_lib->config('leave_managment_module', 'pending_id');
         $this->approved_id = $this->settings_lib->config('leave_managment_module', 'approved_id');
         $this->cancel_id = $this->settings_lib->config('leave_managment_module', 'cancel_id');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
+        $this->date_format = $this->settings_lib->config('config', 'date_format');
     }
 
     private function _getTablesQuery($array = array()) {
@@ -30,6 +35,10 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
 
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
@@ -90,6 +99,9 @@ class Leave_applications_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
         elseif ($this->languages_lib->getLanguageId()):
@@ -229,6 +241,80 @@ class Leave_applications_model extends CI_Model {
             $this->db->trans_commit();
             return TRUE;
         }
+    }
+
+    public function getUserLeaveAuthorities($id) {
+        $this->db->from('user_leave_authorities_view');
+        $this->db->where('user_id', $id);
+        $this->db->order_by('priority', 'asc');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getPreview($id) {
+        $this->data = array();
+        $html = '';
+        $data = $this->getById($id);
+        if ($data):
+
+            $this->data['subject'] = $data['subject'];
+            $this->data['text'] = $data['text'];
+            $this->data['user_name'] = $data['user_name'];
+            $this->data['leave_reason'] = $data['leave_reason'];
+            $this->data['leave_type'] = $data['leave_type'];
+            $this->data['leave_status'] = $data['leave_status'];
+
+            if ($data['type'] == 'full'):
+                $this->data['from_date'] = date($this->date_format, strtotime($data['from_date']));
+                $this->data['to_date'] = date($this->date_format, strtotime($data['to_date']));
+            else:
+                $this->data['from_date'] = date($this->datetime_format, strtotime($data['from_date']));
+                $this->data['to_date'] = date($this->datetime_format, strtotime($data['to_date']));
+            endif;
+
+            $html = $this->load->view('leave_applications/send', $this->data, TRUE);
+
+        endif;
+
+        return $html;
+    }
+
+    public function sendMail($id) {
+        $this->data = array();
+        $status = TRUE;
+
+        $data = $this->getById($id);
+        if ($data):
+
+            $user_leave_authorities = $this->getUserLeaveAuthorities($data['user_id']);
+            $toEmail = '';
+            $cc = array();
+            if ($user_leave_authorities):
+                foreach ($user_leave_authorities as $key => $user_leave_authority) :
+                    if ($key == 0):
+                        $toEmail = $user_leave_authority['author_email'];
+                    else:
+                        $cc[] = $user_leave_authority['author_email'];
+                    endif;
+                endforeach;
+            endif;
+
+            $html = $this->getPreview($id);
+//            print_r($html);
+//            exit;
+
+            $this->email_lib->toEmail = $toEmail;
+            $this->email_lib->cc = $cc;
+            $this->email_lib->subject = $this->data['subject'];
+            $this->email_lib->message = $html;
+            if ($this->email_lib->send()):
+                $status = TRUE;
+            else:
+                $status = FALSE;
+            endif;
+        endif;
+
+        return $status;
     }
 
 }

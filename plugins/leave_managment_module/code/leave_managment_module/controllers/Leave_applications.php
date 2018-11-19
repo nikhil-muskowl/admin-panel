@@ -23,6 +23,8 @@ class Leave_applications extends MX_Controller {
         $this->data = array();
         $this->data['ajax_list'] = base_url('leave_managment_module/api/leave_applications_api/list');
         $this->data['ajax_delete'] = base_url('leave_managment_module/api/leave_applications_api/delete');
+        $this->data['ajax_preview'] = base_url('leave_managment_module/api/leave_applications_api/preview');
+        $this->data['ajax_send'] = base_url('leave_managment_module/api/leave_applications_api/send');
         $this->data['ajax_form'] = base_url('leave_managment_module/leave_applications/form');
 
         $this->data['sidebar'] = $this->sidebar->load();
@@ -88,7 +90,7 @@ class Leave_applications extends MX_Controller {
         if (isset($result['subject']) && $result['subject']) :
             $this->data['subject'] = $result['subject'];
         else:
-            $this->data['subject'] = '';
+            $this->data['subject'] = 'leave application';
         endif;
         if (isset($result['text']) && $result['text']) :
             $this->data['text'] = $result['text'];
