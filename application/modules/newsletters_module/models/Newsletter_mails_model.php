@@ -156,10 +156,8 @@ class Newsletter_mails_model extends CI_Model {
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
-            return FALSE;
         } else {
             $this->db->trans_commit();
-            return TRUE;
         }
     }
 
@@ -173,6 +171,7 @@ class Newsletter_mails_model extends CI_Model {
             $this->email_lib->fromName = $newsletter_mails['name'];
 
             $newsletters = $this->getNewsletters();
+
             if ($newsletters):
                 foreach ($newsletters as $newsletter) :
                     $this->email_lib->toEmail = $newsletter['email'];
@@ -199,6 +198,7 @@ class Newsletter_mails_model extends CI_Model {
                     );
 
                     $this->setNewsletterMails($dataArray);
+
                 endforeach;
             endif;
         else:

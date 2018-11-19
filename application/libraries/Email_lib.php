@@ -6,10 +6,10 @@ class Email_lib {
     public $fromEmail;
     public $fromName;
     public $toEmail;
+    public $cc = array();
     public $subject;
     public $message;
     public $status;
-    public $email_status;
     //setting
     public $smtpProtocol;
     public $smtpHost;
@@ -63,15 +63,21 @@ class Email_lib {
 
         $this->ci->email->from($this->fromEmail, $this->fromName);
         $this->ci->email->reply_to($this->fromEmail, $this->fromName);
-        $this->ci->email->to($this->toEmail);
+        if ($this->toEmail):
+            $this->ci->email->to($this->toEmail);
+        else:
+            $this->ci->email->to($this->fromEmail);
+        endif;
+
+        if ($this->cc):
+            $this->ci->email->cc($this->cc);
+        endif;
         $this->ci->email->subject($this->subject);
         $this->ci->email->message($this->message);
 
         if ($this->ci->email->send()):
-            $this->email_status = 'Sent';
             $this->status = TRUE;
         else:
-            $this->email_status = 'Failed';
             $this->status = FALSE;
         endif;
 

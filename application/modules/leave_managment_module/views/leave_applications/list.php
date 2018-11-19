@@ -26,7 +26,7 @@
                                 <th><?= $this->lang->line('text_leave_status') ?></th>
                                 <th><?= $this->lang->line('text_status') ?></th>
                                 <th><?= $this->lang->line('text_modified_date') ?></th>                            
-                                <th style="width:80px;"><?= $this->lang->line('text_action') ?></th>
+                                <th style="width:150px;"><?= $this->lang->line('text_action') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +37,27 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     var save_method;
@@ -97,6 +118,42 @@
         if (confirm("<?= $this->lang->line('text_confirm_delete') ?>")) {
             $.ajax({
                 url: '<?= $ajax_delete ?>/' + id,
+                type: "GET",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.status) {
+                        notification('Success:', 'success', data.message);
+                        reload_table();
+                    } else {
+                        notification('Error:', 'error', data.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    notification('Error:', 'error', 'error');
+                }
+            });
+        }
+    }
+
+    function preview_record(id) {
+        $.ajax({
+            url: '<?= $ajax_preview ?>/' + id,
+            type: "GET",
+            dataType: "HTML",
+            success: function (data) {
+                $('#previewModal').find('.modal-body').html(data);
+                $('#previewModal').modal('show');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                notification('Error:', 'error', 'error');
+            }
+        });
+    }
+
+    function send_record(id) {
+        if (confirm("<?= $this->lang->line('text_confirm_send') ?>")) {
+            $.ajax({
+                url: '<?= $ajax_send ?>/' + id,
                 type: "GET",
                 dataType: "JSON",
                 success: function (data) {

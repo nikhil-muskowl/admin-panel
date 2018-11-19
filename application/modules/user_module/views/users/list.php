@@ -24,7 +24,7 @@
                                 <th><?= $this->lang->line('text_contact') ?></th>                                
                                 <th><?= $this->lang->line('text_status') ?></th>
                                 <th><?= $this->lang->line('text_modified_date') ?></th>                            
-                                <th style="width:100px;"><?= $this->lang->line('text_action') ?></th>
+                                <th style="width:120px;"><?= $this->lang->line('text_action') ?></th>
                             </tr>
                         </thead>
                         <tbody>

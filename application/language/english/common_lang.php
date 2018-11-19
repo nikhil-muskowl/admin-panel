@@ -34,6 +34,9 @@ $lang['text_action'] = 'action';
 $lang['text_add'] = 'add';
 $lang['text_edit'] = 'edit';
 $lang['text_delete'] = 'delete';
+$lang['text_send'] = 'send';
+$lang['text_view'] = 'view';
+$lang['text_preview'] = 'preview';
 $lang['text_bulk_delete'] = 'bulk delete';
 $lang['text_refresh'] = 'refresh';
 
@@ -46,5 +49,6 @@ $lang['textNoDataSelectedError'] = 'no data selected!';
 
 $lang['text_no_data_found_error'] = 'no data found!';
 
+$lang['text_confirm_send'] = 'are you sure want to send this data?';
 $lang['text_confirm_delete'] = 'are you sure want to delete this data?';
 $lang['text_confirm_bulk_delete'] = 'are you sure delete this %s data?';
