@@ -144,8 +144,8 @@ class Newsletter_mails_model extends CI_Model {
         $this->db->set('title', $data['title']);
         $this->db->set('name', $data['name']);
         $this->db->set('email', $data['email']);
-        $this->db->set('to_email', $data['to_email']);
         $this->db->set('contact', $data['contact']);
+        $this->db->set('to_email', $data['to_email']);
         $this->db->set('subject', $data['subject']);
         $this->db->set('text', $data['text']);
         $this->db->set('html', $data['html']);
