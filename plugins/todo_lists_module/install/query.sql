@@ -11,7 +11,6 @@ CREATE TABLE `todo_lists` (
   `language_id` int(11) NOT NULL,
   `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `closed` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int(11) NOT NULL,
   `modified_by` int(11) NOT NULL,
@@ -24,7 +23,7 @@ CREATE TABLE `todo_lists` (
   CONSTRAINT `todo_lists_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `closed`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 1, 'leave application', 'leave application', 0, 1, 0, 0, '2018-11-19 16:04:33', '2018-11-19 16:04:33');
+INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 1, 'leave application', 'leave application', 1, 0, 0, '2018-11-19 16:04:33', '2018-11-20 11:03:21');
 
 
 SET foreign_key_checks = 1;

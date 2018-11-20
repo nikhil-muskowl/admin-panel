@@ -92,12 +92,18 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
         $this->data = array();
         $object = $this->leave_applications_model->getById($id);
         if ($object):
-            $result[] = array(
+            $result = array(
                 'id' => $object['id'],
+                'user_id' => $object['user_id'],
                 'user_name' => $object['user_name'],
+                'leave_reason_id' => $object['leave_reason_id'],
+                'leave_type_id' => $object['leave_type_id'],
+                'leave_status_id' => $object['leave_status_id'],                
                 'from_date' => $object['from_date'],
                 'to_date' => $object['to_date'],
-                'total' => $object['total'],
+                'total' => $object['total'],                
+                'subject' => $object['subject'],
+                'text' => $object['text'],
                 'leave_status' => $object['leave_status'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date($this->datetime_format, strtotime($object['created_date'])),

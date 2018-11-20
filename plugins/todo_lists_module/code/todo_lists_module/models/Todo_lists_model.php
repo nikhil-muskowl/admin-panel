@@ -4,8 +4,8 @@ class Todo_lists_model extends CI_Model {
 
     private $table = 'todo_lists';
     private $table_view = 'todo_lists_view';
-    private $column_order = array(null, 'user_name', 'subject', 'text', 'closed', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('user_name', 'subject', 'text', 'closed', 'status', 'created_date', 'modified_date');
+    private $column_order = array(null, 'user_name', 'subject', 'text', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('user_name', 'subject', 'text', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
     private $language_id;
@@ -161,4 +161,28 @@ class Todo_lists_model extends CI_Model {
         }
     }
 
+    public function change_status() {
+        $this->db->trans_start();
+
+        $id = $this->input->post('id');
+        $status = $this->input->post('status');
+
+        if ($status == 'true'):
+            $this->db->set('status', 1);
+        else:
+            $this->db->set('status', 0);
+        endif;
+
+        $this->db->where('id', $id);
+        $this->db->update($this->table);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
+    }
+    
 }

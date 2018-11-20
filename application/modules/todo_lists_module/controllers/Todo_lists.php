@@ -23,6 +23,7 @@ class Todo_lists extends MX_Controller {
         $this->data = array();
         $this->data['ajax_list'] = base_url('todo_lists_module/api/todo_lists_api/list');
         $this->data['ajax_delete'] = base_url('todo_lists_module/api/todo_lists_api/delete');       
+        $this->data['ajax_change_status'] = base_url('todo_lists_module/api/todo_lists_api/change_status');       
         $this->data['ajax_form'] = base_url('todo_lists_module/todo_lists/form');
 
         $this->data['sidebar'] = $this->sidebar->load();

@@ -116,11 +116,13 @@ CREATE TABLE `leave_applications` (
   CONSTRAINT `leave_applications_ibfk_3` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_types` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `leave_applications_ibfk_4` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `leave_applications_ibfk_5` FOREIGN KEY (`leave_status_id`) REFERENCES `leave_statuses` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 2, 4, 1, 1, '2018-11-13 00:00:00', '2018-11-15 00:00:00', '2.00', '', 'leave application', 'i have some urgent hospital work.', 1, 0, 0, '2018-11-13 10:29:44', '2018-11-19 10:48:02');
 INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 2, 1, 2, 1, 1, '2018-11-15 00:00:00', '2018-11-16 00:00:00', '1.00', '', 'Leave application', 'i have some urgent hospital work.', 1, 0, 0, '2018-11-15 11:20:01', '2018-11-19 10:47:38');
 INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 3, 2, 3, 1, 2, '2018-11-15 09:30:00', '2018-11-15 12:00:00', '2.30', '', 'leave application', 'leave application', 1, 0, 0, '2018-11-15 12:41:10', '2018-11-19 10:43:41');
+INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (4, 3, 1, 2, 1, 1, '2018-11-19 00:00:00', '2018-11-21 00:00:00', '2.00', '', 'leave application', 'dfgfdg', 1, 0, 0, '2018-11-19 12:35:10', '2018-11-19 12:35:10');
+INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_type_id`, `language_id`, `leave_status_id`, `from_date`, `to_date`, `total`, `file_attach`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (5, 1, 1, 1, 1, 1, '1970-01-01 00:00:00', '1970-01-01 00:00:00', '0.00', '', 'leave', 'leave', 1, 0, 0, '2018-11-20 12:04:09', '2018-11-20 12:04:09');
 
 
 #

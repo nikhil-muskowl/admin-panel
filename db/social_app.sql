@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2018 at 08:05 AM
+-- Generation Time: Nov 20, 2018 at 10:17 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -250,7 +250,8 @@ INSERT INTO `leave_applications` (`id`, `user_id`, `leave_reason_id`, `leave_typ
 (1, 2, 2, 4, 1, 1, '2018-11-13 00:00:00', '2018-11-15 00:00:00', '2.00', '', 'leave application', 'i have some urgent hospital work.', 1, 0, 0, '2018-11-13 10:29:44', '2018-11-19 10:48:02'),
 (2, 2, 1, 2, 1, 1, '2018-11-15 00:00:00', '2018-11-16 00:00:00', '1.00', '', 'Leave application', 'i have some urgent hospital work.', 1, 0, 0, '2018-11-15 11:20:01', '2018-11-19 10:47:38'),
 (3, 3, 2, 3, 1, 2, '2018-11-15 09:30:00', '2018-11-15 12:00:00', '2.30', '', 'leave application', 'leave application', 1, 0, 0, '2018-11-15 12:41:10', '2018-11-19 10:43:41'),
-(4, 3, 1, 2, 1, 1, '2018-11-19 00:00:00', '2018-11-21 00:00:00', '2.00', '', 'leave application', 'dfgfdg', 1, 0, 0, '2018-11-19 12:35:10', '2018-11-19 12:35:10');
+(4, 3, 1, 2, 1, 1, '2018-11-19 00:00:00', '2018-11-21 00:00:00', '2.00', '', 'leave application', 'dfgfdg', 1, 0, 0, '2018-11-19 12:35:10', '2018-11-19 12:35:10'),
+(5, 1, 1, 1, 1, 1, '1970-01-01 00:00:00', '1970-01-01 00:00:00', '0.00', '', 'leave', 'leave', 1, 0, 0, '2018-11-20 12:04:09', '2018-11-20 12:04:09');
 
 -- --------------------------------------------------------
 
@@ -550,6 +551,7 @@ INSERT INTO `module_permissions` (`user_group_id`, `module`, `is_add`, `is_view`
 (1, 'Story_complains', 1, 1, 1, 1),
 (1, 'Story_types', 1, 1, 1, 1),
 (1, 'Testimonials', 1, 1, 1, 1),
+(1, 'Todo_lists', 1, 1, 1, 1),
 (1, 'Users', 1, 1, 1, 1),
 (1, 'User_activities', 1, 1, 1, 1),
 (1, 'User_complains', 1, 1, 1, 1),
@@ -884,7 +886,8 @@ INSERT INTO `plugins` (`id`, `name`, `code`, `status`, `created_by`, `modified_b
 (57, 'Leave Managment Module', 'leave_managment_module', 1, 0, 0, '2018-11-12 10:47:43', '2018-11-12 10:47:43'),
 (58, 'Notifications Module', 'notifications_module', 1, 0, 0, '2018-11-12 16:41:53', '2018-11-12 16:41:53'),
 (59, 'Penalties Module', 'penalties_module', 1, 0, 0, '2018-11-17 11:52:42', '2018-11-17 11:52:42'),
-(60, 'Newsletters Module', 'newsletters_module', 1, 0, 0, '2018-11-17 11:55:29', '2018-11-17 11:55:29');
+(60, 'Newsletters Module', 'newsletters_module', 1, 0, 0, '2018-11-17 11:55:29', '2018-11-17 11:55:29'),
+(61, 'Todo Lists Module', 'todo_lists_module', 1, 0, 0, '2018-11-19 15:53:23', '2018-11-19 15:53:23');
 
 -- --------------------------------------------------------
 
@@ -928,6 +931,52 @@ INSERT INTO `settings` (`id`, `code`, `code_key`, `value`) VALUES
 (646, 'config', 'detail_image_height', '500'),
 (647, 'config', 'detail_banner_width', '1500'),
 (648, 'config', 'detail_banner_height', '500');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `todo_lists`
+--
+
+CREATE TABLE `todo_lists` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `todo_lists`
+--
+
+INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES
+(1, 2, 1, 'leave application', 'leave application', 1, 0, 0, '2018-11-19 16:04:33', '2018-11-20 11:03:21');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `todo_lists_view`
+-- (See below for the actual view)
+--
+CREATE TABLE `todo_lists_view` (
+`id` int(11)
+,`user_id` int(11)
+,`language_id` int(11)
+,`subject` varchar(100)
+,`text` text
+,`status` tinyint(1)
+,`created_by` int(11)
+,`modified_by` int(11)
+,`created_date` datetime
+,`modified_date` datetime
+,`user_name` varchar(100)
+);
 
 -- --------------------------------------------------------
 
@@ -1333,6 +1382,15 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `penalty_reasons_view`  AS 
 -- --------------------------------------------------------
 
 --
+-- Structure for view `todo_lists_view`
+--
+DROP TABLE IF EXISTS `todo_lists_view`;
+
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `todo_lists_view`  AS  select `tl`.`id` AS `id`,`tl`.`user_id` AS `user_id`,`tl`.`language_id` AS `language_id`,`tl`.`subject` AS `subject`,`tl`.`text` AS `text`,`tl`.`status` AS `status`,`tl`.`created_by` AS `created_by`,`tl`.`modified_by` AS `modified_by`,`tl`.`created_date` AS `created_date`,`tl`.`modified_date` AS `modified_date`,`u`.`name` AS `user_name` from (`todo_lists` `tl` left join `users` `u` on((`u`.`id` = `tl`.`user_id`))) ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `user_complains_view`
 --
 DROP TABLE IF EXISTS `user_complains_view`;
@@ -1554,6 +1612,14 @@ ALTER TABLE `settings`
   ADD UNIQUE KEY `id` (`id`,`code`,`code_key`);
 
 --
+-- Indexes for table `todo_lists`
+--
+ALTER TABLE `todo_lists`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `leave_applications_ibfk_4` (`language_id`);
+
+--
 -- Indexes for table `url_alias`
 --
 ALTER TABLE `url_alias`
@@ -1635,7 +1701,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `leave_applications`
 --
 ALTER TABLE `leave_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `leave_reasons`
@@ -1701,13 +1767,19 @@ ALTER TABLE `penalty_reasons`
 -- AUTO_INCREMENT for table `plugins`
 --
 ALTER TABLE `plugins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=649;
+
+--
+-- AUTO_INCREMENT for table `todo_lists`
+--
+ALTER TABLE `todo_lists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1829,6 +1901,13 @@ ALTER TABLE `penalties`
 ALTER TABLE `penalty_reason_details`
   ADD CONSTRAINT `penalty_reason_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `penalty_reasons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `penalty_reason_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `todo_lists`
+--
+ALTER TABLE `todo_lists`
+  ADD CONSTRAINT `todo_lists_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `todo_lists_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `url_alias`
