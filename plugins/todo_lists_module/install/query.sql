@@ -21,9 +21,11 @@ CREATE TABLE `todo_lists` (
   KEY `leave_applications_ibfk_4` (`language_id`),
   CONSTRAINT `todo_lists_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `todo_lists_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 1, 'leave application', 'leave application', 1, 0, 0, '2018-11-19 16:04:33', '2018-11-20 11:03:21');
+INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 2, 1, 'test', 'test', 0, 0, 0, '2018-11-20 16:42:11', '2018-11-20 16:43:58');
+INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 1, 1, 'test', 'test', 1, 0, 0, '2018-11-20 16:48:29', '2018-11-20 16:48:29');
 
 
 SET foreign_key_checks = 1;

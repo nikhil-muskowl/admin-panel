@@ -98,10 +98,10 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
                 'user_name' => $object['user_name'],
                 'leave_reason_id' => $object['leave_reason_id'],
                 'leave_type_id' => $object['leave_type_id'],
-                'leave_status_id' => $object['leave_status_id'],                
+                'leave_status_id' => $object['leave_status_id'],
                 'from_date' => $object['from_date'],
                 'to_date' => $object['to_date'],
-                'total' => $object['total'],                
+                'total' => $object['total'],
                 'subject' => $object['subject'],
                 'text' => $object['text'],
                 'leave_status' => $object['leave_status'],
@@ -365,7 +365,14 @@ class Leave_applications_api extends Restserver\Libraries\REST_Controller {
     public function preview_get($id) {
         $result = '';
         $result = $this->leave_applications_model->getPreview($id);
-        echo $result;
+        if ($result):
+            $this->data['status'] = TRUE;
+            $this->data['message'] = $result;
+        else:
+            $this->data['status'] = FALSE;
+            $this->data['message'] = $result;
+        endif;
+        $this->response($this->data);
     }
 
     public function send_get($id) {
