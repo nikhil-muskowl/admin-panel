@@ -83,20 +83,7 @@
                             <?php include 'details_form.php'; ?>
                         </div>
                         <div class="tab-pane container fade" id="locationTab">
-                            <div class="form-group row">
-                                <label class="control-label col-md-2"><?= humanize('latitude') ?></label>
-                                <div class="col-md-10">
-                                    <input name="latitude" value="<?= $latitude ?>" placeholder="<?= humanize('latitude') ?>" class="form-control" type="text">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div> 
-                            <div class="form-group row">
-                                <label class="control-label col-md-2"><?= humanize('longitude') ?></label>
-                                <div class="col-md-10">
-                                    <input name="longitude" value="<?= $longitude ?>" placeholder="<?= humanize('longitude') ?>" class="form-control" type="text">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
+                            <?php include 'location_form.php'; ?>
                         </div>
                     </div>
 

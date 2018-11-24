@@ -22,7 +22,7 @@ class Google extends CI_Controller {
         if ($this->input->post('query')):
             $query = $this->input->post('query');
         else:
-            $query = 'Location';
+            $query = '';
         endif;
         $data = $this->google_lib->placeSearch($query);
         print_r($data);

@@ -23,7 +23,7 @@ CREATE TABLE `events` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO `events` (`id`, `user_id`, `from_date`, `to_date`, `banner`, `image`, `location`, `latitude`, `longitude`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, '2018-11-22 01:00:00', '2018-11-23 03:00:00', '', 'upload/water.png', '', '0.000000', '0.000000', 1, 0, 0, '2018-11-22 11:42:22', '2018-11-22 12:19:39');
+INSERT INTO `events` (`id`, `user_id`, `from_date`, `to_date`, `banner`, `image`, `location`, `latitude`, `longitude`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, '2018-11-22 01:00:00', '2018-11-23 03:00:00', '', 'upload/water.png', 'Udaipur, Rajasthan, India', '24.585601', '73.708187', 1, 0, 0, '2018-11-22 11:42:22', '2018-11-24 12:41:18');
 
 
 #
