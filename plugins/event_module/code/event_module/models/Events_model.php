@@ -180,10 +180,10 @@ class Events_model extends CI_Model {
         $this->db->set('latitude', number_format((float) $this->input->post('latitude'), 6));
         $this->db->set('longitude', number_format((float) $this->input->post('longitude'), 6));
 
-        if ($this->input->post('google_location')):
+        if ($this->input->post('location_api_type')=='google'):
             $this->db->set('location', $this->input->post('google_location'));
-        elseif ($this->input->post('baidu_location')):
-            $this->db->set('baidu_location', $this->input->post('baidu_location'));
+        elseif ($this->input->post('location_api_type')=='baidu'):
+            $this->db->set('location', $this->input->post('baidu_location'));
         else:
             $this->db->set('location', $this->google_lib->countryNameByPosition($this->input->post('latitude'), $this->input->post('longitude')));
         endif;

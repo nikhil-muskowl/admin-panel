@@ -157,7 +157,7 @@ class Events extends MX_Controller {
         $this->data['ajax_image_form'] = base_url('event_module/events/image_form/');
 
 
-        $this->data['api_types'] = array(
+        $this->data['location_api_types'] = array(
             'google' => 'Google',
             'baidu' => 'Baidu'
         );
@@ -211,6 +211,17 @@ centreGot = true;';
         $this->googlemaps->add_marker($marker);
 
         $this->data['map'] = $this->googlemaps->create_map();
+
+
+
+        $baidu_cities = file_get_contents(base_url('assets/json/baidu_city.json'));
+
+        if ($baidu_cities):
+            $this->data['baidu_cities'] = json2arr($baidu_cities);           
+        else:
+            $this->data['baidu_cities'] = array();
+        endif;
+
 
 
         $this->data['sidebar'] = $this->sidebar->load();

@@ -17,7 +17,7 @@ class Baidu extends CI_Controller {
         if ($this->input->post('query')):
             $query = $this->input->post('query');
         else:
-            $query = 'Location';
+            $query = '';
         endif;
         if ($this->input->post('location')):
             $location = $this->input->post('location');
