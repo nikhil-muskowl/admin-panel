@@ -320,34 +320,34 @@ CREATE TABLE `story_to_types` (
   CONSTRAINT `story_to_types_ibfk_2` FOREIGN KEY (`story_type_id`) REFERENCES `story_types` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (1, 1, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (1, 6, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (2, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (3, 2, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (3, 1, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (4, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (5, 6, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (5, 5, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (6, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (6, 2, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (6, 4, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (7, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (7, 5, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (8, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (8, 4, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (9, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (9, 2, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (9, 5, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (10, 2, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (10, 5, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (11, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (12, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (12, 2, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (13, 4, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (14, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (15, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (16, 3, 0);
-INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (17, 3, 0);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (1, 1, 1);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (1, 6, 1);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (2, 3, 1);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (3, 2, 1);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (3, 1, 2);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (4, 3, 6);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (5, 6, 2);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (5, 5, 3);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (6, 3, 2);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (6, 2, 2);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (6, 4, 1);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (7, 3, 3);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (7, 5, 1);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (8, 3, 4);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (8, 4, 2);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (9, 3, 5);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (9, 2, 3);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (9, 5, 2);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (10, 2, 5);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (10, 5, 4);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (11, 3, 9);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (12, 3, 7);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (12, 2, 4);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (13, 4, 3);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (14, 3, 8);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (15, 3, 10);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (16, 3, 11);
+INSERT INTO `story_to_types` (`story_id`, `story_type_id`, `rank`) VALUES (17, 3, 13);
 
 
 #

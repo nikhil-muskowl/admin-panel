@@ -34,8 +34,14 @@ class Google_lib {
             endif;
         endif;
 
-
         return $country;
+    }
+
+    public function placeSearch($param) {
+        $param = urlencode($param);        
+        $url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" . $param . "&inputtype=textquery&fields=formatted_address,name,geometry&key=" . $this->key;
+        $data = file_get_contents($url);
+        return $data;
     }
 
 }

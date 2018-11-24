@@ -18,6 +18,17 @@ class Google extends CI_Controller {
         echo $this->google_lib->countryNameByPosition($deal_lat, $deal_long);
     }
 
+    public function placeSearch() {
+        if ($this->input->post('query')):
+            $query = $this->input->post('query');
+        else:
+            $query = 'Location';
+        endif;
+        $data = $this->google_lib->placeSearch($query);
+        print_r($data);
+        exit;
+    }
+
     public function date() {
         date_default_timezone_set('UTC');
 

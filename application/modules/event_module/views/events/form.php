@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#detailTab">Detail</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#locationTab">Location</a>
+                        </li>
                     </ul>
                     <br>
 
@@ -66,6 +69,20 @@
                                 </div>
                             </div> 
 
+
+
+
+
+                        </div>
+
+                        <div class="tab-pane container fade" id="imageTab">
+                            <?php include 'image_form.php'; ?>
+                        </div>
+
+                        <div class="tab-pane container fade" id="detailTab">
+                            <?php include 'details_form.php'; ?>
+                        </div>
+                        <div class="tab-pane container fade" id="locationTab">
                             <div class="form-group row">
                                 <label class="control-label col-md-2"><?= humanize('latitude') ?></label>
                                 <div class="col-md-10">
@@ -79,18 +96,7 @@
                                     <input name="longitude" value="<?= $longitude ?>" placeholder="<?= humanize('longitude') ?>" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
-                            </div> 
-
-
-
-                        </div>
-
-                        <div class="tab-pane container fade" id="imageTab">
-                            <?php include 'image_form.php'; ?>
-                        </div>
-
-                        <div class="tab-pane container fade" id="detailTab">
-                            <?php include 'details_form.php'; ?>
+                            </div>
                         </div>
                     </div>
 
@@ -106,15 +112,15 @@
     $('#user_id').select2();
     $('#fromDatePicker').datetimepicker({
         footer: true,
-        modal: true,        
+        modal: true,
         uiLibrary: 'bootstrap4',
         ampm: true,
         format: 'dd-mm-yyyy hh:MM'
-        
+
     });
     $('#toDatePicker').datetimepicker({
         footer: true,
-        modal: true,        
+        modal: true,
         uiLibrary: 'bootstrap4',
         ampm: true,
         format: 'dd-mm-yyyy hh:MM'

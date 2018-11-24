@@ -5,7 +5,7 @@ class Stories_model extends CI_Model {
     private $table = 'stories';
     private $detailTable = 'story_details';
     private $table_view = 'stories_view';
-    private $column_order = array(null, 'title', 'location', 'totalLikes', 'status', 'created_date', 'modified_date', null);
+    private $column_order = array(null, 'title', 'location', 'totalLikes', 'rank', 'status', 'created_date', 'modified_date', null);
     private $column_search = array('title', 'location', 'totalLikes', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
@@ -28,6 +28,8 @@ class Stories_model extends CI_Model {
         else :
             $this->user_activities_module = FALSE;
         endif;
+
+        $this->StoryRanked();
     }
 
     private function _getTablesQuery($array = array()) {

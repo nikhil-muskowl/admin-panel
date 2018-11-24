@@ -132,7 +132,8 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
                 $checkbox,
                 $object['title'],
                 $object['location'],
-                $object['totalLikes'],
+                $object['totalLikes'],                
+                $object['rank'],                
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
