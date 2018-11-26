@@ -14,8 +14,7 @@ and open the template in the editor.
         <title><?= $meta_title ?></title>
         <script src="<?= base_url() ?>node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>               
 
-        <script src="<?= base_url() ?>node_modules/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>        
-        <script src="<?= base_url() ?>node_modules/tooltip.js/dist/umd/tooltip.min.js" type="text/javascript"></script>        
+        <script src="<?= base_url() ?>node_modules/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>                
 
         <link href="<?= base_url() ?>node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script src="<?= base_url() ?>node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
