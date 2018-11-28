@@ -24,10 +24,10 @@ CREATE TABLE `todo_lists` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 1, 'admin work', 'admin work', 1, 0, 0, '2018-11-19 16:04:33', '2018-11-28 15:13:48');
-INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 2, 1, 'test', 'test', 0, 0, 0, '2018-11-20 16:42:11', '2018-11-20 16:43:58');
+INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 2, 1, 'test', 'test', 1, 0, 0, '2018-11-20 16:42:11', '2018-11-28 17:48:02');
 INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (4, 5, 1, 'rarau work', 'rarau work', 1, 0, 0, '2018-11-28 15:13:24', '2018-11-28 15:13:24');
 INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (5, 3, 1, 'nest work', 'nest work', 1, 0, 0, '2018-11-28 15:13:34', '2018-11-28 15:13:34');
-INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (6, 2, 1, 'testing', 'testing', 1, 0, 0, '2018-11-28 15:26:00', '2018-11-28 15:26:00');
+INSERT INTO `todo_lists` (`id`, `user_id`, `language_id`, `subject`, `text`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (6, 2, 1, 'testing', 'testing', 1, 0, 0, '2018-11-28 15:26:00', '2018-11-28 17:48:01');
 
 
 SET foreign_key_checks = 1;

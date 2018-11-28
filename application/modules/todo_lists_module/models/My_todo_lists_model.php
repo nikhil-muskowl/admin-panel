@@ -213,7 +213,6 @@ class My_todo_lists_model extends CI_Model {
             $this->db->where('DATE(modified_date)', date('Y-m-d', strtotime($this->input->post('date'))));
         endif;
 
-
         $result = $this->db->get()->result_array();
 
         return $result;
@@ -278,4 +277,5 @@ class My_todo_lists_model extends CI_Model {
         return $status;
     }
 
+    
 }

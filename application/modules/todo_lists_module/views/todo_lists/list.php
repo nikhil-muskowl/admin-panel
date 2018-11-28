@@ -41,7 +41,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Filter Result</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Send To Do List</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -82,6 +82,16 @@
                         <label class="control-label col-md-2"><?= $this->lang->line('text_date') ?></label>
                         <div class="col-md-10">
                             <input name="date" placeholder="<?= $this->lang->line('text_date') ?>" id="datepicker" class="form-control" type="text">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('status') ?></label>
+                        <div class="col-md-10">
+                            <select name="status" id="status" class="form-control" style="width: 100%">
+                                <option value="true"><?= $this->lang->line('text_open') ?></option>
+                                <option value="false"><?= $this->lang->line('text_close') ?></option>
+                            </select>
                             <span class="help-block"></span>
                         </div>
                     </div>

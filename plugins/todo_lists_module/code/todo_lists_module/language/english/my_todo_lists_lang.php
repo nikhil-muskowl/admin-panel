@@ -1,6 +1,6 @@
 <?php
 
-$lang['text_heading_list'] = 'my todo lists list';
+$lang['text_heading_list'] = 'my todo list';
 $lang['text_heading_form'] = 'my todo list';
 $lang['text_user'] = 'user';
 $lang['text_subject'] = 'subject';
