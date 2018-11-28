@@ -7,6 +7,7 @@
                     <button class="btn btn-default" data-toggle="tooltip" title="<?= $this->lang->line('text_refresh') ?>" onclick="reload_table()"><i class="fa fa-refresh"></i></button>
                     <button class="btn btn-danger" data-toggle="tooltip" title="<?= $this->lang->line('text_bulk_delete') ?>" onclick="bulk_delete()"><i class="fa fa-trash"></i></button>
                     <input type="checkbox" checked name="status_filter" data-size="mini" id="toggle-filter" data-toggle="toggle" data-on="<?= $this->lang->line('text_enable') ?>" data-off="<?= $this->lang->line('text_disable') ?>">
+                    <button type="button" title="<?= $this->lang->line('text_send') ?>" class="btn btn-primary" data-toggle="modal" data-target="#sendModal"><i class="fa fa-send"></i></button>
                 </div>
                 <div class="card-title">
                     <h2><?= $meta_title ?></h2>
@@ -35,8 +36,74 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filter Result</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="send-form" class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('to') ?></label>
+                        <div class="col-md-10">
+                            <select name="user_id" id="user_id" class="form-control" style="width: 100%">
+                                <?php if ($users): ?> 
+                                    <?php foreach ($users as $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="0">No result</option>
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= humanize('cc') ?></label>
+                        <div class="col-md-10">
+                            <select name="cc_users[]" multiple id="cc_users" class="form-control" style="width: 100%">
+                                <?php if ($users): ?> 
+                                    <?php foreach ($users as $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="0">No result</option>
+                                <?php endif; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-2"><?= $this->lang->line('text_date') ?></label>
+                        <div class="col-md-10">
+                            <input name="date" placeholder="<?= $this->lang->line('text_date') ?>" id="datepicker" class="form-control" type="text">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="send_email()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
+    $('#user_id').select2();
+    $('#cc_users').select2();
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'yyyy-mm-dd'
+    });
+
     var save_method;
     var table;
     var base_url = '<?= base_url() ?>';
@@ -95,7 +162,7 @@
                 }
             }
         });
-        
+
         $('#toggle-filter').change(function () {
             table.ajax.reload(null, false);
         });
@@ -156,7 +223,7 @@
             notification('Warning:', 'warning', '<?= $this->lang->line('textNoDataSelectedError') ?>');
         }
     }
-    
+
     function change_status(id, status) {
         $.ajax({
             url: "<?= $ajax_change_status ?>",
@@ -172,6 +239,44 @@
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 notification('Error:', 'error', errorThrown);
+            }
+        });
+    }
+    
+    function send_email() {
+        $('#btnSave').text('saving...');
+        $('#btnSave').attr('disabled', true);
+
+        var formData = new FormData($('#send-form')[0]);
+
+        $.ajax({
+            url: '<?= $ajax_send_mail ?>',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function (data) {
+                if (data.status) {
+                    notification('Success:', 'success', data.message);
+                } else {
+                    if (data.result) {
+                        notification('Warning:', 'warning', data.message);
+                        data.result.forEach(i => {
+                            $('[name="' + i.id + '"]').closest('.form-group').addClass('has-error');
+                            $('[name="' + i.id + '"]').nextAll('.help-block').text(i.text);
+                        });
+                    } else {
+                        notification('Error:', 'error', data.message);
+                    }
+                }
+                $('#btnSave').text('save');
+                $('#btnSave').attr('disabled', false);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                notification('Error:', 'error', 'error');
+                $('#btnSave').text('save');
+                $('#btnSave').attr('disabled', false);
             }
         });
     }

@@ -1,11 +1,11 @@
 <?php
 
-class Todo_lists_model extends CI_Model {
+class My_todo_lists_model extends CI_Model {
 
     private $table = 'todo_lists';
     private $table_view = 'todo_lists_view';
-    private $column_order = array(null, 'user_name', 'subject', 'text', 'status', 'created_date', 'modified_date', null);
-    private $column_search = array('user_name', 'subject', 'text', 'status', 'created_date', 'modified_date');
+    private $column_order = array(null, 'subject', 'text', 'status', 'created_date', 'modified_date', null);
+    private $column_search = array('subject', 'text', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
     private $user_id;
@@ -29,9 +29,7 @@ class Todo_lists_model extends CI_Model {
         endif;
         $this->db->where('status', $this->status);
 
-        if ($this->input->post('user_id')):
-            $this->db->where('user_id', $this->input->post('user_id'));
-        endif;
+        $this->db->where('user_id', $this->users_lib->isLogged());
 
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
@@ -92,9 +90,7 @@ class Todo_lists_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-        if ($this->input->post('user_id')):
-            $this->db->where('user_id', $this->input->post('user_id'));
-        endif;
+        $this->db->set('user_id', $this->users_lib->isLogged());
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
         elseif ($this->languages_lib->getLanguageId()):
@@ -134,7 +130,7 @@ class Todo_lists_model extends CI_Model {
     public function postData() {
         $this->db->trans_start();
 
-        $this->db->set('user_id', $this->input->post('user_id'));
+        $this->db->set('user_id', $this->users_lib->isLogged());
 
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
@@ -232,14 +228,13 @@ class Todo_lists_model extends CI_Model {
 
     public function sendToDoEmail() {
         $status = FALSE;
-        if ($this->input->post('user_id')):
-            $user = $this->getUser($this->input->post('user_id'));
+        if ($this->input->post('to_user_id')):
+            $user = $this->getUser($this->input->post('to_user_id'));
             if ($user):
                 $result = $this->getTodoList();
                 if ($result):
-                    $this->data['subject'] = 'Dear, ' . $user['name'] . ' ' . date($this->date_format) . ' task list';
+                    $this->data['subject'] = date($this->date_format) . ' task list';
                     $this->data['todo_lists'] = array();
-
                     foreach ($result as $object) :
                         $this->data['todo_lists'][] = array(
                             'user_name' => $object['user_name'],
@@ -251,7 +246,7 @@ class Todo_lists_model extends CI_Model {
                         );
                     endforeach;
 
-                    $html = $this->load->view('todo_lists_module/todo_lists/send_todo_list', $this->data, TRUE);
+                    $html = $this->load->view('todo_lists_module/my_todo_lists/send_todo_list', $this->data, TRUE);
 
                     $cc_users = array();
                     if ($this->input->post('cc_users')):

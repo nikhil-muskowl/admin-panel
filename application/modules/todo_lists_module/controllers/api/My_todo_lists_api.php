@@ -2,7 +2,7 @@
 
 require APPPATH . '/libraries/REST_Controller.php';
 
-class Todo_lists_api extends Restserver\Libraries\REST_Controller {
+class My_todo_lists_api extends Restserver\Libraries\REST_Controller {
 
     private $data = array();
     private $error = array();
@@ -10,7 +10,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
-        $this->load->model('todo_lists_module/todo_lists_model');
+        $this->load->model('todo_lists_module/my_todo_lists_model');
         $this->lang->load('todo_lists', $this->languages_lib->getLanguage());
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
@@ -20,7 +20,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
     public function index_post() {
         $this->data = array();
 
-        $list = $this->todo_lists_model->getTables();
+        $list = $this->my_todo_lists_model->getTables();
 
         $result = array();
         foreach ($list as $object) :
@@ -36,8 +36,8 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
             );
         endforeach;
 
-        $this->data['recordsTotal'] = $this->todo_lists_model->countAll();
-        $this->data['recordsFiltered'] = $this->todo_lists_model->countFiltered();
+        $this->data['recordsTotal'] = $this->my_todo_lists_model->countAll();
+        $this->data['recordsFiltered'] = $this->my_todo_lists_model->countFiltered();
         $this->data['data'] = $result;
 
         $this->response($this->data);
@@ -46,7 +46,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
     public function list_post() {
         $this->data = array();
 
-        $list = $this->todo_lists_model->getTables();
+        $list = $this->my_todo_lists_model->getTables();
 
         if ($this->input->post('draw')):
             $draw = $this->input->post('draw');
@@ -57,7 +57,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
         $result = array();
         foreach ($list as $object) :
             $action = '';
-            $action .= '<a class="btn btn-sm btn-primary" href="' . base_url('todo_lists_module/todo_lists/form/' . $object['id']) . '" data-toggle="tooltip" title="' . $this->lang->line('text_edit') . '"><i class="fa fa-pencil"></i></a>';
+            $action .= '<a class="btn btn-sm btn-primary" href="' . base_url('todo_lists_module/my_todo_lists/form/' . $object['id']) . '" data-toggle="tooltip" title="' . $this->lang->line('text_edit') . '"><i class="fa fa-pencil"></i></a>';
             $action .= ' <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-toggle="tooltip" title="' . $this->lang->line('text_delete') . '" onclick="delete_record(' . "'" . $object['id'] . "'" . ')"><i class="fa fa-trash"></i></a>';
 
             if ($object['status']):
@@ -69,7 +69,6 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
 
             $result[] = array(
                 $checkbox,
-                $object['user_name'],
                 $object['subject'],
                 $object['text'],
                 $status,
@@ -79,8 +78,8 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
         endforeach;
 
         $this->data['draw'] = $draw;
-        $this->data['recordsTotal'] = $this->todo_lists_model->countAll();
-        $this->data['recordsFiltered'] = $this->todo_lists_model->countFiltered();
+        $this->data['recordsTotal'] = $this->my_todo_lists_model->countAll();
+        $this->data['recordsFiltered'] = $this->my_todo_lists_model->countFiltered();
         $this->data['data'] = $result;
 
         $this->response($this->data);
@@ -88,7 +87,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
 
     public function detail_get($id) {
         $this->data = array();
-        $object = $this->todo_lists_model->getById($id);
+        $object = $this->my_todo_lists_model->getById($id);
         if ($object):
             $result[] = array(
                 'id' => $object['id'],
@@ -115,7 +114,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
     public function save_post() {
         $this->data = array();
         $this->_validation();
-        $result = $this->todo_lists_model->postData();
+        $result = $this->my_todo_lists_model->postData();
         if ($result):
             $this->data['status'] = TRUE;
             $this->data['message'] = $this->lang->line('text_submit_success');
@@ -131,18 +130,10 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
     public function _validation() {
         $this->data = array();
 
-        $this->form_validation->set_rules('user_id', 'user_id', 'required');
         $this->form_validation->set_rules('subject', 'subject', 'required');
         $this->form_validation->set_rules('text', 'text', 'required');
 
         if ($this->form_validation->run() == FALSE):
-
-            if (form_error('user_id', '', '')):
-                $this->error[] = array(
-                    'id' => 'user_id',
-                    'text' => form_error('user_id', '', '')
-                );
-            endif;
 
             if (form_error('subject', '', '')):
                 $this->error[] = array(
@@ -168,7 +159,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
 
     public function delete_get($id) {
         $this->data = array();
-        $result = $this->todo_lists_model->deleteById($id);
+        $result = $this->my_todo_lists_model->deleteById($id);
         if ($result):
             $this->data['status'] = TRUE;
             $this->data['message'] = $this->lang->line('text_submit_success');
@@ -184,7 +175,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
         $this->data = array();
         $list_id = $this->input->post('list_id');
         foreach ($list_id as $id) {
-            $result = $this->todo_lists_model->deleteById($id);
+            $result = $this->my_todo_lists_model->deleteById($id);
         }
         if ($result):
             $this->data['status'] = TRUE;
@@ -198,7 +189,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
 
     public function change_status_post() {
         $this->data = array();
-        $result = $this->todo_lists_model->change_status();
+        $result = $this->my_todo_lists_model->change_status();
         if ($result) {
             $this->data['status'] = TRUE;
             $this->data['message'] = 'update successfully';
@@ -213,7 +204,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
     public function send_mail_post() {
         $this->data = array();
         $this->_send_validation();
-        $result = $this->todo_lists_model->sendToDoEmail();
+        $result = $this->my_todo_lists_model->sendToDoEmail();
         if ($result):
             $this->data['status'] = TRUE;
             $this->data['message'] = 'send';
@@ -228,13 +219,14 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
     public function _send_validation() {
         $this->data = array();
 
-        $this->form_validation->set_rules('user_id', 'user', 'required');
+        $this->form_validation->set_rules('to_user_id', 'user', 'required');
 
         if ($this->form_validation->run() == FALSE):
-            if (form_error('user_id', '', '')):
+
+            if (form_error('to_user_id', '', '')):
                 $this->error[] = array(
-                    'id' => 'user_id',
-                    'text' => form_error('user_id', '', '')
+                    'id' => 'to_user_id',
+                    'text' => form_error('to_user_id', '', '')
                 );
             endif;
 

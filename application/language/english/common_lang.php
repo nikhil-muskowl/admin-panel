@@ -13,6 +13,7 @@ $lang['text_email'] = 'email';
 $lang['text_contact'] = 'contact';
 $lang['text_gender'] = 'gender';
 $lang['text_dob'] = 'date of birth';
+$lang['text_date'] = 'date';
 
 $lang['text_title'] = 'title';
 $lang['text_code'] = 'code';
@@ -23,6 +24,8 @@ $lang['text_status'] = 'status';
 $lang['text_request_status'] = 'request status';
 $lang['text_enable'] = 'enable';
 $lang['text_disable'] = 'disable';
+$lang['text_open'] = 'open';
+$lang['text_close'] = 'close';
 $lang['text_on'] = 'on';
 $lang['text_off'] = 'off';
 $lang['text_created_date'] = 'created date';

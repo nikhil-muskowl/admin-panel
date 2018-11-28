@@ -120,6 +120,7 @@ class Users_model extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
+    
     public function getByContact($contact) {
         $this->db->from($this->table_view);
         $this->db->where('contact', $contact);

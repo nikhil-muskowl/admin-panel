@@ -8,12 +8,17 @@ class Todo_lists_model extends CI_Model {
     private $column_search = array('user_name', 'subject', 'text', 'status', 'created_date', 'modified_date');
     private $order = array('modified_date' => 'desc');
     private $status;
+    private $user_id;
     private $language_id;
+    private $date_format;
+    private $datetime_format;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
         $this->language_id = 1;
+        $this->date_format = $this->settings_lib->config('config', 'date_format');
+        $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
     private function _getTablesQuery($array = array()) {
@@ -184,5 +189,98 @@ class Todo_lists_model extends CI_Model {
             return TRUE;
         }
     }
-    
+
+    public function getTodoList() {
+        $this->data = array();
+        $this->db->from($this->table_view);
+
+        if ($this->input->post('user_id')):
+            $this->user_id = $this->input->post('user_id');
+        elseif ($this->users_lib->isLogged()):
+            $this->user_id = $this->users_lib->isLogged();
+        endif;
+        $this->db->where('user_id', $this->user_id);
+
+        if ($this->input->post('language_id')):
+            $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
+        endif;
+        $this->db->where('language_id', $this->language_id);
+
+        if ($this->input->post('status') && $this->input->post('status') == 'false'):
+            $this->status = 0;
+        endif;
+        $this->db->where('status', $this->status);
+
+        if ($this->input->post('date')):
+            $this->db->where('DATE(modified_date)', date('Y-m-d', strtotime($this->input->post('date'))));
+        endif;
+
+
+        $result = $this->db->get()->result_array();
+
+        return $result;
+    }
+
+    public function getUser($id) {
+        $this->db->from('users');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    public function sendToDoEmail() {
+        $status = FALSE;
+        if ($this->input->post('user_id')):
+            $user = $this->getUser($this->input->post('user_id'));
+            if ($user):
+                $result = $this->getTodoList();
+                if ($result):
+                    $this->data['subject'] = 'Dear, ' . $user['name'] . ' ' . date($this->date_format) . ' task list';
+                    $this->data['todo_lists'] = array();
+
+                    foreach ($result as $object) :
+                        $this->data['todo_lists'][] = array(
+                            'user_name' => $object['user_name'],
+                            'subject' => $object['subject'],
+                            'text' => $object['text'],
+                            'status' => $object['status'] ? $this->lang->line('text_open') : $this->lang->line('text_close'),
+                            'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
+                            'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
+                        );
+                    endforeach;
+
+                    $html = $this->load->view('todo_lists_module/todo_lists/send_todo_list', $this->data, TRUE);
+
+                    $cc_users = array();
+                    if ($this->input->post('cc_users')):
+                        foreach ($this->input->post('cc_users') as $cc):
+                            $ccuser = $this->getUser($cc);
+                            $cc_users[] = $ccuser['email'];
+                        endforeach;
+                    endif;
+
+                    $this->email_lib->toEmail = $user['email'];
+                    $this->email_lib->cc = $cc_users;
+                    $this->email_lib->subject = $this->data['subject'];
+                    $this->email_lib->message = $html;
+                    if ($this->email_lib->send()):
+                        $status = TRUE;
+                    else:
+                        $status = FALSE;
+                    endif;
+                else:
+                    $status = FALSE;
+                endif;
+            else:
+                $status = FALSE;
+            endif;
+        else:
+            $status = FALSE;
+        endif;
+
+        return $status;
+    }
+
 }

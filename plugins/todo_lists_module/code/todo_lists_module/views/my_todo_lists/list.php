@@ -18,8 +18,7 @@
                     <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" id="check-all"></th>
-                                <th><?= $this->lang->line('text_user') ?></th>                                
+                                <th><input type="checkbox" id="check-all"></th>                                
                                 <th><?= $this->lang->line('text_subject') ?></th>                                
                                 <th><?= $this->lang->line('text_text') ?></th>                                                                
                                 <th><?= $this->lang->line('text_status') ?></th>
@@ -51,7 +50,7 @@
                     <div class="form-group row">
                         <label class="control-label col-md-2"><?= humanize('to') ?></label>
                         <div class="col-md-10">
-                            <select name="user_id" id="user_id" class="form-control" style="width: 100%">
+                            <select name="to_user_id" id="to_user_id" class="form-control" style="width: 100%">
                                 <?php if ($users): ?> 
                                     <?php foreach ($users as $value) : ?>
                                         <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
@@ -95,15 +94,13 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
-    $('#user_id').select2();
+    $('#to_user_id').select2();
     $('#cc_users').select2();
     $('#datepicker').datepicker({
         uiLibrary: 'bootstrap4',
         format: 'yyyy-mm-dd'
     });
-
     var save_method;
     var table;
     var base_url = '<?= base_url() ?>';
@@ -242,7 +239,7 @@
             }
         });
     }
-    
+
     function send_email() {
         $('#btnSave').text('saving...');
         $('#btnSave').attr('disabled', true);

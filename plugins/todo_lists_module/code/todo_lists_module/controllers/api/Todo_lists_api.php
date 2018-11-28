@@ -29,7 +29,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
                 'user_id' => $object['user_id'],
                 'user_name' => $object['user_name'],
                 'subject' => $object['subject'],
-                'text' => $object['text'],                
+                'text' => $object['text'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
                 'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
@@ -65,13 +65,13 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
             else:
                 $status = '<input type="checkbox"  onchange="change_status(' . $object['id'] . ',this.checked)" data-toggle="toggle" data-on="' . $this->lang->line('text_enable') . '" data-off="' . $this->lang->line('text_disable') . '" data-size="mini">';
             endif;
-            $checkbox = '<input type="checkbox" class="data-check" value="' . $object['id'] . '">';            
+            $checkbox = '<input type="checkbox" class="data-check" value="' . $object['id'] . '">';
 
             $result[] = array(
                 $checkbox,
                 $object['user_name'],
                 $object['subject'],
-                $object['text'],                
+                $object['text'],
                 $status,
                 date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
@@ -95,7 +95,7 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
                 'user_id' => $object['user_id'],
                 'user_name' => $object['user_name'],
                 'subject' => $object['subject'],
-                'text' => $object['text'],                
+                'text' => $object['text'],
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date($this->datetime_format, strtotime($object['created_date'])),
                 'modified_date' => date($this->datetime_format, strtotime($object['modified_date'])),
@@ -209,6 +209,41 @@ class Todo_lists_api extends Restserver\Libraries\REST_Controller {
 
         $this->response($this->data);
     }
-        
+
+    public function send_mail_post() {
+        $this->data = array();
+        $this->_send_validation();
+        $result = $this->todo_lists_model->sendToDoEmail();
+        if ($result):
+            $this->data['status'] = TRUE;
+            $this->data['message'] = 'send';
+        else:
+            $this->data['status'] = FALSE;
+            $this->data['message'] = 'sending failed!';
+        endif;
+
+        $this->response($this->data);
+    }
+
+    public function _send_validation() {
+        $this->data = array();
+
+        $this->form_validation->set_rules('user_id', 'user', 'required');
+
+        if ($this->form_validation->run() == FALSE):
+            if (form_error('user_id', '', '')):
+                $this->error[] = array(
+                    'id' => 'user_id',
+                    'text' => form_error('user_id', '', '')
+                );
+            endif;
+
+            $this->data['status'] = FALSE;
+            $this->data['message'] = $this->lang->line('text_validation_error');
+            $this->data['result'] = $this->error;
+            echo json_encode($this->data);
+            exit;
+        endif;
+    }
 
 }
