@@ -156,31 +156,6 @@ class Sidebar {
             endforeach;
         endif;
 
-
-        $user = array();
-        if ($this->ci->users_lib->isLogged()):
-            $user[] = array(
-                'name' => humanize('update_password'),
-                'href' => base_url('user_module/users/password_form/' . $this->ci->users_lib->isLogged()),
-                'children' => array()
-            );
-            $user[] = array(
-                'name' => humanize('update_profile'),
-                'href' => base_url('user_module/users/form/' . $this->ci->users_lib->isLogged()),
-                'children' => array()
-            );
-        endif;
-
-        if ($user) :
-            $sidebar[] = array(
-                'id' => 'menu-user',
-                'icon' => 'fa-user-circle',
-                'name' => humanize('my_account'),
-                'href' => '#',
-                'children' => $user
-            );
-        endif;
-
         return $sidebar;
     }
 

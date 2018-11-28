@@ -195,20 +195,6 @@ class Users extends MX_Controller {
         $this->data['ajax_form'] = base_url('user_module/api/users_api/admin_forgot');
         $this->load->view('admin/common/header', $this->data);
         $this->load->view('user_module/forgot', $this->data);
-    }
-
-    public function update_password() {
-        $this->data = array();
-        if ($this->input->get('id') && $this->input->get('id') != ''):
-            $id = $this->encryption->decrypt($this->input->get('id'));
-        else:
-            $id = 0;
-        endif;
-        $this->data['meta_title'] = $this->meta_title;
-        $this->data['id'] = $id;
-        $this->data['ajax_form'] = base_url('user_module/api/users_api/updatepassword');
-        $this->load->view('admin/common/header', $this->data);
-        $this->load->view('user_module/update_password', $this->data);
-    }
+    } 
 
 }

@@ -120,6 +120,17 @@ class Users_model extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
+    public function getByContact($contact) {
+        $this->db->from($this->table_view);
+        $this->db->where('contact', $contact);
+
+        if ($this->input->post('id')):
+            $this->db->where('id!=', $this->input->post('id'));
+        endif;
+
+        $query = $this->db->get();
+        return $query->row_array();
+    }
 
     public function deleteById($id) {
         $this->db->trans_start();

@@ -2,7 +2,7 @@
 
 require APPPATH . '/libraries/REST_Controller.php';
 
-class Users_api extends Restserver\Libraries\REST_Controller {
+class My_account_api extends Restserver\Libraries\REST_Controller {
 
     private $data = array();
     private $error = array();
@@ -25,7 +25,7 @@ class Users_api extends Restserver\Libraries\REST_Controller {
         $this->imageHeight = $this->settings_lib->config('config', 'list_image_height');
         $this->bannerWidth = $this->settings_lib->config('config', 'list_banner_width');
         $this->bannerHeight = $this->settings_lib->config('config', 'list_banner_height');
-
+        
         $this->datetime_format = $this->settings_lib->config('config', 'datetime_format');
     }
 
@@ -183,7 +183,7 @@ class Users_api extends Restserver\Libraries\REST_Controller {
     public function _validation() {
         $this->data = array();
         $this->form_validation->set_rules('name', 'Name', 'required|min_length[3]|max_length[20]');
-        $this->form_validation->set_rules('contact', 'Contact', 'required|min_length[5]|max_length[10]|callback_validate_contact');
+        $this->form_validation->set_rules('contact', 'Contact', 'required|min_length[5]|max_length[10]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_validate_email');
         if ($this->form_validation->run() == FALSE):
             if (form_error('name', '', '')):
@@ -228,15 +228,6 @@ class Users_api extends Restserver\Libraries\REST_Controller {
     public function validate_email($field_value) {
         if ($this->users_model->getByEmail($field_value)) {
             $this->form_validation->set_message('validate_email', '{field} already exists!');
-            return FALSE;
-        } else {
-            return TRUE;
-        }
-    }
-
-    public function validate_contact($field_value) {
-        if ($this->users_model->getByContact($field_value)) {
-            $this->form_validation->set_message('validate_contact', '{field} already exists!');
             return FALSE;
         } else {
             return TRUE;
