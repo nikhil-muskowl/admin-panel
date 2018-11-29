@@ -16,7 +16,6 @@ CREATE TABLE `holidays` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 #
 # TABLE STRUCTURE FOR: holiday_details
 #
@@ -34,7 +33,6 @@ CREATE TABLE `holiday_details` (
   CONSTRAINT `holiday_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `holidays` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `holiday_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 #
 # TABLE STRUCTURE FOR: user_leaves
@@ -58,7 +56,6 @@ CREATE TABLE `user_leaves` (
   CONSTRAINT `user_leaves_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_leaves_ibfk_2` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 #
 # TABLE STRUCTURE FOR: leave_applications
@@ -113,7 +110,6 @@ CREATE TABLE `leave_reasons` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 #
 # TABLE STRUCTURE FOR: leave_reason_details
 #
@@ -132,7 +128,6 @@ CREATE TABLE `leave_reason_details` (
   CONSTRAINT `leave_reason_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 #
 # TABLE STRUCTURE FOR: leave_statuses
 #
@@ -148,8 +143,6 @@ CREATE TABLE `leave_statuses` (
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
 
 #
 # TABLE STRUCTURE FOR: leave_status_details
@@ -187,7 +180,6 @@ CREATE TABLE `leave_types` (
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 #
 # TABLE STRUCTURE FOR: leave_type_details
@@ -227,6 +219,5 @@ CREATE TABLE `user_leave_authorities` (
   CONSTRAINT `user_leave_authorities_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_leave_authorities_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 SET foreign_key_checks = 1;

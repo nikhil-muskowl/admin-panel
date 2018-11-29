@@ -150,10 +150,19 @@ DROP TABLE IF EXISTS `products`;
 
 CREATE TABLE `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `price` decimal(15,6) NOT NULL,
-  `quantity` decimal(15,6) NOT NULL,
+  `model` varchar(64) NOT NULL,
+  `sku` varchar(64) NOT NULL,
+  `price_type` enum('base','weight','length') NOT NULL,
+  `price` decimal(15,8) NOT NULL,
+  `quantity` decimal(15,8) NOT NULL,
   `image` text NOT NULL,
   `banner` text NOT NULL,
+  `weight_class_id` int(11) NOT NULL,
+  `weight` decimal(15,8) NOT NULL,
+  `length_class_id` int(11) NOT NULL,
+  `length` decimal(15,8) NOT NULL,
+  `width` decimal(15,8) NOT NULL,
+  `height` decimal(15,8) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int(11) NOT NULL,
   `modified_by` int(11) NOT NULL,
@@ -162,8 +171,8 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-INSERT INTO `products` (`id`, `price`, `quantity`, `image`, `banner`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, '100.000000', '100.000000', 'upload/images/c215b6df0959ca52126bbb5c78ad4c7d.jpg', 'upload/images/0c90f50a999505679ff15dc9926da398.jpg', 1, 0, 0, '2018-08-11 10:27:56', '2018-08-11 12:49:35');
-INSERT INTO `products` (`id`, `price`, `quantity`, `image`, `banner`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, '200.000000', '200.000000', 'upload/images/e2e34dcaa293b21b43ab86116dc4349a.jpg', '', 1, 0, 0, '2018-08-11 12:41:16', '2018-08-11 12:49:45');
+INSERT INTO `products` (`id`, `model`, `sku`, `price_type`, `price`, `quantity`, `image`, `banner`, `weight_class_id`, `weight`, `length_class_id`, `length`, `width`, `height`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, '1001', '1235456', 'base', '100.00000000', '100.00000000', 'upload/images/c215b6df0959ca52126bbb5c78ad4c7d.jpg', 'upload/images/0c90f50a999505679ff15dc9926da398.jpg', 0, '100.00000000', 0, '12.00000000', '41.00000000', '11.00000000', 1, 0, 0, '2018-08-11 10:27:56', '2018-11-29 15:51:08');
+INSERT INTO `products` (`id`, `model`, `sku`, `price_type`, `price`, `quantity`, `image`, `banner`, `weight_class_id`, `weight`, `length_class_id`, `length`, `width`, `height`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, '', '', 'base', '200.00000000', '200.00000000', 'upload/images/e2e34dcaa293b21b43ab86116dc4349a.jpg', '', 0, '0.00000000', 0, '0.00000000', '0.00000000', '0.00000000', 1, 0, 0, '2018-08-11 12:41:16', '2018-08-11 12:49:45');
 
 
 #
@@ -256,9 +265,9 @@ CREATE TABLE `product_images` (
   PRIMARY KEY (`id`),
   KEY `blog_id` (`product_id`),
   CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
-INSERT INTO `product_images` (`id`, `product_id`, `image`, `link`, `sort_order`, `status`) VALUES (22, 1, 'upload/images/e2e34dcaa293b21b43ab86116dc4349a.jpg', '', 0, 1);
+INSERT INTO `product_images` (`id`, `product_id`, `image`, `link`, `sort_order`, `status`) VALUES (24, 1, 'upload/images/e2e34dcaa293b21b43ab86116dc4349a.jpg', '', 0, 1);
 
 
 #
@@ -390,6 +399,92 @@ CREATE TABLE `product_wishlists` (
 INSERT INTO `product_wishlists` (`id`, `product_id`, `user_id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 1, 1, 1, 0, 0, '2018-09-20 16:37:51', '2018-09-20 16:37:51');
 INSERT INTO `product_wishlists` (`id`, `product_id`, `user_id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 1, 26, 1, 0, 0, '2018-09-20 16:51:09', '2018-09-20 16:51:09');
 INSERT INTO `product_wishlists` (`id`, `product_id`, `user_id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 2, 1, 1, 0, 0, '2018-09-22 15:55:24', '2018-09-22 15:55:24');
+
+
+#
+# TABLE STRUCTURE FOR: lengths
+#
+
+DROP TABLE IF EXISTS `lengths`;
+
+CREATE TABLE `lengths` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `sort_order` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+INSERT INTO `lengths` (`id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 1, 0, 0, 0, '2018-11-29 16:37:19', '2018-11-29 16:37:19');
+INSERT INTO `lengths` (`id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 1, 0, 0, 0, '2018-11-29 16:37:23', '2018-11-29 16:37:23');
+
+
+#
+# TABLE STRUCTURE FOR: length_details
+#
+
+DROP TABLE IF EXISTS `length_details`;
+
+CREATE TABLE `length_details` (
+  `id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  UNIQUE KEY `id` (`id`,`language_id`),
+  KEY `language_id` (`language_id`),
+  CONSTRAINT `length_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `lengths` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `length_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `length_details` (`id`, `language_id`, `title`) VALUES (1, 1, 'cm');
+INSERT INTO `length_details` (`id`, `language_id`, `title`) VALUES (1, 2, 'cm');
+INSERT INTO `length_details` (`id`, `language_id`, `title`) VALUES (2, 1, 'mm');
+INSERT INTO `length_details` (`id`, `language_id`, `title`) VALUES (2, 2, 'mm');
+
+
+#
+# TABLE STRUCTURE FOR: weights
+#
+
+DROP TABLE IF EXISTS `weights`;
+
+CREATE TABLE `weights` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `sort_order` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+INSERT INTO `weights` (`id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 1, 0, 0, 0, '2018-11-29 16:29:17', '2018-11-29 16:29:17');
+INSERT INTO `weights` (`id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 1, 0, 0, 0, '2018-11-29 16:29:25', '2018-11-29 16:29:25');
+
+
+#
+# TABLE STRUCTURE FOR: weight_details
+#
+
+DROP TABLE IF EXISTS `weight_details`;
+
+CREATE TABLE `weight_details` (
+  `id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  UNIQUE KEY `id` (`id`,`language_id`),
+  KEY `language_id` (`language_id`),
+  CONSTRAINT `weight_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `weights` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `weight_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `weight_details` (`id`, `language_id`, `title`) VALUES (1, 1, 'kg');
+INSERT INTO `weight_details` (`id`, `language_id`, `title`) VALUES (1, 2, 'kg');
+INSERT INTO `weight_details` (`id`, `language_id`, `title`) VALUES (2, 1, 'lt');
+INSERT INTO `weight_details` (`id`, `language_id`, `title`) VALUES (2, 2, 'lt');
 
 
 SET foreign_key_checks = 1;

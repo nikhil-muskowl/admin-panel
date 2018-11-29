@@ -32,4 +32,12 @@ DROP TABLE IF EXISTS `product_to_categories`;
 
 DROP TABLE IF EXISTS `product_wishlists`;
 
+DROP TABLE IF EXISTS `lengths`;
+
+DROP TABLE IF EXISTS `length_details`;
+
+DROP TABLE IF EXISTS `weights`;
+
+DROP TABLE IF EXISTS `weight_details`;
+
 SET foreign_key_checks = 1;

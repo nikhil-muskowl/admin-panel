@@ -470,12 +470,18 @@ class Stories_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->delete('story_details');
 
-        $this->db->set('id', $id);
-        $this->db->set('language_id', $this->input->post('language_id'));
-        $this->db->set('title', $this->input->post('title'));
-        $this->db->set('description', $this->input->post('description'));
-        $this->db->insert('story_details');
+        $this->load->model('settings/languages_model');
+        $languages = $this->languages_model->getTables();
 
+        if ($languages):
+            foreach ($languages as $language) :
+                $this->db->set('id', $id);
+                $this->db->set('language_id', $language['id']);
+                $this->db->set('title', $this->input->post('title'));
+                $this->db->set('description', $this->input->post('description'));
+                $this->db->insert('story_details');
+            endforeach;
+        endif;
 
         $this->db->where('story_id', $id);
         $this->db->delete('story_to_types');
@@ -915,6 +921,8 @@ class Stories_model extends CI_Model {
                         $this->db->where('story_type_id', $story_type['id']);
                         $this->db->where('story_id', $story['id']);
                         $this->db->update('story_to_types');
+
+//                        print_r($this->db->last_query());
                     endforeach;
                 endif;
             endforeach;

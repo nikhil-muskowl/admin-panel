@@ -14,5 +14,9 @@
     "product_rating_details",
     "product_reviews",
     "product_to_categories",
-    "product_wishlists"
+    "product_wishlists",
+    "lengths",
+    "length_details",
+    "weights",
+    "weight_details"
 ]

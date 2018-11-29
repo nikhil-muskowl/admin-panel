@@ -67,3 +67,16 @@ LEFT JOIN product_details pd ON pd.id=p.id AND pd.language_id=pr.language_id
 LEFT JOIN product_ratings prt ON prt.id=pr.rating_id
 LEFT JOIN product_rating_details prtd ON prtd.id=prt.id;
 
+-- weights_view
+CREATE OR REPLACE ALGORITHM = UNDEFINED
+VIEW `weights_view`
+AS
+SELECT t.*,td.language_id,td.title FROM weights t
+LEFT JOIN weight_details td ON td.id=t.id;
+
+-- lengths_view
+CREATE OR REPLACE ALGORITHM = UNDEFINED
+VIEW `lengths_view`
+AS
+SELECT t.*,td.language_id,td.title FROM lengths t
+LEFT JOIN length_details td ON td.id=t.id;
