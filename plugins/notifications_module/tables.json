@@ -1,5 +1,6 @@
 [
     "notifications",
     "notification_details",
-    "notification_to_users"    
+    "notification_to_users", 
+    "user_devices"    
 ]

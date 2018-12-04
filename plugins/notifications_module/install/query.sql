@@ -17,9 +17,9 @@ CREATE TABLE `notifications` (
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-INSERT INTO `notifications` (`id`, `image`, `type`, `type_id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 'upload/images/0c90f50a999505679ff15dc9926da398.jpg', '', 0, 1, 0, 0, 0, '2018-09-22 12:50:47', '2018-09-22 14:09:41');
+INSERT INTO `notifications` (`id`, `image`, `type`, `type_id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, '', '', 0, 1, 0, 0, 0, '2018-12-03 14:15:22', '2018-12-03 14:15:22');
 
 
 #
@@ -39,8 +39,8 @@ CREATE TABLE `notification_details` (
   CONSTRAINT `notification_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `notification_details` (`id`, `language_id`, `title`, `description`) VALUES (1, 1, 'e', 'e');
-INSERT INTO `notification_details` (`id`, `language_id`, `title`, `description`) VALUES (1, 2, 'h', 'h');
+INSERT INTO `notification_details` (`id`, `language_id`, `title`, `description`) VALUES (2, 1, 'test', 'test');
+INSERT INTO `notification_details` (`id`, `language_id`, `title`, `description`) VALUES (2, 2, 'test', 'test');
 
 
 #
@@ -59,10 +59,40 @@ CREATE TABLE `notification_to_users` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `notification_to_users_ibfk_1` FOREIGN KEY (`notification_id`) REFERENCES `notifications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `notification_to_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
-INSERT INTO `notification_to_users` (`id`, `notification_id`, `user_id`, `is_view`) VALUES (7, 1, 26, 0);
-INSERT INTO `notification_to_users` (`id`, `notification_id`, `user_id`, `is_view`) VALUES (8, 1, 27, 0);
+INSERT INTO `notification_to_users` (`id`, `notification_id`, `user_id`, `is_view`) VALUES (74, 2, 5, 0);
+INSERT INTO `notification_to_users` (`id`, `notification_id`, `user_id`, `is_view`) VALUES (75, 2, 1, 0);
+INSERT INTO `notification_to_users` (`id`, `notification_id`, `user_id`, `is_view`) VALUES (76, 2, 4, 0);
+INSERT INTO `notification_to_users` (`id`, `notification_id`, `user_id`, `is_view`) VALUES (77, 2, 3, 0);
+INSERT INTO `notification_to_users` (`id`, `notification_id`, `user_id`, `is_view`) VALUES (78, 2, 2, 0);
+
+
+#
+# TABLE STRUCTURE FOR: user_devices
+#
+
+DROP TABLE IF EXISTS `user_devices`;
+
+CREATE TABLE `user_devices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `provider` varchar(20) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `code` text NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `user_devices_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+INSERT INTO `user_devices` (`id`, `user_id`, `provider`, `type`, `code`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 'firebase', 'andorid', '123', 1, 0, 0, '2018-12-03 10:15:19', '2018-12-03 14:04:20');
+INSERT INTO `user_devices` (`id`, `user_id`, `provider`, `type`, `code`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 5, 'pushy', 'andorid', 'sss', 1, 0, 0, '2018-12-03 10:36:09', '2018-12-03 14:04:28');
+INSERT INTO `user_devices` (`id`, `user_id`, `provider`, `type`, `code`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 1, 'firebase', 'andorid', '1232', 1, 0, 0, '2018-12-03 11:00:18', '2018-12-03 14:09:38');
 
 
 SET foreign_key_checks = 1;

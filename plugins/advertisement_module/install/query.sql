@@ -1,3 +1,4 @@
+
 SET foreign_key_checks = 0;
 #
 # TABLE STRUCTURE FOR: advertisements
@@ -18,9 +19,7 @@ CREATE TABLE `advertisements` (
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
-INSERT INTO `advertisements` (`id`, `user_id`, `image`, `banner`, `status`, `latitude`, `longitude`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 0, '', '', 1, '0.000000', '0.000000', 0, 0, '2018-10-24 13:04:08', '2018-10-24 13:04:08');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 #
@@ -40,9 +39,6 @@ CREATE TABLE `advertisement_details` (
   CONSTRAINT `advertisement_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `advertisements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `advertisement_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `advertisement_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 1, 'a', '', '');
-INSERT INTO `advertisement_details` (`id`, `language_id`, `title`, `description`, `html`) VALUES (1, 2, 'a', '', '');
 
 
 #
@@ -105,9 +101,7 @@ CREATE TABLE `advertisement_types` (
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
-INSERT INTO `advertisement_types` (`id`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 1, 0, 0, '2018-10-24 13:03:49', '2018-10-24 13:03:49');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 #
@@ -125,9 +119,5 @@ CREATE TABLE `advertisement_type_details` (
   CONSTRAINT `advertisement_type_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `advertisement_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `advertisement_type_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `advertisement_type_details` (`id`, `language_id`, `title`) VALUES (1, 1, 'a');
-INSERT INTO `advertisement_type_details` (`id`, `language_id`, `title`) VALUES (1, 2, 'a');
-
 
 SET foreign_key_checks = 1;

@@ -24,6 +24,9 @@
                             <a class="nav-link" data-toggle="tab" href="#detailTab">Details</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#unitDetailTab">Unit Detail</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#imageTab">Image</a>
                         </li>
                         <li class="nav-item">
@@ -74,6 +77,25 @@
                                 </div>
                             </div> 
                             <div class="form-group row">
+                                <label class="control-label col-md-2"><?= humanize('price_type') ?></label>
+                                <div class="col-md-10">
+                                    <select name="price_type" id="price_type" class="form-control" style="width: 100%;">
+                                        <?php if ($price_types): ?> 
+                                            <?php foreach ($price_types as $key => $price_type_value) : ?>
+                                                <?php if ($key == $price_type): ?>
+                                                    <option value="<?= $key ?>" selected><?= $price_type_value ?></option>
+                                                <?php else: ?>
+                                                    <option value="<?= $key ?>"><?= $price_type_value ?></option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="0">No result</option>
+                                        <?php endif; ?>
+                                    </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="control-label col-md-2"><?= humanize('price') ?></label>
                                 <div class="col-md-10">
                                     <input name="price" value="<?= $price ?>" placeholder="<?= humanize('price') ?>" class="form-control" type="text">
@@ -87,6 +109,34 @@
                                     <span class="help-block"></span>
                                 </div>
                             </div> 
+
+
+                        </div>
+
+                        <div class="tab-pane container fade" id="detailTab">
+                            <?php include 'details_form.php'; ?>
+                        </div>
+                        <div class="tab-pane container fade" id="unitDetailTab">
+                            <div class="form-group row">
+                                <label class="control-label col-md-2"><?= humanize('weight_class') ?></label>
+                                <div class="col-md-10">
+                                    <select name="weight_class_id" id="weight_class_id" class="form-control" style="width: 100%;">
+                                        <?php if ($weights): ?> 
+                                            <?php foreach ($weights as $value) : ?>
+                                                <?php if ($value['id'] == $weight_class_id): ?>
+                                                    <option value="<?= $value['id'] ?>" selected><?= $value['title'] ?></option>
+                                                <?php else: ?>
+                                                    <option value="<?= $value['id'] ?>"><?= $value['title'] ?></option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="0">No result</option>
+                                        <?php endif; ?>
+                                    </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label class="control-label col-md-2"><?= humanize('weight') ?></label>
                                 <div class="col-md-10">
@@ -94,6 +144,27 @@
                                     <span class="help-block"></span>
                                 </div>
                             </div> 
+
+                            <div class="form-group row">
+                                <label class="control-label col-md-2"><?= humanize('length_class') ?></label>
+                                <div class="col-md-10">
+                                    <select name="length_class_id" id="length_class_id" class="form-control" style="width: 100%;">
+                                        <?php if ($lengths): ?> 
+                                            <?php foreach ($lengths as $value) : ?>
+                                                <?php if ($value['id'] == $length_class_id): ?>
+                                                    <option value="<?= $value['id'] ?>" selected><?= $value['title'] ?></option>
+                                                <?php else: ?>
+                                                    <option value="<?= $value['id'] ?>"><?= $value['title'] ?></option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="0">No result</option>
+                                        <?php endif; ?>
+                                    </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label class="control-label col-md-2"><?= humanize('length') ?></label>
                                 <div class="col-md-10">
@@ -101,6 +172,7 @@
                                     <span class="help-block"></span>
                                 </div>
                             </div> 
+
                             <div class="form-group row">
                                 <label class="control-label col-md-2"><?= humanize('width') ?></label>
                                 <div class="col-md-10">
@@ -108,17 +180,14 @@
                                     <span class="help-block"></span>
                                 </div>
                             </div> 
+
                             <div class="form-group row">
                                 <label class="control-label col-md-2"><?= humanize('height') ?></label>
                                 <div class="col-md-10">
                                     <input name="height" value="<?= $height ?>" placeholder="<?= humanize('height') ?>" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
-                            </div>                             
-                        </div>
-
-                        <div class="tab-pane container fade" id="detailTab">
-                            <?php include 'details_form.php'; ?>
+                            </div>  
                         </div>
                         <div class="tab-pane container fade" id="imageTab">
                             <?php include 'image_form.php'; ?>
@@ -142,4 +211,6 @@
 
 <script>
     $('#categories').select2();
+    $('#weight_class_id').select2();
+    $('#length_class_id').select2();
 </script>

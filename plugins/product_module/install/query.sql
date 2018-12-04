@@ -171,7 +171,7 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-INSERT INTO `products` (`id`, `model`, `sku`, `price_type`, `price`, `quantity`, `image`, `banner`, `weight_class_id`, `weight`, `length_class_id`, `length`, `width`, `height`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, '1001', '1235456', 'base', '100.00000000', '100.00000000', 'upload/images/c215b6df0959ca52126bbb5c78ad4c7d.jpg', 'upload/images/0c90f50a999505679ff15dc9926da398.jpg', 0, '100.00000000', 0, '12.00000000', '41.00000000', '11.00000000', 1, 0, 0, '2018-08-11 10:27:56', '2018-11-29 15:51:08');
+INSERT INTO `products` (`id`, `model`, `sku`, `price_type`, `price`, `quantity`, `image`, `banner`, `weight_class_id`, `weight`, `length_class_id`, `length`, `width`, `height`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, '1001', '1235456', 'weight', '100.00000000', '100.00000000', 'upload/images/c215b6df0959ca52126bbb5c78ad4c7d.jpg', 'upload/images/0c90f50a999505679ff15dc9926da398.jpg', 1, '100.00000000', 2, '12.00000000', '41.00000000', '11.00000000', 1, 0, 0, '2018-08-11 10:27:56', '2018-12-04 12:29:21');
 INSERT INTO `products` (`id`, `model`, `sku`, `price_type`, `price`, `quantity`, `image`, `banner`, `weight_class_id`, `weight`, `length_class_id`, `length`, `width`, `height`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, '', '', 'base', '200.00000000', '200.00000000', 'upload/images/e2e34dcaa293b21b43ab86116dc4349a.jpg', '', 0, '0.00000000', 0, '0.00000000', '0.00000000', '0.00000000', 1, 0, 0, '2018-08-11 12:41:16', '2018-08-11 12:49:45');
 
 
@@ -265,9 +265,9 @@ CREATE TABLE `product_images` (
   PRIMARY KEY (`id`),
   KEY `blog_id` (`product_id`),
   CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
-INSERT INTO `product_images` (`id`, `product_id`, `image`, `link`, `sort_order`, `status`) VALUES (24, 1, 'upload/images/e2e34dcaa293b21b43ab86116dc4349a.jpg', '', 0, 1);
+INSERT INTO `product_images` (`id`, `product_id`, `image`, `link`, `sort_order`, `status`) VALUES (27, 1, 'upload/images/e2e34dcaa293b21b43ab86116dc4349a.jpg', '', 0, 1);
 
 
 #

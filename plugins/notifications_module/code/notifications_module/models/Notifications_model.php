@@ -10,11 +10,16 @@ class Notifications_model extends CI_Model {
     private $order = array('modified_date' => 'desc');
     private $status;
     private $language_id;
+    private $fcm_key;
+    private $pushy_key;
 
     public function __construct() {
         parent::__construct();
         $this->status = 1;
         $this->language_id = 1;
+
+        $this->fcm_key = $this->settings_lib->config('notifications_module', 'fcm_key');
+        $this->pushy_key = $this->settings_lib->config('notifications_module', 'pushy_key');
     }
 
     private function _getTablesQuery($array = array()) {
@@ -101,6 +106,8 @@ class Notifications_model extends CI_Model {
         $this->db->where('id', $id);
         if ($this->input->post('language_id')):
             $this->language_id = $this->input->post('language_id');
+        elseif ($this->languages_lib->getLanguageId()):
+            $this->language_id = $this->languages_lib->getLanguageId();
         endif;
         $this->db->where('language_id', $this->language_id);
         $query = $this->db->get();
@@ -136,6 +143,7 @@ class Notifications_model extends CI_Model {
         endif;
         $this->postDetails($id);
         $this->setUsers($id);
+        $this->sendPushNotification($id);
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -210,6 +218,151 @@ class Notifications_model extends CI_Model {
         endif;
 
         return $result;
+    }
+
+    public function getNotificationUsers($id) {
+        $this->db->from('notification_user_devices_view');
+        $this->db->where('notification_id', $id);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
+
+    public function sendPushNotification($id) {
+        $status = TRUE;
+        $fireBaseDevices = array();
+        $PushyDevices = array();
+        $image = '';
+        $title = '';
+        $message = '';
+
+        $notifications = $this->getById($id);
+        if ($notifications):
+//            print_r($notifications);
+//            exit;
+            $title = $notifications['title'];
+            $message = $notifications['description'];
+            $image = base_url($notifications['image']);
+
+            $user_devices = $this->getNotificationUsers($notifications['id']);
+//            print_r($user_devices);
+//            exit;
+            if ($user_devices):
+                foreach ($user_devices as $user_device) :
+                    if ($user_device['provider'] == 'firebase' && $user_device['code']):
+                        $fireBaseDevices[] = $user_device['code'];
+                    elseif ($user_device['provider'] == 'pushy' && $user_device['code']):
+                        $PushyDevices[] = $user_device['code'];
+                    endif;
+                endforeach;
+            endif;
+
+//            print_r($PushyDevices);
+//            exit;
+
+            $data = array(
+                'title' => $title,
+                'image' => $image,
+                'message' => $message
+            );
+
+            if ($fireBaseDevices):
+                $this->sendGCM($data, $fireBaseDevices);
+            endif;
+
+            if ($PushyDevices):
+                $this->sendPushy($data, $PushyDevices);
+            endif;
+        endif;
+
+        return $status;
+    }
+
+    public function sendGCM($data, $devices) {
+        $url = 'https://fcm.googleapis.com/fcm/send';
+
+        $fields = array(
+            'registration_ids' => $devices,
+            'data' => $data
+        );
+        $fields = json_encode($fields);
+
+        $headers = array(
+            'Authorization: key=' . $this->fcm_key,
+            'Content-Type: application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+
+        $result = curl_exec($ch);
+//        echo $result;
+        curl_close($ch);
+        
+        return TRUE;
+    }
+
+    public function sendPushy($data, $devices) {
+        $options = array(
+            'notification' => array(
+                'badge' => 1,
+                'sound' => 'ping.aiff',
+                'body' => "Hello World \xE2\x9C\x8C"
+            )
+        );
+
+        // Insert your Secret API Key here
+        $apiKey = $this->pushy_key;
+
+        // Default post data to provided options or empty array
+        $post = $options ?: array();
+
+        // Set notification payload and recipients
+        $post['to'] = $devices;
+        $post['data'] = $data;
+
+        // Set Content-Type header since we're sending JSON
+        $headers = array(
+            'Content-Type: application/json'
+        );
+
+        // Initialize curl handle
+        $ch = curl_init();
+
+        // Set URL to Pushy endpoint
+        curl_setopt($ch, CURLOPT_URL, 'https://api.pushy.me/push?api_key=' . $apiKey);
+
+        // Set request method to POST
+        curl_setopt($ch, CURLOPT_POST, true);
+
+        // Set our custom headers
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        // Get the response back as string instead of printing it
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Set post data as JSON
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post, JSON_UNESCAPED_UNICODE));
+
+        // Actually send the push
+        $result = curl_exec($ch);
+
+        // Display errors
+        if (curl_errno($ch)) {
+            echo curl_error($ch);
+        }
+
+        // Close curl handle
+        curl_close($ch);
+
+        // Debug API response
+        //echo $result;
+        
+        return TRUE;
     }
 
 }

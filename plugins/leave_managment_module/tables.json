@@ -8,6 +8,5 @@
     "leave_statuses",
     "leave_status_details",
     "leave_types",
-    "leave_type_details",
-    "user_leave_authorities"
+    "leave_type_details"   
 ]

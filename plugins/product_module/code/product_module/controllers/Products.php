@@ -60,6 +60,12 @@ class Products extends MX_Controller {
         else:
             $this->data['sku'] = '';
         endif;
+
+        if (isset($result['price_type']) && $result['price_type']) :
+            $this->data['price_type'] = $result['price_type'];
+        else:
+            $this->data['price_type'] = '';
+        endif;
         
         if (isset($result['price']) && $result['price']) :
             $this->data['price'] = $this->settings_lib->number_format($result['price']);
@@ -73,11 +79,24 @@ class Products extends MX_Controller {
             $this->data['quantity'] = $this->settings_lib->number_format(0);
         endif;
 
+        if (isset($result['weight_class_id']) && $result['weight_class_id']) :
+            $this->data['weight_class_id'] = $result['weight_class_id'];
+        else:
+            $this->data['weight_class_id'] = 0;
+        endif;
+
         if (isset($result['weight']) && $result['weight']) :
             $this->data['weight'] = $this->settings_lib->number_format($result['weight']);
         else:
             $this->data['weight'] = $this->settings_lib->number_format(0);
         endif;
+
+        if (isset($result['length_class_id']) && $result['length_class_id']) :
+            $this->data['length_class_id'] = $result['length_class_id'];
+        else:
+            $this->data['length_class_id'] = 0;
+        endif;
+
         if (isset($result['length']) && $result['length']) :
             $this->data['length'] = $this->settings_lib->number_format($result['length']);
         else:
@@ -93,7 +112,7 @@ class Products extends MX_Controller {
         else:
             $this->data['height'] = $this->settings_lib->number_format(0);
         endif;
-        
+
         if (isset($result['image']) && $result['image']) :
             $this->data['image'] = $result['image'];
         else:
@@ -121,8 +140,8 @@ class Products extends MX_Controller {
         $this->load->model('settings/languages_model');
         $languages = $this->languages_model->getTables();
         $this->data['languages'] = $languages;
-        
-                
+
+
         $details = $this->products_model->details($id);
 
         $this->data['details'] = array();
@@ -185,15 +204,28 @@ class Products extends MX_Controller {
 
 
         $this->data['product_attributes'] = $this->products_model->getAttributes($id);
-        
+
 
         $this->load->model('product_module/categories_model');
         $this->data['product_categories'] = $this->categories_model->getTables();
-        
+
         $this->load->model('product_module/attributes_model');
         $this->data['attributes'] = $this->attributes_model->getTables();
-        
-        
+
+        $this->load->model('product_module/weights_model');
+        $this->data['weights'] = $this->weights_model->getTables();
+
+        $this->load->model('product_module/lengths_model');
+        $this->data['lengths'] = $this->lengths_model->getTables();
+
+
+        $this->data['price_types'] = array(
+            'base' => 'Base',
+            'weight' => 'Weight',
+            'length' => 'Length',
+        );
+
+
         $url_alias = $this->products_model->getUrlAlias($id);
 
         $this->data['url_alias'] = array();
@@ -272,11 +304,11 @@ class Products extends MX_Controller {
             $this->data['attributes_row'] = 1;
         }
         $this->load->model('settings/languages_model');
-        $this->data['languages'] = $this->languages_model->getTables();        
-        
+        $this->data['languages'] = $this->languages_model->getTables();
+
         $this->load->model('product_module/attributes_model');
         $this->data['attributes'] = $this->attributes_model->getTables();
-                       
+
         $this->load->view('product_module/products/add_attributes_form', $this->data);
     }
 

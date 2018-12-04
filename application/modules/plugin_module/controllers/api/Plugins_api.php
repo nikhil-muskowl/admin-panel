@@ -50,6 +50,13 @@ class Plugins_api extends Restserver\Libraries\REST_Controller {
                 $this->data['status'] = FALSE;
                 $this->data['message'] = 'please install product module first!';
             endif;
+        elseif ($code == 'leave_managment_module'):
+            if ($this->plugin_lib->check('erp_module')):
+                $this->installModule($code);
+            else:
+                $this->data['status'] = FALSE;
+                $this->data['message'] = 'please install erp module first!';
+            endif;
         else:
             $this->installModule($code);
         endif;

@@ -133,11 +133,14 @@ class Products_model extends CI_Model {
 
         $this->db->set('model', $this->input->post('model'));
         $this->db->set('sku', $this->input->post('sku'));
+        $this->db->set('price_type', $this->input->post('price_type'));
         $this->db->set('price', $this->input->post('price'));
         $this->db->set('quantity', $this->input->post('quantity'));
         $this->db->set('image', $this->custom_image->get_path($this->input->post('image')));
         $this->db->set('banner', $this->custom_image->get_path($this->input->post('banner')));
+        $this->db->set('weight_class_id', $this->input->post('weight_class_id'));
         $this->db->set('weight', $this->input->post('weight'));
+        $this->db->set('length_class_id', $this->input->post('length_class_id'));
         $this->db->set('length', $this->input->post('length'));
         $this->db->set('width', $this->input->post('width'));
         $this->db->set('height', $this->input->post('height'));
@@ -288,7 +291,7 @@ class Products_model extends CI_Model {
 
     public function getAttributes($id) {
         $product_attribute_data = array();
-        
+
         $this->db->where('product_id', $id);
         $this->db->from('product_attributes');
         $this->db->group_by('attribute_id');
@@ -299,7 +302,7 @@ class Products_model extends CI_Model {
 
             $this->db->where('product_id', $id);
             $this->db->where('attribute_id', $attribute['attribute_id']);
-            
+
             $this->db->from('product_attributes');
             $attribute_description_query = $this->db->get()->result_array();
 

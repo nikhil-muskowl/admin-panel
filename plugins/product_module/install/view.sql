@@ -10,8 +10,11 @@ LEFT JOIN url_alias ua ON ua.language_id=td.language_id AND ua.type_id=t.id AND 
 CREATE OR REPLACE ALGORITHM = UNDEFINED
 VIEW `products_view`
 AS
-SELECT t.*,td.language_id,td.title,td.description,td.html,ua.keyword,ua.meta_title,ua.meta_keyword,ua.meta_description FROM products t
+SELECT t.*,td.language_id,td.title,td.description,td.html,wd.title AS weight_class,ld.title AS length_class,
+ua.keyword,ua.meta_title,ua.meta_keyword,ua.meta_description FROM products t
 LEFT JOIN product_details td ON td.id=t.id
+LEFT JOIN weight_details wd ON wd.id=t.weight_class_id AND wd.language_id=td.language_id
+LEFT JOIN length_details ld ON ld.id=t.weight_class_id AND ld.language_id=td.language_id
 LEFT JOIN url_alias ua ON ua.language_id=td.language_id AND ua.type_id=t.id AND ua.type='products';
 
 -- attribute_groups_view
