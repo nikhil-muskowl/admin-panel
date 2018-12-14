@@ -39,6 +39,14 @@ class Products_model extends CI_Model {
         endif;
 
 
+        if ($this->input->post('price_filter')):
+            $price_filter = explode(',', $this->input->post('price_filter'));            
+            if (isset($price_filter[0]) && isset($price_filter[1])):
+                $this->db->where('price BETWEEN '.$price_filter[0].' AND '.$price_filter[1].'', NULL);
+            endif;
+
+        endif;
+
         $i = 0;
         foreach ($this->column_search as $item) :
             if (isset($_POST['length'])) :

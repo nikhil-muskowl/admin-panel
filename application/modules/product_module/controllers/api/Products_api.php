@@ -141,30 +141,8 @@ class Products_api extends Restserver\Libraries\REST_Controller {
             $this->custom_image->height = $this->bannerHeight;
             $banner_thumb = $this->custom_image->image_resize($banner);
 
-            $imagesData = array();
-            $images = $this->products_model->images($object['id']);
-
-            if ($images):
-                foreach ($images as $imageValue) :
-
-                    if (isset($imageValue['image']) && $imageValue['image']) {
-                        $image = $imageValue['image'];
-                    } else {
-                        $image = 'upload/images/placeholder.png';
-                    }
-                    $this->custom_image->width = $this->imageWidth;
-                    $this->custom_image->height = $this->imageHeight;
-                    $image_thumb = $this->custom_image->image_resize($image);
-
-                    $imagesData[] = array(
-                        'image' => base_url($imageValue['image']),
-                        'image_thumb' => $image_thumb,
-                        'link' => $imageValue['link']
-                    );
-                endforeach;
-            endif;
-
-            $result[] = array(
+         
+            $result = array(
                 'id' => $object['id'],
                 'title' => $object['title'],
                 'description' => $object['description'],
@@ -174,8 +152,7 @@ class Products_api extends Restserver\Libraries\REST_Controller {
                 'image' => base_url($image),
                 'image_thumb' => $image_thumb,
                 'banner' => base_url($banner),
-                'banner_thumb' => $banner_thumb,
-                'images' => $imagesData,
+                'banner_thumb' => $banner_thumb,                
                 'keyword' => $object['keyword'],
                 'meta_title' => $object['meta_title'],
                 'meta_keyword' => $object['meta_keyword'],
@@ -188,6 +165,49 @@ class Products_api extends Restserver\Libraries\REST_Controller {
             $this->data['status'] = TRUE;
             $this->data['message'] = 'loading..';
             $this->data['result'] = $result;
+        else:
+            $this->data['status'] = FALSE;
+            $this->data['message'] = 'no result found!';
+            $this->data['result'] = array();
+        endif;
+
+        $this->response($this->data);
+    }
+
+    public function images_post($id) {
+        $this->data = array();
+        $this->imageWidth = $this->settings_lib->config('config', 'detail_image_width');
+        $this->imageHeight = $this->settings_lib->config('config', 'detail_image_height');
+        $this->bannerWidth = $this->settings_lib->config('config', 'detail_banner_width');
+        $this->bannerHeight = $this->settings_lib->config('config', 'detail_banner_height');
+
+        $result = array();
+        $images = $this->products_model->images($id);
+
+        if ($images):
+            foreach ($images as $imageValue) :
+
+                if (isset($imageValue['image']) && $imageValue['image']) {
+                    $image = $imageValue['image'];
+                } else {
+                    $image = 'upload/images/placeholder.png';
+                }
+                $this->custom_image->width = $this->imageWidth;
+                $this->custom_image->height = $this->imageHeight;
+                $image_thumb = $this->custom_image->image_resize($image);
+
+                $result[] = array(
+                    'image' => base_url($imageValue['image']),
+                    'image_thumb' => $image_thumb,
+                    'link' => $imageValue['link']
+                );
+
+            endforeach;
+
+            $this->data['status'] = TRUE;
+            $this->data['message'] = 'loading..';
+            $this->data['result'] = $result;
+
         else:
             $this->data['status'] = FALSE;
             $this->data['message'] = 'no result found!';
@@ -216,7 +236,7 @@ class Products_api extends Restserver\Libraries\REST_Controller {
     public function _validation() {
         $this->data = array();
 
-        $this->form_validation->set_rules('details[]', 'details', 'required|xss_clean');
+//        $this->form_validation->set_rules('details[]', 'details', 'required|xss_clean');
 
         if ($this->input->post('details')):
             if (is_array($this->input->post('details'))) :

@@ -53,7 +53,7 @@ class Categories_api extends Restserver\Libraries\REST_Controller {
             $result[] = array(
                 'id' => $object['id'],
                 'title' => $object['title'],
-                'description' => $object['description'],                
+                'description' => $object['description'],
                 'image' => base_url($image),
                 'image_thumb' => $image_thumb,
                 'banner' => base_url($banner),
@@ -136,8 +136,8 @@ class Categories_api extends Restserver\Libraries\REST_Controller {
             $this->custom_image->height = $this->bannerHeight;
             $banner_thumb = $this->custom_image->image_resize($banner);
 
-           
-            $result[] = array(
+
+            $result = array(
                 'id' => $object['id'],
                 'title' => $object['title'],
                 'description' => $object['description'],
@@ -149,7 +149,7 @@ class Categories_api extends Restserver\Libraries\REST_Controller {
                 'image' => base_url($image),
                 'image_thumb' => $image_thumb,
                 'banner' => base_url($banner),
-                'banner_thumb' => $banner_thumb,               
+                'banner_thumb' => $banner_thumb,
                 'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
                 'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
@@ -257,122 +257,134 @@ class Categories_api extends Restserver\Libraries\REST_Controller {
         $list = $this->categories_model->getCategories($this->filterData);
 
         $result = array();
-        foreach ($list as $object) :
 
-            $this->filterData['parent_id'] = $object['id'];
-            $this->filterData['in_menu'] = 1;
-            $children = $this->categories_model->getCategories($this->filterData);
-            $childrenData = array();
-            if ($children):
-                foreach ($children as $childrenValue) :
+        if ($list):
+            foreach ($list as $object) :
 
-                    $this->filterData['parent_id'] = $childrenValue['id'];
-                    $this->filterData['in_menu'] = 1;
-                    $children2 = $this->categories_model->getCategories($this->filterData);
-                    $children2Data = array();
-                    if ($children2):
-                        foreach ($children2 as $children2Value) :
-                            if (isset($children2Value['image']) && $children2Value['image']) {
-                                $image = $children2Value['image'];
-                            } else {
-                                $image = 'upload/images/placeholder.png';
-                            }
-                            $this->custom_image->width = $this->imageWidth;
-                            $this->custom_image->height = $this->imageHeight;
-                            $image_thumb = $this->custom_image->image_resize($image);
+                $this->filterData['parent_id'] = $object['id'];
+                $this->filterData['in_menu'] = 1;
+                $children = $this->categories_model->getCategories($this->filterData);
+                $childrenData = array();
+                if ($children):
+                    foreach ($children as $childrenValue) :
 
-                            if (isset($children2Value['banner']) && $children2Value['banner']) {
-                                $banner = $children2Value['banner'];
-                            } else {
-                                $banner = 'upload/images/placeholder.png';
-                            }
-                            $this->custom_image->width = $this->bannerWidth;
-                            $this->custom_image->height = $this->bannerHeight;
-                            $banner_thumb = $this->custom_image->image_resize($banner);
+                        $this->filterData['parent_id'] = $childrenValue['id'];
+                        $this->filterData['in_menu'] = 1;
+                        $children2 = $this->categories_model->getCategories($this->filterData);
+                        $children2Data = array();
+                        if ($children2):
+                            foreach ($children2 as $children2Value) :
+                                if (isset($children2Value['image']) && $children2Value['image']) {
+                                    $image = $children2Value['image'];
+                                } else {
+                                    $image = 'upload/images/placeholder.png';
+                                }
+                                $this->custom_image->width = $this->imageWidth;
+                                $this->custom_image->height = $this->imageHeight;
+                                $image_thumb = $this->custom_image->image_resize($image);
 
-                            $children2Data[] = array(
-                                'id' => $children2Value['id'],
-                                'title' => $children2Value['title'],
-                                'description' => $children2Value['description'],
-                                'image' => base_url($image),
-                                'image_thumb' => $image_thumb,
-                                'banner' => base_url($banner),
-                                'banner_thumb' => $banner_thumb,
-                                'status' => $children2Value['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                                'created_date' => date('Y-m-d s:i A', strtotime($children2Value['created_date'])),
-                                'modified_date' => date('Y-m-d s:i A', strtotime($children2Value['modified_date'])),
-                            );
-                        endforeach;
-                    endif;
+                                if (isset($children2Value['banner']) && $children2Value['banner']) {
+                                    $banner = $children2Value['banner'];
+                                } else {
+                                    $banner = 'upload/images/placeholder.png';
+                                }
+                                $this->custom_image->width = $this->bannerWidth;
+                                $this->custom_image->height = $this->bannerHeight;
+                                $banner_thumb = $this->custom_image->image_resize($banner);
 
-                    if (isset($childrenValue['image']) && $childrenValue['image']) {
-                        $image = $childrenValue['image'];
-                    } else {
-                        $image = 'upload/images/placeholder.png';
-                    }
-                    $this->custom_image->width = $this->imageWidth;
-                    $this->custom_image->height = $this->imageHeight;
-                    $image_thumb = $this->custom_image->image_resize($image);
+                                $children2Data[] = array(
+                                    'id' => $children2Value['id'],
+                                    'title' => $children2Value['title'],
+                                    'description' => $children2Value['description'],
+                                    'image' => base_url($image),
+                                    'image_thumb' => $image_thumb,
+                                    'banner' => base_url($banner),
+                                    'banner_thumb' => $banner_thumb,
+                                    'status' => $children2Value['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
+                                    'created_date' => date('Y-m-d s:i A', strtotime($children2Value['created_date'])),
+                                    'modified_date' => date('Y-m-d s:i A', strtotime($children2Value['modified_date'])),
+                                );
+                            endforeach;
+                        endif;
 
-                    if (isset($childrenValue['banner']) && $childrenValue['banner']) {
-                        $banner = $childrenValue['banner'];
-                    } else {
-                        $banner = 'upload/images/placeholder.png';
-                    }
-                    $this->custom_image->width = $this->bannerWidth;
-                    $this->custom_image->height = $this->bannerHeight;
-                    $banner_thumb = $this->custom_image->image_resize($banner);
+                        if (isset($childrenValue['image']) && $childrenValue['image']) {
+                            $image = $childrenValue['image'];
+                        } else {
+                            $image = 'upload/images/placeholder.png';
+                        }
+                        $this->custom_image->width = $this->imageWidth;
+                        $this->custom_image->height = $this->imageHeight;
+                        $image_thumb = $this->custom_image->image_resize($image);
 
-                    $childrenData[] = array(
-                        'id' => $childrenValue['id'],
-                        'title' => $childrenValue['title'],
-                        'description' => $childrenValue['description'],
-                        'image' => base_url($image),
-                        'image_thumb' => $image_thumb,
-                        'banner' => base_url($banner),
-                        'banner_thumb' => $banner_thumb,
-                        'childrens' => $children2Data,
-                        'status' => $childrenValue['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                        'created_date' => date('Y-m-d s:i A', strtotime($childrenValue['created_date'])),
-                        'modified_date' => date('Y-m-d s:i A', strtotime($childrenValue['modified_date'])),
-                    );
-                endforeach;
-            endif;
+                        if (isset($childrenValue['banner']) && $childrenValue['banner']) {
+                            $banner = $childrenValue['banner'];
+                        } else {
+                            $banner = 'upload/images/placeholder.png';
+                        }
+                        $this->custom_image->width = $this->bannerWidth;
+                        $this->custom_image->height = $this->bannerHeight;
+                        $banner_thumb = $this->custom_image->image_resize($banner);
 
-            if (isset($object['image']) && $object['image']) {
-                $image = $object['image'];
-            } else {
-                $image = 'upload/images/placeholder.png';
-            }
-            $this->custom_image->width = $this->imageWidth;
-            $this->custom_image->height = $this->imageHeight;
-            $image_thumb = $this->custom_image->image_resize($image);
+                        $childrenData[] = array(
+                            'id' => $childrenValue['id'],
+                            'title' => $childrenValue['title'],
+                            'description' => $childrenValue['description'],
+                            'image' => base_url($image),
+                            'image_thumb' => $image_thumb,
+                            'banner' => base_url($banner),
+                            'banner_thumb' => $banner_thumb,
+                            'childrens' => $children2Data,
+                            'status' => $childrenValue['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
+                            'created_date' => date('Y-m-d s:i A', strtotime($childrenValue['created_date'])),
+                            'modified_date' => date('Y-m-d s:i A', strtotime($childrenValue['modified_date'])),
+                        );
+                    endforeach;
+                endif;
 
-            if (isset($object['banner']) && $object['banner']) {
-                $banner = $object['banner'];
-            } else {
-                $banner = 'upload/images/placeholder.png';
-            }
-            $this->custom_image->width = $this->bannerWidth;
-            $this->custom_image->height = $this->bannerHeight;
-            $banner_thumb = $this->custom_image->image_resize($banner);
+                if (isset($object['image']) && $object['image']) {
+                    $image = $object['image'];
+                } else {
+                    $image = 'upload/images/placeholder.png';
+                }
+                $this->custom_image->width = $this->imageWidth;
+                $this->custom_image->height = $this->imageHeight;
+                $image_thumb = $this->custom_image->image_resize($image);
 
-            $result[] = array(
-                'id' => $object['id'],
-                'title' => $object['title'],
-                'description' => $object['description'],
-                'image' => base_url($image),
-                'image_thumb' => $image_thumb,
-                'banner' => base_url($banner),
-                'banner_thumb' => $banner_thumb,
-                'childrens' => $childrenData,
-                'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
-                'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
-                'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
-            );
-        endforeach;
+                if (isset($object['banner']) && $object['banner']) {
+                    $banner = $object['banner'];
+                } else {
+                    $banner = 'upload/images/placeholder.png';
+                }
+                $this->custom_image->width = $this->bannerWidth;
+                $this->custom_image->height = $this->bannerHeight;
+                $banner_thumb = $this->custom_image->image_resize($banner);
 
-        $this->data['data'] = $result;
+                $result = array(
+                    'id' => $object['id'],
+                    'title' => $object['title'],
+                    'description' => $object['description'],
+                    'image' => base_url($image),
+                    'image_thumb' => $image_thumb,
+                    'banner' => base_url($banner),
+                    'banner_thumb' => $banner_thumb,
+                    'childrens' => $childrenData,
+                    'status' => $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
+                    'created_date' => date('Y-m-d s:i A', strtotime($object['created_date'])),
+                    'modified_date' => date('Y-m-d s:i A', strtotime($object['modified_date'])),
+                );
+            endforeach;
+
+            $this->data['status'] = TRUE;
+            $this->data['message'] = 'loading..';
+            $this->data['result'] = $result;
+        else:
+            $this->data['status'] = FALSE;
+            $this->data['message'] = 'no result found!';
+            $this->data['result'] = array();
+        endif;
+
+
+
 
         $this->response($this->data);
     }

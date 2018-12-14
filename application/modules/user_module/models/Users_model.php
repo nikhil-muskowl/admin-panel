@@ -14,7 +14,7 @@ class Users_model extends CI_Model {
         if ($this->input->post('user_group_id')):
             $this->db->where('user_group_id', $this->input->post('user_group_id'));
         endif;
-        
+
         if ($this->input->post('gender_id')):
             $this->db->where('gender_id', $this->input->post('gender_id'));
         endif;
@@ -120,7 +120,7 @@ class Users_model extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
-    
+
     public function getByContact($contact) {
         $this->db->from($this->table_view);
         $this->db->where('contact', $contact);
@@ -377,13 +377,17 @@ class Users_model extends CI_Model {
     }
 
     public function getTotalFlames($id) {
-        $this->db->select('SUM((SELECT SUM(sr.likes)-SUM(sr.dislikes) FROM story_rankings sr WHERE sr.story_id=s.id)) AS totalFlames');
-        $this->db->from('stories s');
-        $this->db->where('s.user_id', $id);
-        $query = $this->db->get();
-        $result = $query->row_array();
-        if ($result['totalFlames']):
-            return $result['totalFlames'];
+        if ($this->plugin_lib->check('stories_module')):
+            $this->db->select('SUM((SELECT SUM(sr.likes)-SUM(sr.dislikes) FROM story_rankings sr WHERE sr.story_id=s.id)) AS totalFlames');
+            $this->db->from('stories s');
+            $this->db->where('s.user_id', $id);
+            $query = $this->db->get();
+            $result = $query->row_array();
+            if ($result['totalFlames']):
+                return $result['totalFlames'];
+            else:
+                return 0;
+            endif;
         else:
             return 0;
         endif;
