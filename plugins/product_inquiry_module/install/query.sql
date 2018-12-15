@@ -20,7 +20,10 @@ CREATE TABLE `p_inquiries` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `p_inquiries_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+INSERT INTO `p_inquiries` (`id`, `product_id`, `name`, `email`, `contact`, `inquiry`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 'nadim sheikh', 'nadim@muskowl.com', '7737033665', '12d3asd', 1, 0, 0, '2018-12-04 15:13:32', '2018-12-04 15:13:32');
+
 
 #
 # TABLE STRUCTURE FOR: p_inquiry_to_types
@@ -36,6 +39,9 @@ CREATE TABLE `p_inquiry_to_types` (
   CONSTRAINT `p_inquiry_to_types_ibfk_1` FOREIGN KEY (`id`) REFERENCES `p_inquiries` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `p_inquiry_to_types_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `p_inquiry_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `p_inquiry_to_types` (`id`, `type_id`) VALUES (1, 1);
+
 
 #
 # TABLE STRUCTURE FOR: p_inquiry_types

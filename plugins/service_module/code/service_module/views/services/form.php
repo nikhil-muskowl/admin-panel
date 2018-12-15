@@ -32,11 +32,11 @@
                     <div class="tab-content clearfix">
                         <div class="tab-pane container active" id="commonTab"> 
                             <div class="form-group row">
-                                <label class="control-label col-md-2"><?= humanize('parent_categories') ?></label>
+                                <label class="control-label col-md-2"><?= humanize('parent_services') ?></label>
                                 <div class="col-md-10">
                                     <select name="parent_id" id="parent_id" class="form-control">
-                                        <?php if ($product_categories): ?> 
-                                            <?php foreach ($product_categories as $value) : ?>
+                                        <?php if ($product_services): ?> 
+                                            <?php foreach ($product_services as $value) : ?>
                                                 <?php if ($value['id'] == $parent_id): ?>
                                                     <option value="<?= $value['id'] ?>" selected><?= $value['title'] ?></option>
                                                 <?php else: ?>

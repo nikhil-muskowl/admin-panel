@@ -93,8 +93,11 @@ class Addresses_api extends Restserver\Libraries\REST_Controller {
             $result = array(
                 'id' => $object['id'],
                 'user' => $object['user'],
+                'user_id' => $object['user_id'],
                 'country' => $object['country'],
+                'country_id' => $object['country_id'],
                 'zone' => $object['zone'],
+                'zone_id' => $object['zone_id'],
                 'name' => $object['name'],
                 'contact' => $object['contact'],
                 'address' => $object['address'],
@@ -148,14 +151,14 @@ class Addresses_api extends Restserver\Libraries\REST_Controller {
                     'text' => form_error('country_id', '', '')
                 );
             endif;
-            
+
             if (form_error('zone_id', '', '')):
                 $this->error[] = array(
                     'id' => 'zone_id',
                     'text' => form_error('zone_id', '', '')
                 );
             endif;
-            
+
             if (form_error('name', '', '')):
                 $this->error[] = array(
                     'id' => 'name',

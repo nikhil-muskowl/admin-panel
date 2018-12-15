@@ -77,4 +77,35 @@ class Zones extends MX_Controller {
         $this->load->view('admin/common/footer', $this->data);
     }
 
+    public function load_dropdown($array = array()) {
+
+        if (isset($array['country_id'])):
+            $country_id = $array['country_id'];
+        elseif ($this->input->post('country_id')):
+            $country_id = $this->input->post('country_id');
+        else:
+            $country_id = 0;
+        endif;
+
+        if (isset($array['zone_id'])):
+            $zone_id = $array['zone_id'];
+        elseif ($this->input->post('zone_id')):
+            $zone_id = $this->input->post('zone_id');
+        else:
+            $zone_id = 0;
+        endif;
+
+        $list = $this->zones_model->getByCountryId($country_id);
+        $result = array();
+        foreach ($list as $object) :
+            $result[] = array(
+                'id' => $object['id'],
+                'name' => $object['name']
+            );
+        endforeach;
+        $this->data['zone_id'] = $zone_id;
+        $this->data['zones'] = $result;
+        $this->load->view('zones/dropdown', $this->data);
+    }
+
 }

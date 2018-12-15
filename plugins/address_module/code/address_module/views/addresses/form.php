@@ -36,7 +36,7 @@
                     <div class="form-group row">
                         <label class="control-label col-md-2"><?= $this->lang->line('text_country') ?></label>
                         <div class="col-md-10">
-                            <select name="country_id" id="country_id" class="form-control">
+                            <select name="country_id" id="country_id" class="form-control" onchange="select_zone(this.value);">
                                 <?php if ($countries): ?> 
                                     <?php foreach ($countries as $value) : ?>
                                         <?php if ($value['id'] == $country_id): ?>
@@ -55,19 +55,9 @@
                     <div class="form-group row">
                         <label class="control-label col-md-2"><?= $this->lang->line('text_zone') ?></label>
                         <div class="col-md-10">
-                            <select name="zone_id" id="zone_id" class="form-control">
-                                <?php if ($zones): ?> 
-                                    <?php foreach ($zones as $value) : ?>
-                                        <?php if ($value['id'] == $zone_id): ?>
-                                            <option value="<?= $value['id'] ?>" selected><?= $value['name'] ?></option>
-                                        <?php else: ?>
-                                            <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <option value="0">No result</option>
-                                <?php endif; ?>
-                            </select>
+                            <select name="zone_id" id="zone_id" class="form-control" style="width: 100%;">
+                                <option value="">---Select---</option>
+                            </select>   
                             <span class="help-block"></span>
                         </div>
                     </div> 
@@ -112,6 +102,25 @@
     </div>
 </div>
 <script>
+    function select_zone(country_id) {
+        var zone_id = '<?= $zone_id ?>';
+        $.ajax({
+            url: "<?= $ajax_zones ?>",
+            type: "POST",
+            data: {
+                country_id: country_id,
+                zone_id: zone_id
+            },
+            dataType: "HTML",
+            success: function (data) {
+                $('#zone_id').html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                notification('Error:', 'error', errorThrown);
+            }
+        });
+    }
+    $('#country_id').trigger('change');
     $('#country_id').select2();
     $('#zone_id').select2();
 </script>

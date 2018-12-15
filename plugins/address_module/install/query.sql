@@ -24,7 +24,9 @@ CREATE TABLE `addresses` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+INSERT INTO `addresses` (`id`, `user_id`, `name`, `contact`, `address`, `city`, `postcode`, `country_id`, `zone_id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 'ali', '1256478947', '24587', 'udaipur', 313004, 99, 1501, 1, 0, 0, 0, '2018-12-13 16:12:52', '2018-12-15 12:27:06');
 
 
 #
@@ -68,7 +70,7 @@ INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_form
 INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (18, 'Bangladesh', 'BD', 'BGD', '', 0, 1, 0, 0, '2018-12-13 06:37:52', '2018-12-13 06:37:52');
 INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (19, 'Barbados', 'BB', 'BRB', '', 0, 1, 0, 0, '2018-12-13 06:37:52', '2018-12-13 06:37:52');
 INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (20, 'Belarus', 'BY', 'BLR', '', 0, 1, 0, 0, '2018-12-13 06:37:52', '2018-12-13 06:37:52');
-INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (21, 'Belgium', 'BE', 'BEL', '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{postcode} {city}\r\n{country}', 0, 1, 0, 0, '2018-12-13 06:37:52', '2018-12-13 06:37:52');
+INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (21, 'Belgium', 'BE', 'BEL', '{name}\r\n{company}\r\n{address}\r\n{postcode} {city}\r\n{country}\r\n{zone}', 0, 1, 0, 0, '2018-12-13 06:37:52', '2018-12-13 16:17:11');
 INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (22, 'Belize', 'BZ', 'BLZ', '', 0, 1, 0, 0, '2018-12-13 06:37:52', '2018-12-13 06:37:52');
 INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (23, 'Benin', 'BJ', 'BEN', '', 0, 1, 0, 0, '2018-12-13 06:37:52', '2018-12-13 06:37:52');
 INSERT INTO `countries` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (24, 'Bermuda', 'BM', 'BMU', '', 0, 1, 0, 0, '2018-12-13 06:37:52', '2018-12-13 06:37:52');

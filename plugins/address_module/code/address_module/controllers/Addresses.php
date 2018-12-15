@@ -57,31 +57,31 @@ class Addresses extends MX_Controller {
         else:
             $this->data['contact'] = '';
         endif;
-        
+
         if (isset($result['address']) && $result['address']) :
             $this->data['address'] = $result['address'];
         else:
             $this->data['address'] = '';
         endif;
-        
+
         if (isset($result['city']) && $result['city']) :
             $this->data['city'] = $result['city'];
         else:
             $this->data['city'] = '';
         endif;
-        
+
         if (isset($result['postcode']) && $result['postcode']) :
             $this->data['postcode'] = $result['postcode'];
         else:
             $this->data['postcode'] = '';
         endif;
-        
+
         if (isset($result['country_id']) && $result['country_id']) :
             $this->data['country_id'] = $result['country_id'];
         else:
             $this->data['country_id'] = '';
         endif;
-        
+
         if (isset($result['zone_id']) && $result['zone_id']) :
             $this->data['zone_id'] = $result['zone_id'];
         else:
@@ -91,13 +91,14 @@ class Addresses extends MX_Controller {
         $this->data['ajax_list'] = base_url('address_module/addresses');
         $this->data['ajax_save'] = base_url('address_module/api/addresses_api/save');
         $this->data['ajax_image_form'] = base_url('address_module/addresses/image_form/');
+        $this->data['ajax_zones'] = base_url('address_module/zones/load_dropdown/');
 
         $this->load->model('address_module/countries_model');
         $this->data['countries'] = $this->countries_model->getTables();
-        
+
         $this->load->model('address_module/zones_model');
         $this->data['zones'] = $this->zones_model->getTables();
-        
+
         $this->load->model('user_module/users_model');
         $this->data['users'] = $this->users_model->getTables();
 

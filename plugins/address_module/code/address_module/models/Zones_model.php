@@ -21,11 +21,11 @@ class Zones_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
-        
+
         if ($this->input->post('country_id')):
             $this->db->where('country_id', $this->input->post('country_id'));
         endif;
-        
+
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -69,7 +69,7 @@ class Zones_model extends CI_Model {
 
     public function countFiltered($array = array()) {
         $this->_getTablesQuery($array);
-        
+
         $query = $this->db->get();
         return $query->num_rows();
     }
@@ -133,6 +133,13 @@ class Zones_model extends CI_Model {
             $this->db->trans_commit();
             return $this->getById($id);
         }
+    }
+
+    public function getByCountryId($id) {
+        $this->db->from($this->table);
+        $this->db->where('country_id', $id);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
 }

@@ -295,7 +295,7 @@ class Users_model extends CI_Model {
         $subject = 'Forgot Password';
 
 //        $url = base_url('user_module/users/update_password/update?id=' . $id);
-        $url = 'rarau.muskowl.com/reset-password/' . $id;
+        $url = 'http://firstcodeventure.com/reset-password/' . $id;
 
 //        print_r($url);
 //        exit;

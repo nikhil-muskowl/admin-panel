@@ -21,6 +21,11 @@ class Addresses_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+        
+        if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
+        
 
         $i = 0;
         foreach ($this->column_search as $item) :
@@ -74,11 +79,14 @@ class Addresses_model extends CI_Model {
             $this->status = 0;
         endif;
         $this->db->where('status', $this->status);
+         if ($this->input->post('user_id')):
+            $this->db->where('user_id', $this->input->post('user_id'));
+        endif;
         return $this->db->count_all_results();
     }
 
     public function getById($id) {
-        $this->db->from($this->table);
+        $this->db->from($this->table_view);
         $this->db->where('id', $id);
         $query = $this->db->get();
         return $query->row_array();
