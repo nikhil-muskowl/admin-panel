@@ -4153,3 +4153,658 @@ INFO - 2018-12-21 06:19:14 --> Helper loaded: language_helper
 INFO - 2018-12-21 06:19:14 --> Language file loaded: language/english/datatables_lang.php
 INFO - 2018-12-21 06:19:14 --> Final output sent to browser
 DEBUG - 2018-12-21 06:19:14 --> Total execution time: 0.6551
+INFO - 2018-12-21 06:41:29 --> Config Class Initialized
+INFO - 2018-12-21 06:41:29 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:41:29 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:41:29 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:41:29 --> URI Class Initialized
+INFO - 2018-12-21 06:41:29 --> Router Class Initialized
+INFO - 2018-12-21 06:41:29 --> Output Class Initialized
+INFO - 2018-12-21 06:41:29 --> Security Class Initialized
+DEBUG - 2018-12-21 06:41:29 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:41:29 --> Input Class Initialized
+INFO - 2018-12-21 06:41:29 --> Language Class Initialized
+INFO - 2018-12-21 06:41:29 --> Language Class Initialized
+INFO - 2018-12-21 06:41:29 --> Config Class Initialized
+INFO - 2018-12-21 06:41:29 --> Loader Class Initialized
+INFO - 2018-12-21 06:41:29 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:41:29 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:41:29 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:41:29 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:41:29 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:41:29 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:41:29 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:41:29 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:41:29 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:41:29 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:41:29 --> Encryption Class Initialized
+INFO - 2018-12-21 06:41:29 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:41:29 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:41:29 --> Email Class Initialized
+DEBUG - 2018-12-21 06:41:29 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:41:29 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:41:29 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:41:29 --> Controller Class Initialized
+DEBUG - 2018-12-21 06:41:29 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 06:41:29 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 06:41:29 --> Helper loaded: form_helper
+INFO - 2018-12-21 06:41:29 --> Form Validation Class Initialized
+INFO - 2018-12-21 06:41:29 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:41:29 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 06:41:30 --> Final output sent to browser
+DEBUG - 2018-12-21 06:41:30 --> Total execution time: 1.1258
+INFO - 2018-12-21 06:41:30 --> Config Class Initialized
+INFO - 2018-12-21 06:41:30 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:41:30 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:41:30 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:41:30 --> URI Class Initialized
+INFO - 2018-12-21 06:41:30 --> Router Class Initialized
+INFO - 2018-12-21 06:41:30 --> Output Class Initialized
+INFO - 2018-12-21 06:41:30 --> Security Class Initialized
+DEBUG - 2018-12-21 06:41:30 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:41:30 --> Input Class Initialized
+INFO - 2018-12-21 06:41:30 --> Language Class Initialized
+INFO - 2018-12-21 06:41:30 --> Language Class Initialized
+INFO - 2018-12-21 06:41:30 --> Config Class Initialized
+INFO - 2018-12-21 06:41:30 --> Loader Class Initialized
+INFO - 2018-12-21 06:41:30 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:41:30 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:41:30 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:41:30 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:41:30 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:41:30 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:41:30 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:41:30 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:41:31 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:41:31 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:41:31 --> Encryption Class Initialized
+INFO - 2018-12-21 06:41:31 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:41:31 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:41:31 --> Email Class Initialized
+DEBUG - 2018-12-21 06:41:31 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:41:31 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:41:31 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:41:31 --> Controller Class Initialized
+DEBUG - 2018-12-21 06:41:31 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 06:41:31 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 06:41:31 --> Helper loaded: form_helper
+INFO - 2018-12-21 06:41:31 --> Form Validation Class Initialized
+INFO - 2018-12-21 06:41:31 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:41:31 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 06:41:31 --> Final output sent to browser
+DEBUG - 2018-12-21 06:41:31 --> Total execution time: 0.6483
+INFO - 2018-12-21 06:41:34 --> Config Class Initialized
+INFO - 2018-12-21 06:41:34 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:41:34 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:41:34 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:41:34 --> URI Class Initialized
+INFO - 2018-12-21 06:41:34 --> Router Class Initialized
+INFO - 2018-12-21 06:41:34 --> Output Class Initialized
+INFO - 2018-12-21 06:41:34 --> Security Class Initialized
+DEBUG - 2018-12-21 06:41:34 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:41:34 --> Input Class Initialized
+INFO - 2018-12-21 06:41:34 --> Language Class Initialized
+INFO - 2018-12-21 06:41:34 --> Language Class Initialized
+INFO - 2018-12-21 06:41:34 --> Config Class Initialized
+INFO - 2018-12-21 06:41:34 --> Loader Class Initialized
+INFO - 2018-12-21 06:41:34 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:41:34 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:41:34 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:41:34 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:41:34 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:41:34 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:41:34 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:41:34 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:41:34 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:41:34 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:41:34 --> Encryption Class Initialized
+INFO - 2018-12-21 06:41:34 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:41:34 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:41:34 --> Email Class Initialized
+DEBUG - 2018-12-21 06:41:34 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:41:34 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:41:35 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:41:35 --> Controller Class Initialized
+DEBUG - 2018-12-21 06:41:35 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 06:41:35 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 06:41:35 --> Helper loaded: form_helper
+INFO - 2018-12-21 06:41:35 --> Form Validation Class Initialized
+INFO - 2018-12-21 06:41:35 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:41:35 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 06:41:35 --> Final output sent to browser
+DEBUG - 2018-12-21 06:41:35 --> Total execution time: 1.1710
+INFO - 2018-12-21 06:41:35 --> Config Class Initialized
+INFO - 2018-12-21 06:41:35 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:41:35 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:41:35 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:41:35 --> URI Class Initialized
+INFO - 2018-12-21 06:41:35 --> Router Class Initialized
+INFO - 2018-12-21 06:41:35 --> Output Class Initialized
+INFO - 2018-12-21 06:41:36 --> Security Class Initialized
+DEBUG - 2018-12-21 06:41:36 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:41:36 --> Input Class Initialized
+INFO - 2018-12-21 06:41:36 --> Language Class Initialized
+INFO - 2018-12-21 06:41:36 --> Language Class Initialized
+INFO - 2018-12-21 06:41:36 --> Config Class Initialized
+INFO - 2018-12-21 06:41:36 --> Loader Class Initialized
+INFO - 2018-12-21 06:41:36 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:41:36 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:41:36 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:41:36 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:41:36 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:41:36 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:41:36 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:41:36 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:41:36 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:41:36 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:41:36 --> Encryption Class Initialized
+INFO - 2018-12-21 06:41:36 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:41:36 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:41:36 --> Email Class Initialized
+DEBUG - 2018-12-21 06:41:36 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:41:36 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:41:36 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:41:36 --> Controller Class Initialized
+DEBUG - 2018-12-21 06:41:36 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 06:41:36 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 06:41:36 --> Helper loaded: form_helper
+INFO - 2018-12-21 06:41:36 --> Form Validation Class Initialized
+INFO - 2018-12-21 06:41:36 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:41:36 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 06:41:36 --> Final output sent to browser
+DEBUG - 2018-12-21 06:41:36 --> Total execution time: 0.6316
+INFO - 2018-12-21 06:41:37 --> Config Class Initialized
+INFO - 2018-12-21 06:41:37 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:41:37 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:41:37 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:41:37 --> URI Class Initialized
+INFO - 2018-12-21 06:41:37 --> Router Class Initialized
+INFO - 2018-12-21 06:41:37 --> Output Class Initialized
+INFO - 2018-12-21 06:41:37 --> Security Class Initialized
+DEBUG - 2018-12-21 06:41:37 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:41:37 --> Input Class Initialized
+INFO - 2018-12-21 06:41:37 --> Language Class Initialized
+INFO - 2018-12-21 06:41:37 --> Language Class Initialized
+INFO - 2018-12-21 06:41:37 --> Config Class Initialized
+INFO - 2018-12-21 06:41:37 --> Loader Class Initialized
+INFO - 2018-12-21 06:41:38 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:41:38 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:41:38 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:41:38 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:41:38 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:41:38 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:41:38 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:41:38 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:41:38 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:41:38 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:41:38 --> Encryption Class Initialized
+INFO - 2018-12-21 06:41:38 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:41:38 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:41:38 --> Email Class Initialized
+DEBUG - 2018-12-21 06:41:38 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:41:38 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:41:38 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:41:38 --> Controller Class Initialized
+DEBUG - 2018-12-21 06:41:38 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 06:41:38 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 06:41:38 --> Helper loaded: form_helper
+INFO - 2018-12-21 06:41:38 --> Form Validation Class Initialized
+INFO - 2018-12-21 06:41:38 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:41:38 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 06:41:41 --> Final output sent to browser
+DEBUG - 2018-12-21 06:41:41 --> Total execution time: 4.0299
+INFO - 2018-12-21 06:41:42 --> Config Class Initialized
+INFO - 2018-12-21 06:41:42 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:41:42 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:41:42 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:41:42 --> URI Class Initialized
+INFO - 2018-12-21 06:41:42 --> Router Class Initialized
+INFO - 2018-12-21 06:41:42 --> Output Class Initialized
+INFO - 2018-12-21 06:41:42 --> Security Class Initialized
+DEBUG - 2018-12-21 06:41:42 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:41:42 --> Input Class Initialized
+INFO - 2018-12-21 06:41:42 --> Language Class Initialized
+INFO - 2018-12-21 06:41:42 --> Language Class Initialized
+INFO - 2018-12-21 06:41:42 --> Config Class Initialized
+INFO - 2018-12-21 06:41:42 --> Loader Class Initialized
+INFO - 2018-12-21 06:41:42 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:41:42 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:41:42 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:41:42 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:41:42 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:41:42 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:41:42 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:41:42 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:41:42 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:41:42 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:41:42 --> Encryption Class Initialized
+INFO - 2018-12-21 06:41:42 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:41:42 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:41:42 --> Email Class Initialized
+DEBUG - 2018-12-21 06:41:42 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:41:42 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:41:42 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:41:42 --> Controller Class Initialized
+DEBUG - 2018-12-21 06:41:42 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 06:41:42 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 06:41:42 --> Helper loaded: form_helper
+INFO - 2018-12-21 06:41:42 --> Form Validation Class Initialized
+INFO - 2018-12-21 06:41:42 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:41:42 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 06:41:42 --> Final output sent to browser
+DEBUG - 2018-12-21 06:41:42 --> Total execution time: 0.6338
+INFO - 2018-12-21 06:41:48 --> Config Class Initialized
+INFO - 2018-12-21 06:41:48 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:41:48 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:41:48 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:41:48 --> URI Class Initialized
+INFO - 2018-12-21 06:41:48 --> Router Class Initialized
+INFO - 2018-12-21 06:41:48 --> Output Class Initialized
+INFO - 2018-12-21 06:41:48 --> Security Class Initialized
+DEBUG - 2018-12-21 06:41:48 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:41:48 --> Input Class Initialized
+INFO - 2018-12-21 06:41:48 --> Language Class Initialized
+INFO - 2018-12-21 06:41:48 --> Language Class Initialized
+INFO - 2018-12-21 06:41:48 --> Config Class Initialized
+INFO - 2018-12-21 06:41:48 --> Loader Class Initialized
+INFO - 2018-12-21 06:41:48 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:41:48 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:41:48 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:41:48 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:41:48 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:41:48 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:41:48 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:41:48 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:41:48 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:41:48 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:41:48 --> Encryption Class Initialized
+INFO - 2018-12-21 06:41:48 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:41:48 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:41:48 --> Email Class Initialized
+DEBUG - 2018-12-21 06:41:49 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:41:49 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:41:49 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:41:49 --> Controller Class Initialized
+INFO - 2018-12-21 06:41:49 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:41:49 --> Language file loaded: language/english/datatables_lang.php
+DEBUG - 2018-12-21 06:41:49 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/header.php
+DEBUG - 2018-12-21 06:41:49 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/navbar.php
+DEBUG - 2018-12-21 06:41:49 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/sidebar.php
+DEBUG - 2018-12-21 06:41:49 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/dashboard.php
+DEBUG - 2018-12-21 06:41:49 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/footer.php
+INFO - 2018-12-21 06:41:49 --> Final output sent to browser
+DEBUG - 2018-12-21 06:41:49 --> Total execution time: 0.5887
+INFO - 2018-12-21 06:42:04 --> Config Class Initialized
+INFO - 2018-12-21 06:42:05 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:42:05 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:42:05 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:42:05 --> URI Class Initialized
+INFO - 2018-12-21 06:42:05 --> Router Class Initialized
+INFO - 2018-12-21 06:42:05 --> Output Class Initialized
+INFO - 2018-12-21 06:42:05 --> Security Class Initialized
+DEBUG - 2018-12-21 06:42:05 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:42:05 --> Input Class Initialized
+INFO - 2018-12-21 06:42:05 --> Language Class Initialized
+INFO - 2018-12-21 06:42:05 --> Language Class Initialized
+INFO - 2018-12-21 06:42:05 --> Config Class Initialized
+INFO - 2018-12-21 06:42:05 --> Loader Class Initialized
+INFO - 2018-12-21 06:42:05 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:42:05 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:42:05 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:42:05 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:42:05 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:42:05 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:42:05 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:42:05 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:42:05 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:42:05 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:42:05 --> Encryption Class Initialized
+INFO - 2018-12-21 06:42:05 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:42:05 --> Email Class Initialized
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:42:05 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:42:05 --> Controller Class Initialized
+DEBUG - 2018-12-21 06:42:05 --> Users MX_Controller Initialized
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/language/english/user_lang.php
+INFO - 2018-12-21 06:42:05 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:42:05 --> Language file loaded: language/english/datatables_lang.php
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Genders_model.php
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/User_groups_model.php
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/header.php
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/navbar.php
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/sidebar.php
+ERROR - 2018-12-21 06:42:05 --> Could not find the language line "text_filter"
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/views/users/list.php
+DEBUG - 2018-12-21 06:42:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/footer.php
+INFO - 2018-12-21 06:42:05 --> Final output sent to browser
+DEBUG - 2018-12-21 06:42:05 --> Total execution time: 0.7670
+INFO - 2018-12-21 06:42:05 --> Config Class Initialized
+INFO - 2018-12-21 06:42:06 --> Hooks Class Initialized
+DEBUG - 2018-12-21 06:42:06 --> UTF-8 Support Enabled
+INFO - 2018-12-21 06:42:06 --> Utf8 Class Initialized
+INFO - 2018-12-21 06:42:06 --> URI Class Initialized
+INFO - 2018-12-21 06:42:06 --> Router Class Initialized
+INFO - 2018-12-21 06:42:06 --> Output Class Initialized
+INFO - 2018-12-21 06:42:06 --> Security Class Initialized
+DEBUG - 2018-12-21 06:42:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 06:42:06 --> Input Class Initialized
+INFO - 2018-12-21 06:42:06 --> Language Class Initialized
+INFO - 2018-12-21 06:42:06 --> Language Class Initialized
+INFO - 2018-12-21 06:42:06 --> Config Class Initialized
+INFO - 2018-12-21 06:42:06 --> Loader Class Initialized
+INFO - 2018-12-21 06:42:06 --> Helper loaded: url_helper
+INFO - 2018-12-21 06:42:06 --> Helper loaded: file_helper
+INFO - 2018-12-21 06:42:06 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 06:42:06 --> Helper loaded: directory_helper
+INFO - 2018-12-21 06:42:06 --> Helper loaded: text_helper
+INFO - 2018-12-21 06:42:06 --> Helper loaded: array_helper
+INFO - 2018-12-21 06:42:06 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 06:42:06 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 06:42:06 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 06:42:06 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 06:42:06 --> Encryption Class Initialized
+INFO - 2018-12-21 06:42:06 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 06:42:06 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 06:42:06 --> Email Class Initialized
+DEBUG - 2018-12-21 06:42:06 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 06:42:06 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 06:42:06 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 06:42:06 --> Controller Class Initialized
+DEBUG - 2018-12-21 06:42:06 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 06:42:06 --> Language file loaded: language/english/rest_controller_lang.php
+DEBUG - 2018-12-21 06:42:06 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Followers_model.php
+DEBUG - 2018-12-21 06:42:06 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Genders_model.php
+INFO - 2018-12-21 06:42:06 --> Helper loaded: form_helper
+INFO - 2018-12-21 06:42:06 --> Form Validation Class Initialized
+INFO - 2018-12-21 06:42:06 --> Helper loaded: language_helper
+INFO - 2018-12-21 06:42:06 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 06:42:06 --> Final output sent to browser
+DEBUG - 2018-12-21 06:42:06 --> Total execution time: 0.6196
+INFO - 2018-12-21 07:17:12 --> Config Class Initialized
+INFO - 2018-12-21 07:17:12 --> Hooks Class Initialized
+DEBUG - 2018-12-21 07:17:12 --> UTF-8 Support Enabled
+INFO - 2018-12-21 07:17:12 --> Utf8 Class Initialized
+INFO - 2018-12-21 07:17:12 --> URI Class Initialized
+INFO - 2018-12-21 07:17:12 --> Router Class Initialized
+INFO - 2018-12-21 07:17:12 --> Output Class Initialized
+INFO - 2018-12-21 07:17:12 --> Security Class Initialized
+DEBUG - 2018-12-21 07:17:12 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 07:17:12 --> Input Class Initialized
+INFO - 2018-12-21 07:17:12 --> Language Class Initialized
+INFO - 2018-12-21 07:17:12 --> Language Class Initialized
+INFO - 2018-12-21 07:17:12 --> Config Class Initialized
+INFO - 2018-12-21 07:17:12 --> Loader Class Initialized
+INFO - 2018-12-21 07:17:12 --> Helper loaded: url_helper
+INFO - 2018-12-21 07:17:12 --> Helper loaded: file_helper
+INFO - 2018-12-21 07:17:12 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 07:17:12 --> Helper loaded: directory_helper
+INFO - 2018-12-21 07:17:12 --> Helper loaded: text_helper
+INFO - 2018-12-21 07:17:12 --> Helper loaded: array_helper
+INFO - 2018-12-21 07:17:12 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 07:17:12 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 07:17:12 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 07:17:12 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 07:17:12 --> Encryption Class Initialized
+INFO - 2018-12-21 07:17:12 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 07:17:12 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 07:17:12 --> Email Class Initialized
+DEBUG - 2018-12-21 07:17:12 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 07:17:12 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 07:17:12 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 07:17:12 --> Controller Class Initialized
+DEBUG - 2018-12-21 07:17:12 --> Plugins MX_Controller Initialized
+INFO - 2018-12-21 07:17:12 --> Helper loaded: language_helper
+INFO - 2018-12-21 07:17:12 --> Language file loaded: language/english/datatables_lang.php
+DEBUG - 2018-12-21 07:17:12 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/header.php
+DEBUG - 2018-12-21 07:17:12 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/navbar.php
+DEBUG - 2018-12-21 07:17:12 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/sidebar.php
+DEBUG - 2018-12-21 07:17:12 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/views/list.php
+DEBUG - 2018-12-21 07:17:12 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/footer.php
+INFO - 2018-12-21 07:17:12 --> Final output sent to browser
+DEBUG - 2018-12-21 07:17:12 --> Total execution time: 0.6119
+INFO - 2018-12-21 07:17:13 --> Config Class Initialized
+INFO - 2018-12-21 07:17:13 --> Hooks Class Initialized
+DEBUG - 2018-12-21 07:17:13 --> UTF-8 Support Enabled
+INFO - 2018-12-21 07:17:13 --> Utf8 Class Initialized
+INFO - 2018-12-21 07:17:13 --> URI Class Initialized
+INFO - 2018-12-21 07:17:13 --> Router Class Initialized
+INFO - 2018-12-21 07:17:13 --> Output Class Initialized
+INFO - 2018-12-21 07:17:13 --> Security Class Initialized
+DEBUG - 2018-12-21 07:17:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 07:17:13 --> Input Class Initialized
+INFO - 2018-12-21 07:17:13 --> Language Class Initialized
+INFO - 2018-12-21 07:17:13 --> Language Class Initialized
+INFO - 2018-12-21 07:17:13 --> Config Class Initialized
+INFO - 2018-12-21 07:17:13 --> Loader Class Initialized
+INFO - 2018-12-21 07:17:13 --> Helper loaded: url_helper
+INFO - 2018-12-21 07:17:13 --> Helper loaded: file_helper
+INFO - 2018-12-21 07:17:13 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 07:17:13 --> Helper loaded: directory_helper
+INFO - 2018-12-21 07:17:13 --> Helper loaded: text_helper
+INFO - 2018-12-21 07:17:13 --> Helper loaded: array_helper
+INFO - 2018-12-21 07:17:13 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 07:17:13 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 07:17:13 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 07:17:13 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 07:17:13 --> Encryption Class Initialized
+INFO - 2018-12-21 07:17:13 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 07:17:13 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 07:17:13 --> Email Class Initialized
+DEBUG - 2018-12-21 07:17:13 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 07:17:13 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 07:17:13 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 07:17:13 --> Controller Class Initialized
+DEBUG - 2018-12-21 07:17:13 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 07:17:13 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 07:17:13 --> Helper loaded: form_helper
+INFO - 2018-12-21 07:17:13 --> Form Validation Class Initialized
+INFO - 2018-12-21 07:17:13 --> Helper loaded: language_helper
+INFO - 2018-12-21 07:17:13 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 07:17:13 --> Final output sent to browser
+DEBUG - 2018-12-21 07:17:13 --> Total execution time: 0.6412
+INFO - 2018-12-21 07:17:18 --> Config Class Initialized
+INFO - 2018-12-21 07:17:18 --> Hooks Class Initialized
+DEBUG - 2018-12-21 07:17:18 --> UTF-8 Support Enabled
+INFO - 2018-12-21 07:17:18 --> Utf8 Class Initialized
+INFO - 2018-12-21 07:17:18 --> URI Class Initialized
+INFO - 2018-12-21 07:17:18 --> Router Class Initialized
+INFO - 2018-12-21 07:17:18 --> Output Class Initialized
+INFO - 2018-12-21 07:17:18 --> Security Class Initialized
+DEBUG - 2018-12-21 07:17:18 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 07:17:18 --> Input Class Initialized
+INFO - 2018-12-21 07:17:18 --> Language Class Initialized
+INFO - 2018-12-21 07:17:18 --> Language Class Initialized
+INFO - 2018-12-21 07:17:18 --> Config Class Initialized
+INFO - 2018-12-21 07:17:18 --> Loader Class Initialized
+INFO - 2018-12-21 07:17:18 --> Helper loaded: url_helper
+INFO - 2018-12-21 07:17:18 --> Helper loaded: file_helper
+INFO - 2018-12-21 07:17:18 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 07:17:18 --> Helper loaded: directory_helper
+INFO - 2018-12-21 07:17:18 --> Helper loaded: text_helper
+INFO - 2018-12-21 07:17:18 --> Helper loaded: array_helper
+INFO - 2018-12-21 07:17:18 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 07:17:18 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 07:17:18 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 07:17:18 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 07:17:18 --> Encryption Class Initialized
+INFO - 2018-12-21 07:17:18 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 07:17:18 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 07:17:18 --> Email Class Initialized
+DEBUG - 2018-12-21 07:17:18 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 07:17:18 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 07:17:18 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 07:17:18 --> Controller Class Initialized
+DEBUG - 2018-12-21 07:17:18 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 07:17:18 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 07:17:18 --> Helper loaded: form_helper
+INFO - 2018-12-21 07:17:18 --> Form Validation Class Initialized
+INFO - 2018-12-21 07:17:18 --> Helper loaded: language_helper
+INFO - 2018-12-21 07:17:18 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 07:17:19 --> Zip Compression Class Initialized
+INFO - 2018-12-21 07:17:19 --> Final output sent to browser
+DEBUG - 2018-12-21 07:17:19 --> Total execution time: 1.3217
+INFO - 2018-12-21 07:17:19 --> Config Class Initialized
+INFO - 2018-12-21 07:17:19 --> Hooks Class Initialized
+DEBUG - 2018-12-21 07:17:19 --> UTF-8 Support Enabled
+INFO - 2018-12-21 07:17:19 --> Utf8 Class Initialized
+INFO - 2018-12-21 07:17:19 --> URI Class Initialized
+INFO - 2018-12-21 07:17:19 --> Router Class Initialized
+INFO - 2018-12-21 07:17:19 --> Output Class Initialized
+INFO - 2018-12-21 07:17:19 --> Security Class Initialized
+DEBUG - 2018-12-21 07:17:19 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 07:17:19 --> Input Class Initialized
+INFO - 2018-12-21 07:17:19 --> Language Class Initialized
+INFO - 2018-12-21 07:17:19 --> Language Class Initialized
+INFO - 2018-12-21 07:17:19 --> Config Class Initialized
+INFO - 2018-12-21 07:17:19 --> Loader Class Initialized
+INFO - 2018-12-21 07:17:19 --> Helper loaded: url_helper
+INFO - 2018-12-21 07:17:19 --> Helper loaded: file_helper
+INFO - 2018-12-21 07:17:19 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 07:17:19 --> Helper loaded: directory_helper
+INFO - 2018-12-21 07:17:19 --> Helper loaded: text_helper
+INFO - 2018-12-21 07:17:19 --> Helper loaded: array_helper
+INFO - 2018-12-21 07:17:19 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 07:17:19 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 07:17:20 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 07:17:20 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 07:17:20 --> Encryption Class Initialized
+INFO - 2018-12-21 07:17:20 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 07:17:20 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 07:17:20 --> Email Class Initialized
+DEBUG - 2018-12-21 07:17:20 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 07:17:20 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 07:17:20 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 07:17:20 --> Controller Class Initialized
+DEBUG - 2018-12-21 07:17:20 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 07:17:20 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 07:17:20 --> Helper loaded: form_helper
+INFO - 2018-12-21 07:17:20 --> Form Validation Class Initialized
+INFO - 2018-12-21 07:17:20 --> Helper loaded: language_helper
+INFO - 2018-12-21 07:17:20 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 07:17:20 --> Final output sent to browser
+DEBUG - 2018-12-21 07:17:20 --> Total execution time: 0.6661
+INFO - 2018-12-21 07:17:22 --> Config Class Initialized
+INFO - 2018-12-21 07:17:22 --> Hooks Class Initialized
+DEBUG - 2018-12-21 07:17:22 --> UTF-8 Support Enabled
+INFO - 2018-12-21 07:17:22 --> Utf8 Class Initialized
+INFO - 2018-12-21 07:17:22 --> URI Class Initialized
+INFO - 2018-12-21 07:17:22 --> Router Class Initialized
+INFO - 2018-12-21 07:17:22 --> Output Class Initialized
+INFO - 2018-12-21 07:17:22 --> Security Class Initialized
+DEBUG - 2018-12-21 07:17:22 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 07:17:22 --> Input Class Initialized
+INFO - 2018-12-21 07:17:22 --> Language Class Initialized
+INFO - 2018-12-21 07:17:22 --> Language Class Initialized
+INFO - 2018-12-21 07:17:22 --> Config Class Initialized
+INFO - 2018-12-21 07:17:22 --> Loader Class Initialized
+INFO - 2018-12-21 07:17:22 --> Helper loaded: url_helper
+INFO - 2018-12-21 07:17:22 --> Helper loaded: file_helper
+INFO - 2018-12-21 07:17:22 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 07:17:22 --> Helper loaded: directory_helper
+INFO - 2018-12-21 07:17:22 --> Helper loaded: text_helper
+INFO - 2018-12-21 07:17:22 --> Helper loaded: array_helper
+INFO - 2018-12-21 07:17:22 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 07:17:22 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 07:17:22 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 07:17:22 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 07:17:22 --> Encryption Class Initialized
+INFO - 2018-12-21 07:17:22 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 07:17:22 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 07:17:22 --> Email Class Initialized
+DEBUG - 2018-12-21 07:17:22 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 07:17:22 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 07:17:22 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 07:17:22 --> Controller Class Initialized
+INFO - 2018-12-21 07:17:22 --> Helper loaded: language_helper
+INFO - 2018-12-21 07:17:22 --> Language file loaded: language/english/datatables_lang.php
+DEBUG - 2018-12-21 07:17:22 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/header.php
+DEBUG - 2018-12-21 07:17:22 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/navbar.php
+DEBUG - 2018-12-21 07:17:22 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/sidebar.php
+DEBUG - 2018-12-21 07:17:22 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/dashboard.php
+DEBUG - 2018-12-21 07:17:22 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/footer.php
+INFO - 2018-12-21 07:17:22 --> Final output sent to browser
+DEBUG - 2018-12-21 07:17:22 --> Total execution time: 0.5552
+INFO - 2018-12-21 07:24:04 --> Config Class Initialized
+INFO - 2018-12-21 07:24:04 --> Hooks Class Initialized
+DEBUG - 2018-12-21 07:24:04 --> UTF-8 Support Enabled
+INFO - 2018-12-21 07:24:04 --> Utf8 Class Initialized
+INFO - 2018-12-21 07:24:04 --> URI Class Initialized
+INFO - 2018-12-21 07:24:04 --> Router Class Initialized
+INFO - 2018-12-21 07:24:04 --> Output Class Initialized
+INFO - 2018-12-21 07:24:04 --> Security Class Initialized
+DEBUG - 2018-12-21 07:24:04 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 07:24:05 --> Input Class Initialized
+INFO - 2018-12-21 07:24:05 --> Language Class Initialized
+INFO - 2018-12-21 07:24:05 --> Language Class Initialized
+INFO - 2018-12-21 07:24:05 --> Config Class Initialized
+INFO - 2018-12-21 07:24:05 --> Loader Class Initialized
+INFO - 2018-12-21 07:24:05 --> Helper loaded: url_helper
+INFO - 2018-12-21 07:24:05 --> Helper loaded: file_helper
+INFO - 2018-12-21 07:24:05 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 07:24:05 --> Helper loaded: directory_helper
+INFO - 2018-12-21 07:24:05 --> Helper loaded: text_helper
+INFO - 2018-12-21 07:24:05 --> Helper loaded: array_helper
+INFO - 2018-12-21 07:24:05 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 07:24:05 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 07:24:05 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 07:24:05 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 07:24:05 --> Encryption Class Initialized
+INFO - 2018-12-21 07:24:05 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 07:24:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 07:24:05 --> Email Class Initialized
+DEBUG - 2018-12-21 07:24:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 07:24:05 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 07:24:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 07:24:05 --> Controller Class Initialized
+DEBUG - 2018-12-21 07:24:05 --> Plugins MX_Controller Initialized
+INFO - 2018-12-21 07:24:05 --> Helper loaded: language_helper
+INFO - 2018-12-21 07:24:05 --> Language file loaded: language/english/datatables_lang.php
+DEBUG - 2018-12-21 07:24:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/header.php
+DEBUG - 2018-12-21 07:24:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/navbar.php
+DEBUG - 2018-12-21 07:24:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/sidebar.php
+DEBUG - 2018-12-21 07:24:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/views/list.php
+DEBUG - 2018-12-21 07:24:05 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\views\admin/common/footer.php
+INFO - 2018-12-21 07:24:05 --> Final output sent to browser
+DEBUG - 2018-12-21 07:24:05 --> Total execution time: 0.6138
+INFO - 2018-12-21 07:24:06 --> Config Class Initialized
+INFO - 2018-12-21 07:24:06 --> Hooks Class Initialized
+DEBUG - 2018-12-21 07:24:06 --> UTF-8 Support Enabled
+INFO - 2018-12-21 07:24:06 --> Utf8 Class Initialized
+INFO - 2018-12-21 07:24:06 --> URI Class Initialized
+INFO - 2018-12-21 07:24:06 --> Router Class Initialized
+INFO - 2018-12-21 07:24:06 --> Output Class Initialized
+INFO - 2018-12-21 07:24:06 --> Security Class Initialized
+DEBUG - 2018-12-21 07:24:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-12-21 07:24:06 --> Input Class Initialized
+INFO - 2018-12-21 07:24:06 --> Language Class Initialized
+INFO - 2018-12-21 07:24:06 --> Language Class Initialized
+INFO - 2018-12-21 07:24:06 --> Config Class Initialized
+INFO - 2018-12-21 07:24:06 --> Loader Class Initialized
+INFO - 2018-12-21 07:24:06 --> Helper loaded: url_helper
+INFO - 2018-12-21 07:24:06 --> Helper loaded: file_helper
+INFO - 2018-12-21 07:24:06 --> Helper loaded: inflector_helper
+INFO - 2018-12-21 07:24:06 --> Helper loaded: directory_helper
+INFO - 2018-12-21 07:24:06 --> Helper loaded: text_helper
+INFO - 2018-12-21 07:24:06 --> Helper loaded: array_helper
+INFO - 2018-12-21 07:24:06 --> Language file loaded: language/english/common_lang.php
+INFO - 2018-12-21 07:24:06 --> Database Driver Class Initialized
+DEBUG - 2018-12-21 07:24:06 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2018-12-21 07:24:06 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2018-12-21 07:24:06 --> Encryption Class Initialized
+INFO - 2018-12-21 07:24:06 --> Session: Class initialized using 'database' driver.
+DEBUG - 2018-12-21 07:24:06 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/user_module/models/Users_model.php
+INFO - 2018-12-21 07:24:06 --> Email Class Initialized
+DEBUG - 2018-12-21 07:24:06 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/plugin_module/models/Plugins_model.php
+INFO - 2018-12-21 07:24:06 --> Image Lib Class Initialized
+DEBUG - 2018-12-21 07:24:06 --> File loaded: E:\xampp\htdocs\codeigniter\admin\application\modules/settings/models/Languages_model.php
+INFO - 2018-12-21 07:24:06 --> Controller Class Initialized
+DEBUG - 2018-12-21 07:24:06 --> Config file loaded: E:\xampp\htdocs\codeigniter\admin\application\config/rest.php
+INFO - 2018-12-21 07:24:06 --> Language file loaded: language/english/rest_controller_lang.php
+INFO - 2018-12-21 07:24:06 --> Helper loaded: form_helper
+INFO - 2018-12-21 07:24:06 --> Form Validation Class Initialized
+INFO - 2018-12-21 07:24:06 --> Helper loaded: language_helper
+INFO - 2018-12-21 07:24:06 --> Language file loaded: language/english/datatables_lang.php
+INFO - 2018-12-21 07:24:06 --> Final output sent to browser
+DEBUG - 2018-12-21 07:24:06 --> Total execution time: 0.6732
