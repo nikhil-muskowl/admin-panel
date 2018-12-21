@@ -57,6 +57,13 @@ class Plugins_api extends Restserver\Libraries\REST_Controller {
                 $this->data['status'] = FALSE;
                 $this->data['message'] = 'please install erp module first!';
             endif;
+        elseif ($code == 'order_module'):
+            if ($this->plugin_lib->check('address_module')):
+                $this->installModule($code);
+            else:
+                $this->data['status'] = FALSE;
+                $this->data['message'] = 'please install address module first!';
+            endif;
         else:
             $this->installModule($code);
         endif;

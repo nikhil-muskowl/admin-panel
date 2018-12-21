@@ -132,8 +132,8 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
                 $checkbox,
                 $object['title'],
                 $object['location'],
-                $object['totalLikes'],                
-                $object['rank'],                
+                $object['totalLikes'],
+                $object['rank'],
                 $object['status'] ? $this->lang->line('text_enable') : $this->lang->line('text_disable'),
                 date($this->datetime_format, strtotime($object['modified_date'])),
                 $action
@@ -491,7 +491,7 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
         $filterData['distance'] = $distance;
         $filterData['latitude'] = $latitude;
         $filterData['longitude'] = $longitude;
-        $filterData['group_by'] = array('latitude', 'longitude');
+        $filterData['group_by'] = array('id', 'latitude', 'longitude');
         $filterData['order_by'] = 'totalLikes';
         $filterData['order_type'] = 'desc';
 
@@ -519,7 +519,8 @@ class Stories_api extends Restserver\Libraries\REST_Controller {
             endif;
 
 
-            $user_image_thumb = $this->custom_image->circle($user_image);
+//            $user_image_thumb = $this->custom_image->circle($user_image);
+            $user_image_thumb = base_url($user_image);
 
             $result[] = array(
                 'id' => $object['id'],

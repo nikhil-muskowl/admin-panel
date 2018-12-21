@@ -24,9 +24,11 @@ CREATE TABLE `addresses` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 INSERT INTO `addresses` (`id`, `user_id`, `name`, `contact`, `address`, `city`, `postcode`, `country_id`, `zone_id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 2, 'ali', '1256478947', '24587', 'udaipur', 313004, 99, 1501, 1, 0, 0, 0, '2018-12-13 16:12:52', '2018-12-15 12:27:06');
+INSERT INTO `addresses` (`id`, `user_id`, `name`, `contact`, `address`, `city`, `postcode`, `country_id`, `zone_id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (5, 5, 'dasd', 'dasd', 'asdas', 'das', 0, 244, 0, 1, 0, 0, 0, '2018-12-19 16:51:13', '2018-12-19 16:51:13');
+INSERT INTO `addresses` (`id`, `user_id`, `name`, `contact`, `address`, `city`, `postcode`, `country_id`, `zone_id`, `status`, `sort_order`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (6, 2, 'naseem', '1234589', 'Kuwait main street', 'kuwait', 2564, 114, 1791, 1, 0, 0, 0, '2018-12-19 17:21:56', '2018-12-19 17:21:56');
 
 
 #

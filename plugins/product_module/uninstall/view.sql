@@ -4,6 +4,7 @@ DROP VIEW IF EXISTS `attribute_groups_view`;
 DROP VIEW IF EXISTS `attributes_view`;
 DROP VIEW IF EXISTS `product_attributes_view`;
 DROP VIEW IF EXISTS `product_wishlists_view`;
+DROP VIEW IF EXISTS `product_carts_view`;
 DROP VIEW IF EXISTS `product_ratings_view`;
 DROP VIEW IF EXISTS `product_reviews_view`;
 DROP VIEW IF EXISTS `weights_view`;

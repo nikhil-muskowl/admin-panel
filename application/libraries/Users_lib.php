@@ -18,11 +18,13 @@ class Users_lib {
         $this->ci->load->model('user_module/users_model');
         $this->ci->load->library('email');
         $this->ci->load->library('session');
+        $this->ci->load->library('encryption');
 
         $this->sessionData = $this->ci->session->userdata('users_log');
-
+//        print_r($this->sessionData);
+//        exit;
         if ($this->sessionData) {
-            $this->id = $this->sessionData['id'];
+            $this->id = $this->sessionData;
             $data = $this->ci->users_model->getById($this->id);
             if ($data) {
                 $this->id = $data['id'];
@@ -40,7 +42,8 @@ class Users_lib {
     public function login() {
         $result = $this->ci->users_model->login();
         if ($result):
-            $this->ci->session->set_userdata('users_log', $result);
+            $this->setSession($result);
+            $this->ci->session->set_userdata('users_log', $result['id']);
             return $result;
         else:
             return FALSE;
@@ -78,6 +81,33 @@ class Users_lib {
         endif;
     }
 
-    
+    public function setSession($data) {
+        $this->ci->db->trans_start();
+
+        $sessions = $this->ci->db->get_where('sessions', array('user_id' => $data['id']))->row_array();
+
+        $this->ci->db->set('user_id', $data['id']);
+        $token = $this->ci->encryption->encrypt($data['id']);
+        $this->ci->db->set('token', $token);
+
+        if ($sessions):
+            $this->ci->db->where('id',$sessions['id']);
+            $this->ci->db->update('sessions');
+        else:
+            $this->ci->db->insert('sessions');
+        endif;
+
+
+
+
+        $this->ci->db->trans_complete();
+        if ($this->ci->db->trans_status() === FALSE) {
+            $this->ci->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->ci->db->trans_commit();
+            return TRUE;
+        }
+    }
 
 }

@@ -199,33 +199,6 @@ INSERT INTO `product_attributes` (`product_id`, `attribute_id`, `language_id`, `
 
 
 #
-# TABLE STRUCTURE FOR: product_carts
-#
-
-DROP TABLE IF EXISTS `product_carts`;
-
-CREATE TABLE `product_carts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `token` text NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `quantity` decimal(15,8) NOT NULL,
-  `options` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `created_by` int(11) NOT NULL,
-  `modified_by` int(11) NOT NULL,
-  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`,`product_id`,`user_id`),
-  KEY `product_id` (`product_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `product_carts_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
-INSERT INTO `product_carts` (`id`, `token`, `product_id`, `user_id`, `quantity`, `options`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, '1', 1, 0, '1.00000000', '', 1, 0, 0, '2018-09-24 10:21:00', '2018-09-24 10:21:11');
-
-
-#
 # TABLE STRUCTURE FOR: product_details
 #
 

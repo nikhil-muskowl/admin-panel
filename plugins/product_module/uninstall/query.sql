@@ -16,8 +16,6 @@ DROP TABLE IF EXISTS `products`;
 
 DROP TABLE IF EXISTS `product_attributes`;
 
-DROP TABLE IF EXISTS `product_carts`;
-
 DROP TABLE IF EXISTS `product_details`;
 
 DROP TABLE IF EXISTS `product_images`;

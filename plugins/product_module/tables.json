@@ -6,8 +6,7 @@
     "categories",
     "category_details",
     "products",
-    "product_attributes",
-    "product_carts",
+    "product_attributes",    
     "product_details",
     "product_images",
     "product_ratings",
@@ -18,5 +17,5 @@
     "lengths",
     "length_details",
     "weights",
-    "weight_details"
+    "weight_details"    
 ]
