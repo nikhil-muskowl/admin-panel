@@ -82,7 +82,7 @@ class Plugins_model extends CI_Model {
             return TRUE;
         }
     }
-    
+
     public function uninstallSetting($code) {
         $this->db->trans_start();
 
@@ -94,7 +94,7 @@ class Plugins_model extends CI_Model {
             $this->db->trans_rollback();
             return FALSE;
         } else {
-            $this->db->trans_commit();            
+            $this->db->trans_commit();
             return TRUE;
         }
     }
