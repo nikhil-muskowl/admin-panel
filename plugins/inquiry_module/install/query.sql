@@ -17,9 +17,12 @@ CREATE TABLE `inquiries` (
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 INSERT INTO `inquiries` (`id`, `name`, `email`, `contact`, `inquiry`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 'nadim', 'nadim.muskowl@gmail.com', '7737033665', 'dasdasd', 1, 0, 0, '2018-09-14 10:09:50', '2018-09-14 10:09:50');
+INSERT INTO `inquiries` (`id`, `name`, `email`, `contact`, `inquiry`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (2, 'nadim', 'nadim@muskowl.com', '7737033665', 'hiii i am nadim', 1, 0, 0, '2018-12-22 13:01:33', '2018-12-22 13:01:33');
+INSERT INTO `inquiries` (`id`, `name`, `email`, `contact`, `inquiry`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (3, 'nadim', 'nadim@muskowl.com', '7737033665', 'hiii i am nadim', 1, 0, 0, '2018-12-22 13:01:55', '2018-12-22 13:01:55');
+INSERT INTO `inquiries` (`id`, `name`, `email`, `contact`, `inquiry`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (4, 'dasd', 'asd', 'asdasd', 'asddasdasd', 1, 0, 0, '2018-12-22 13:04:18', '2018-12-22 13:04:18');
 
 
 #
@@ -38,6 +41,8 @@ CREATE TABLE `inquiry_to_types` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `inquiry_to_types` (`id`, `type_id`) VALUES (1, 1);
+INSERT INTO `inquiry_to_types` (`id`, `type_id`) VALUES (1, 3);
+INSERT INTO `inquiry_to_types` (`id`, `type_id`) VALUES (1, 2);
 
 
 #

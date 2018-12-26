@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2018 at 07:12 AM
+-- Generation Time: Dec 26, 2018 at 05:25 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -19,7 +20,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `social_app`
+-- Database: `admin`
 --
 
 -- --------------------------------------------------------
@@ -34,20 +35,6 @@ CREATE TABLE `ci_sessions` (
   `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `data` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `ci_sessions`
---
-
-INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
-('7iicmetfgske3vfu4v8eshkmpit4sii9', '::1', 1545218861, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353231383632373b75736572735f6c6f677c733a313a2232223b),
-('88pmds4j8ei1rhihr4vskj9cpunft6kb', '::1', 1545370926, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353337303930383b75736572735f6c6f677c733a313a2232223b),
-('bjllbgubgub2ugjna24dv2tg6vljqphv', '::1', 1545368498, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353336383439373b),
-('emledemi45s9km90edqt6k9vmm52gkdr', '::1', 1545294841, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353239343833353b),
-('fqn467fijfkhl3g66betrd3r1c7ppn47', '::1', 1545216514, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353231363531343b75736572735f6c6f677c733a313a2232223b),
-('gkcu3a3h46m74r8bdbcapkvtmaaoe25j', '::1', 1545302283, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353330323238303b75736572735f6c6f677c733a313a2232223b),
-('h7kgs6123ggd4edfj8ak821ipdnpn8fc', '::1', 1545285840, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353238353833393b),
-('nv7tj8ob5t4rn0g7e6onllumv5jfdb0d', '::1', 1545221744, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353232313635383b75736572735f6c6f677c733a313a2232223b);
 
 -- --------------------------------------------------------
 
@@ -115,6 +102,7 @@ INSERT INTO `genders` (`id`, `image`, `status`, `created_by`, `modified_by`, `cr
 --
 CREATE TABLE `genders_view` (
 `id` int(11)
+,`image` text
 ,`status` tinyint(1)
 ,`created_by` int(11)
 ,`modified_by` int(11)
@@ -313,7 +301,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `token`, `data`, `expire`, `status`, `created_date`, `modified_date`) VALUES
-(1, 2, '8aef73230dd673743e5d045fe5fde6008941bdbcfd7ad31639b93e388d6944515f70cda8899fc9f8d6f2b7da9c0fa798f9b1e287665d1bcf079f3a97769b36729WjTSUUa9lMzsoWikRAZhCfeqi6OFoIr39g2WB9rZvc=', '', '0000-00-00 00:00:00', 1, '2018-12-19 16:16:32', '2018-12-21 10:10:03');
+(1, 2, '115d0a054000e87c9d3ca339a71bf94e01fa104215a81d4c2e513a3301b196ec12f660330cf6d872c44a6cf2da9530eceebc5bb739938e8378ec2812544d943b2RzJ8l0ItxMzXimyUkHmzbMpMa3c7Og4h6q2UBmmWKg=', '', '0000-00-00 00:00:00', 1, '2018-12-19 16:16:32', '2018-12-26 09:55:00');
 
 -- --------------------------------------------------------
 
@@ -502,7 +490,7 @@ INSERT INTO `user_group_details` (`id`, `language_id`, `title`) VALUES
 --
 DROP TABLE IF EXISTS `followers_view`;
 
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `followers_view`  AS  select `fr`.`id` AS `id`,`fr`.`user_id` AS `user_id`,`fr`.`current_user_id` AS `current_user_id`,`fr`.`status` AS `status`,`fr`.`created_date` AS `created_date`,`fr`.`modified_date` AS `modified_date`,`u`.`name` AS `user_name`,`u`.`image` AS `user_image`,`f`.`name` AS `current_user_name`,`f`.`image` AS `current_user_image` from ((`followers` `fr` left join `users` `u` on((`u`.`id` = `fr`.`user_id`))) left join `users` `f` on((`f`.`id` = `fr`.`current_user_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `followers_view`  AS  select `fr`.`id` AS `id`,`fr`.`user_id` AS `user_id`,`fr`.`current_user_id` AS `current_user_id`,`fr`.`status` AS `status`,`fr`.`created_date` AS `created_date`,`fr`.`modified_date` AS `modified_date`,`u`.`name` AS `user_name`,`u`.`image` AS `user_image`,`f`.`name` AS `current_user_name`,`f`.`image` AS `current_user_image` from ((`followers` `fr` left join `users` `u` on((`u`.`id` = `fr`.`user_id`))) left join `users` `f` on((`f`.`id` = `fr`.`current_user_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -511,7 +499,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `followers_view`  AS  selec
 --
 DROP TABLE IF EXISTS `genders_view`;
 
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `genders_view`  AS  select `t`.`id` AS `id`,`t`.`status` AS `status`,`t`.`created_by` AS `created_by`,`t`.`modified_by` AS `modified_by`,`t`.`created_date` AS `created_date`,`t`.`modified_date` AS `modified_date`,`td`.`language_id` AS `language_id`,`td`.`title` AS `title`,`td`.`description` AS `description`,`td`.`html` AS `html` from (`genders` `t` left join `gender_details` `td` on((`td`.`id` = `t`.`id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `genders_view`  AS  select `t`.`id` AS `id`,`t`.`image` AS `image`,`t`.`status` AS `status`,`t`.`created_by` AS `created_by`,`t`.`modified_by` AS `modified_by`,`t`.`created_date` AS `created_date`,`t`.`modified_date` AS `modified_date`,`td`.`language_id` AS `language_id`,`td`.`title` AS `title`,`td`.`description` AS `description`,`td`.`html` AS `html` from (`genders` `t` left join `gender_details` `td` on((`td`.`id` = `t`.`id`))) ;
 
 -- --------------------------------------------------------
 
@@ -520,7 +508,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `genders_view`  AS  select 
 --
 DROP TABLE IF EXISTS `user_groups_view`;
 
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `user_groups_view`  AS  select `t`.`id` AS `id`,`t`.`image` AS `image`,`t`.`banner` AS `banner`,`t`.`status` AS `status`,`t`.`created_by` AS `created_by`,`t`.`modified_by` AS `modified_by`,`t`.`created_date` AS `created_date`,`t`.`modified_date` AS `modified_date`,`td`.`language_id` AS `language_id`,`td`.`title` AS `title` from (`user_groups` `t` left join `user_group_details` `td` on((`td`.`id` = `t`.`id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_groups_view`  AS  select `t`.`id` AS `id`,`t`.`image` AS `image`,`t`.`banner` AS `banner`,`t`.`status` AS `status`,`t`.`created_by` AS `created_by`,`t`.`modified_by` AS `modified_by`,`t`.`created_date` AS `created_date`,`t`.`modified_date` AS `modified_date`,`td`.`language_id` AS `language_id`,`td`.`title` AS `title` from (`user_groups` `t` left join `user_group_details` `td` on((`td`.`id` = `t`.`id`))) ;
 
 --
 -- Indexes for dumped tables
@@ -637,7 +625,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `plugins`
 --
 ALTER TABLE `plugins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `sessions`
@@ -699,6 +687,7 @@ ALTER TABLE `url_alias`
 ALTER TABLE `user_group_details`
   ADD CONSTRAINT `user_group_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_group_details_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

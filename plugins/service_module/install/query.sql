@@ -18,7 +18,7 @@ CREATE TABLE `services` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO `services` (`id`, `parent_id`, `image`, `banner`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 0, '', '', 1, 0, 0, '2018-12-04 15:42:24', '2018-12-04 15:42:24');
+INSERT INTO `services` (`id`, `parent_id`, `image`, `banner`, `status`, `created_by`, `modified_by`, `created_date`, `modified_date`) VALUES (1, 1, '', '', 1, 0, 0, '2018-12-04 15:42:24', '2018-12-22 10:16:46');
 
 
 #

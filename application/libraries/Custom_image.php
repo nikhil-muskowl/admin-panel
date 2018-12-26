@@ -142,37 +142,18 @@ class Custom_image {
         return $this->image;
     }
 
-    public function circle($image = '') {
+    public function circle($filename = '') {
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', '2048M');
 
-        if (!$image) {
-            $image = 'upload/images/placeholder.png';
+        if (!$filename) {
+            $filename = 'upload/images/placeholder.png';
         }
 
         $this->width = 450;
         $this->height = 450;
-
-//        $getimagesize = getimagesize($image);
-//
-//        if ($getimagesize):
-//            if (isset($getimagesize[0])):
-//                $this->width = $getimagesize[0];
-//            else:
-//                $this->width = 400;
-//            endif;
-//            if (isset($getimagesize[1])):
-//                $this->height = $getimagesize[1];
-//            else:
-//                $this->height = 400;
-//            endif;                        
-//        else:
-//            $this->width = 400;
-//            $this->height = 400;
-//        endif;
-//        $this->width = $width;
-//        $this->height = $height;
-        $this->source_image = $this->get_path($image);
+        
+        $this->source_image = $this->get_path($filename);
 
         $x = explode('/', $this->source_image);
         $source_image = end($x);
@@ -193,26 +174,50 @@ class Custom_image {
         $original_path = $this->source_image;
         $dest_path = $this->new_image_path . $this->filename;
 
-        $src = imagecreatefromstring(file_get_contents($original_path));
-        $newpic = imagecreatetruecolor($w, $h);
-        imagealphablending($newpic, false);
-        $transparent = imagecolorallocatealpha($newpic, 0, 0, 0, 127);
-        $r = $w / 2;
-        for ($x = 0; $x < $w; $x++)
-            for ($y = 0; $y < $h; $y++) {
-                $c = imagecolorat($src, $x, $y);
-                $_x = $x - $w / 2;
-                $_y = $y - $h / 2;
-                if ((($_x * $_x) + ($_y * $_y)) < ($r * $r)) {
-                    imagesetpixel($newpic, $x, $y, $c);
-                } else {
-                    imagesetpixel($newpic, $x, $y, $transparent);
-                }
-            }
-        imagesavealpha($newpic, true);
-        imagepng($newpic, $dest_path);
-        imagedestroy($newpic);
-        imagedestroy($src);
+        
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if ($ext == "jpg" || $ext == "jpeg") {
+            $image_s = imagecreatefromjpeg($filename);
+        } else if ($ext == "png") {
+            $image_s = imagecreatefrompng($filename);
+        }
+
+        $width = imagesx($image_s);
+        $height = imagesy($image_s);
+
+
+        $newwidth = 450;
+        $newheight = 450;
+
+        $image = imagecreatetruecolor($newwidth, $newheight);
+        imagealphablending($image, true);
+        imagecopyresampled($image, $image_s, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+// create masking
+        $mask = imagecreatetruecolor($width, $height);
+        $mask = imagecreatetruecolor($newwidth, $newheight);
+
+
+        $transparent = imagecolorallocate($mask, 255, 0, 0);
+        imagecolortransparent($mask, $transparent);
+
+
+        imagefilledellipse($mask, $newwidth / 2, $newheight / 2, $newwidth, $newheight, $transparent);
+
+
+
+        $red = imagecolorallocate($mask, 0, 0, 0);
+        imagecopymerge($image, $mask, 0, 0, 0, 0, $newwidth, $newheight, 100);
+        imagecolortransparent($image, $red);
+        imagefill($image, 0, 0, $red);
+
+// output and free memory
+//        header('Content-type: image/png');
+        imagepng($image, $dest_path);
+        imagedestroy($image);
+        imagedestroy($mask);
+
 
         return base_url($this->new_image = $source_folder_url . $this->filename);
     }
